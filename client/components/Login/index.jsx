@@ -12,6 +12,7 @@ type FormPropTypes = {
 
   handleSubmit: (onSubmit : (formData : any) => Promise<*>) => void;
   showCaptcha: (newCaptcha : string) => void;
+  showLostPasswordModal: () => void;
   hideCaptcha: () => void;
   startFormSubmit: () => void;
   stopFormSubmit: (errors : any) => void;
@@ -38,6 +39,7 @@ import {
   hideCaptcha as hideCaptchaAction,
   showCaptcha as showCaptchaAction,
   connectAccount as connectAccountAction,
+  showLostPasswordModal as showLostPasswordModalAction,
 } from "actions";
 
 import { performLogin as performLoginRequest } from "request";
@@ -72,6 +74,9 @@ const
       setTimeout(() => {
         dispatch(connectAccountAction(account));
       });
+    },
+    showLostPasswordModal () {
+      dispatch(showLostPasswordModalAction());
     },
   });
 
@@ -160,6 +165,7 @@ class Login extends React.Component {
       submitting,
       handleSubmit,
       isConnected,
+      showLostPasswordModal,
     } = this.props;
 
     if (isConnected) {
@@ -213,6 +219,9 @@ class Login extends React.Component {
               </button>
             </div>
             <hr />
+            <button className="btn btn-link" onClick={showLostPasswordModal} type="button">
+              {"Am pierdut parola contului"}
+            </button>
           </form>
         </div>
       </div>
