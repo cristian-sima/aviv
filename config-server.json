@@ -1,0 +1,8 @@
+{
+  "port": 3000,
+  "isProduction": false,
+  "URL": {
+    "users": "http://www.cdep.ro/pls/caseta/json_internship_deputati",
+    "list": "http://www.cdep.ro/pls/caseta/json_internship_vfinal?dat="
+  }
+}

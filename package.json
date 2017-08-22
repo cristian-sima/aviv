@@ -1,0 +1,150 @@
+{
+  "version": "2.0.0",
+  "scripts": {
+    "eslint:client": "eslint --fix --ext=jsx --ext=js --ignore-pattern=client/conf.json --ignore-pattern=client/styles/** client/**",
+    "eslint:server": "eslint -c server/.eslintrc.json --fix --ext=js --ignore-pattern=server/static/**  server/** ",
+    "eslint": "npm run eslint:client && npm run eslint:server",
+    "flow": "flow check --color=always",
+    "jest": "jest",
+    "jest-watch": "jest --watch",
+    "dev:client:start": "node conf/dev.js & webpack-dashboard -- node server.js",
+    "dev:server:start": "babel-watch ./server/index.js",
+    "dist:pre-build": "node conf/dist.js",
+    "dist:client:build": "webpack --progress -p",
+    "dist:server:clean": "rm -rf dist && mkdir dist",
+    "dist:server:build": "babel server -d dist",
+    "dist:server:remove-source": "rm -r client server conf .eslintrc.json .gitignore config.json README.md server.js webpack.conf.js",
+    "dist:automatic": "npm run dist:pre-build && npm run dist:server:build && npm run dist:client:build",
+    "dist:serve": "forever start dist/index.js",
+    "dist:stop": "forever stop dist/index.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0",
+      "react"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-decorators-legacy",
+          "react-html-attrs",
+          "transform-class-properties",
+          "transform-react-constant-elements",
+          "transform-react-inline-elements",
+          "transform-react-remove-prop-types",
+          "transform-flow-strip-types"
+        ]
+      },
+      "developmentTime": {
+        "plugins": [
+          "transform-decorators-legacy",
+          "react-hot-loader/babel",
+          "flow-react-proptypes",
+          "react-html-attrs",
+          "transform-class-properties"
+        ]
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cristian-sima/live.git"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 6.3.1"
+  },
+  "jest": {
+    "testRegex": "(client|server)/.*-test.js$",
+    "modulePaths": [
+      "client"
+    ]
+  },
+  "devDependencies": {
+    "babel-watch": "^2.0.7",
+    "nock": "^9.0.14",
+    "redux-mock-store": "^1.2.3",
+    "webpack-dashboard": "^0.4.0",
+    "webpack-dev-server": "^2.6.1",
+    "jest-immutable-matchers": "^1.5.0"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-flow-react-proptypes": "^4.1.0",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-inline-elements": "^6.22.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "bootstrap": "4.0.0-alpha.6",
+    "client-sessions": "^0.8.0",
+    "css-loader": "^0.28.4",
+    "eslint": "^4.3.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-react": "^7.1.0",
+    "file-loader": "^0.11.2",
+    "flow-bin": "^0.52.0",
+    "flow-status-webpack-plugin": "^0.1.7",
+    "font-awesome": "^4.7.0",
+    "forever": "^0.15.3",
+    "history": "^4.6.3",
+    "jest-cli": "^20.0.4",
+    "json-loader": "^0.5.7",
+    "lodash.memoize": "^4.1.2",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.30",
+    "node-fetch": "^1.7.1",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.0",
+    "react-addons-shallow-compare": "^15.6.0",
+    "react-addons-transition-group": "^15.6.0",
+    "react-autosuggest": "^9.3.2",
+    "react-dom": "^15.6.1",
+    "react-height": "^3.0.0",
+    "react-history": "^0.18.2",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-notification-system-redux": "^1.1.4",
+    "react-redux": "^5.0.5",
+    "react-router": "4.1.2",
+    "react-router-dom": "^4.1.2",
+    "react-router-redux": "^5.0.0-alpha.4",
+    "react-sidebar": "^2.3.2",
+    "reactstrap": "^4.8.0",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
+    "redux-promise-middleware": "^4.3.0",
+    "redux-thunk": "^2.2.0",
+    "redux-ui": "0.1.1",
+    "reselect": "^3.0.1",
+    "sass-loader": "^6.0.6",
+    "socket.io": "^2.0.3",
+    "style-loader": "^0.18.2",
+    "superagent": "^3.5.2",
+    "superagent-promise": "^1.1.0",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.4.1",
+    "webpack-preset": "^0.2.0",
+    "webpack-preset-babel": "^0.2.0",
+    "webpack-preset-babel-stage-2": "^0.2.0"
+  },
+  "author": "Cristian Sima"
+}
