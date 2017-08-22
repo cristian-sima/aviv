@@ -19,7 +19,7 @@ const
         <link rel="mask-icon" href="/media/safari-pinned-tab.svg" color="#ff0000">
         <meta name="theme-color" content="#ffffff">
         <title>
-          Live
+          aviz.gov.ro
         </title>
       </head>
       <body>

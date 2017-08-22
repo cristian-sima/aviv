@@ -49,9 +49,9 @@ const formID = "AUTH_LOGIN_FORM";
 
 const
   mapStateToProps = (state : State) => ({
-      CaptchaID   : getAuthCaptcha(state, captchaName),
-      isConnected : getIsAccountConnected(state),
-    }),
+    CaptchaID   : getAuthCaptcha(state, captchaName),
+    isConnected : getIsAccountConnected(state),
+  }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     showCaptcha: (newCaptcha : string) => {
       dispatch(changeAction(formID, "CaptchaSolution", ""));
@@ -78,8 +78,8 @@ const
 
 const
   mapStateToPropsCaptcha = (state : any) => ({
-      id: getAuthCaptcha(state, captchaName),
-    }),
+    id: getAuthCaptcha(state, captchaName),
+  }),
   CaptchaBox = connect(mapStateToPropsCaptcha)(Captcha);
 
 const returnProblem = (error : any) => {
@@ -103,7 +103,6 @@ class Login extends React.Component {
   handleSubmit: (formData : any) => Promise<*>;
   focusPassword: () => void;
   handleRegisterRef: () => void;
-  connectMePublic: () => void;
 
   constructor () {
     super();
@@ -124,11 +123,11 @@ class Login extends React.Component {
 
     this.handleSubmit = (formData : any) => {
       const {
-        CaptchaID,
-        showCaptcha,
-        hideCaptcha,
-        connectAccount,
-      } = this.props,
+          CaptchaID,
+          showCaptcha,
+          hideCaptcha,
+          connectAccount,
+        } = this.props,
         data = {
           ...formData.toJS(),
           CaptchaID,
@@ -152,35 +151,6 @@ class Login extends React.Component {
         catch(returnProblem);
     };
 
-    this.connectMePublic = () => {
-      const { connectAccount, startFormSubmit, stopFormSubmit } = this.props;
-
-      startFormSubmit();
-
-      return performLoginRequest({
-        UserID: {
-          Position1 : "9",
-          Position2 : "9",
-          Position3 : "8",
-        },
-        Password: "parola",
-      }).
-        then((response) => {
-          stopFormSubmit();
-          if (response.Error === "") {
-            connectAccount(response.account);
-          } else {
-            throw new SubmissionError({
-              _error: response.Error,
-            });
-          }
-        }).
-        catch((err) => {
-          stopFormSubmit(err.errors);
-
-          return returnProblem(err);
-        });
-    };
   }
 
   render () {
@@ -238,24 +208,6 @@ class Login extends React.Component {
               </button>
             </div>
           </form>
-          <div className="container my-3 my-md-4">
-            <div className="row">
-              <div className="col-5"><hr /></div>
-              <div className="col-2 text-center small font-italic">
-                <span className="text-muted align-middle">{"sau"}</span>
-              </div>
-              <div className="col-5"><hr /></div>
-            </div>
-          </div>
-          <div className="mt-4 text-center">
-            <button
-              className="btn btn-black btn-secondary btn-block"
-              disabled={submitting}
-              onClick={this.connectMePublic}
-              type="button">
-              {"Vizualizează public"}
-            </button>
-          </div>
         </div>
       </div>
     );

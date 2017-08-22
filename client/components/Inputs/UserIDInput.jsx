@@ -68,7 +68,7 @@ const DigitInput = ({
   focusNext,
   focusPrevious,
   meta : { submitting },
-  } : DigitInputPropTypes) => (
+} : DigitInputPropTypes) => (
   <input
     {...input}
     autoFocus={autoFocus}

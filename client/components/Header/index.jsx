@@ -102,7 +102,8 @@ class Header extends React.Component {
         <nav className="navbar navbar-light bg-faded">
           <div className="clearfix">
             <div className="float-left">
-              <h4 className="d-inline">{"Live"}</h4>
+              <img alt="logo" className="mr-1" src="/media/small.png" />
+              <h4 className="d-inline">{"aviz.gov.ro"}</h4>
               {
                 isAdministratorConnected ? (
                   <ul className="navbar-nav float-right ml-3">
