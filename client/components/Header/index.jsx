@@ -16,12 +16,9 @@ import { connect } from "react-redux";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
 import {
-  getCurrentAccount,
   getIsAccountConnected,
   getIsPublicAccount,
 } from "reducers";
-
-import { marcaAdministrator } from "utility";
 
 import DisconnectBox from "./DisconnectBox";
 
@@ -43,7 +40,6 @@ const getThings = (url) => {
 
 const
   mapStateToProps = (state : State) => ({
-    account         : getCurrentAccount(state),
     isPublicAccount : getIsPublicAccount(state),
     isConnected     : getIsAccountConnected(state),
   });
@@ -53,7 +49,6 @@ class Header extends React.Component {
 
   shouldComponentUpdate (nextProps : HeaderPropTypes) {
     return (
-      this.props.account !== nextProps.account ||
       this.props.location.pathname !== nextProps.location.pathname ||
       this.props.isPublicAccount !== nextProps.isPublicAccount ||
       this.props.isConnected !== nextProps.isConnected
@@ -62,21 +57,16 @@ class Header extends React.Component {
 
   render () {
     const {
-      account,
       isConnected,
       isPublicAccount,
       location : { pathname },
     } = this.props;
 
-    const
-      marca = account.get("marca");
-
     if (isConnected && isPublicAccount) {
       return null;
     }
 
-    const isAdministratorConnected = isConnected && marca === marcaAdministrator,
-      things = getThings(pathname);
+    const things = getThings(pathname);
 
     return (
       <div>
@@ -99,25 +89,23 @@ class Header extends React.Component {
             </div>
           ) : null
         }
-        <nav className="navbar navbar-light bg-faded">
+        <nav className="navbar navbar-light bg-light">
+          <span className="navbar-brand">
+            <img alt="logo" className="d-inline-block align-top mr-1" src="/media/small.png" />
+            {"aviz.gov.ro"}
+          </span>
           <div className="clearfix">
+            <ul className="navbar-nav float-right ml-3">
+              <li className="nav-item">
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/user-list">
+                  {"Utilizatori"}
+                </NavLink>
+              </li>
+            </ul>
             <div className="float-left">
-              <img alt="logo" className="mr-1" src="/media/small.png" />
-              <h4 className="d-inline">{"aviz.gov.ro"}</h4>
-              {
-                isAdministratorConnected ? (
-                  <ul className="navbar-nav float-right ml-3">
-                    <li className="nav-item">
-                      <NavLink
-                        activeClassName="active"
-                        className="nav-link"
-                        to="/user-list">
-                        {"Utilizatori"}
-                      </NavLink>
-                    </li>
-                  </ul>
-                ) : null
-              }
               {
                 isConnected ? (
                   <div className="float-right">

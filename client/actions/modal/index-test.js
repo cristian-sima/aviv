@@ -5,7 +5,6 @@ import type { Company } from "types";
 import {
   createModal,
   hideModal,
-  showItemDetailsModal,
   showCommentModal,
 } from "./index";
 
@@ -55,22 +54,6 @@ describe("modal actions", () => {
       };
 
     expect(hideModal()).toEqual(expectedAction);
-  });
-
-  it("should create an action to show [ item details ] modal", () => {
-    const
-      id = 7,
-      expectedAction = {
-        type    : "SHOW_MODAL",
-        payload : {
-          modalType  : "ITEM_DETAILS",
-          modalProps : {
-            id,
-          },
-        },
-      };
-
-    expect(showItemDetailsModal(id)).toEqual(expectedAction);
   });
 
   it("should create an action to show [ comment box ] modal", () => {

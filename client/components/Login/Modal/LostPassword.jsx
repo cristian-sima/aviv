@@ -40,7 +40,7 @@ const LostPassword = ({ closeModal } : LostPasswordPropTypes) => (
             <br />
             {"Telefon: "}<abbr title="Phone">{"314.34.00"}</abbr>
             <br />
-            <a href="mailto:#">{"website@gov.ro"}</a>
+            {"E-mail: "}<a href="mailto:website@gov.ro">{"website@gov.ro"}</a>
           </address>
         </div>
       </div>

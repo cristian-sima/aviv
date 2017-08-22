@@ -1,12 +1,11 @@
 // @flow
 
-import type { State, Dispatch } from "types";
+import type { State } from "types";
 
 type CurrentItemPropTypes = {
   account: any;
   item: any;
   isPublicAccount: bool;
-  showItemDetails: (id : string) => () => void;
 };
 
 import React from "react";
@@ -15,10 +14,6 @@ import { Link, withRouter } from "react-router-dom";
 
 import { Optiune } from "./Optiuni";
 import Details from "./Details";
-
-import {
-  showItemDetailsModal as showItemDetailsModalAction,
-} from "actions";
 
 import { getItem, getSelectedItem, getCurrentAccount, getIsPublicAccount } from "reducers";
 
@@ -31,13 +26,7 @@ const
       account         : getCurrentAccount(state),
       isPublicAccount : getIsPublicAccount(state),
     };
-  },
-  mapDispatchToProps = (dispatch : Dispatch) => ({
-    showItemDetails: (id : string) => () => {
-      dispatch(showItemDetailsModalAction(id));
-    },
-  });
-
+  };
 
 class CurrentItem extends React.Component {
   props: CurrentItemPropTypes;
@@ -52,7 +41,7 @@ class CurrentItem extends React.Component {
 
   render () {
     const
-      { item, account, showItemDetails, isPublicAccount } = this.props;
+      { item, account, isPublicAccount } = this.props;
 
     if (typeof item === "undefined") {
       return (
@@ -89,7 +78,7 @@ class CurrentItem extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <div className="display-4 cursor-pointer custom-header" onClick={showItemDetails(id)}>
+              <div className="display-4 cursor-pointer custom-header">
                 <span className="badge badge-pill badge-info">{position}</span>
                 {" "}
                 <Optiune content={project} inline optiune={groupOption} />
@@ -116,4 +105,4 @@ class CurrentItem extends React.Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CurrentItem));
+export default withRouter(connect(mapStateToProps)(CurrentItem));

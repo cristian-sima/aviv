@@ -13,7 +13,6 @@ type RowPropTypes = {
   emit: (name : string, msg : any) => void;
   toggleItem: (id : string) => () => void;
   selectItem: (id : string) => () => void;
-  showItemDetails: (id : string) => () => void;
   showCommentModal: () => void;
 };
 
@@ -62,7 +61,6 @@ class Row extends React.Component {
       group,
 
       emit,
-      showItemDetails,
       showCommentModal,
     } = this.props;
 
@@ -92,7 +90,7 @@ class Row extends React.Component {
           <span className="badge badge-pill badge-info">{position}</span>
         </td>
         <td>
-          <strong className="cursor-pointer" onClick={showItemDetails(id)}>
+          <strong className="cursor-pointer">
             {" "}
             {
               isVoted ? (
