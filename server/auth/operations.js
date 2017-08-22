@@ -13,11 +13,11 @@ export const login = (req : Request, res : Response) => {
   const { body, db } = req;
 
   const {
-    UserID,
+    UserName,
     Password : RawPassword,
   } = body;
 
-  const marca = getMarca(UserID);
+  const marca = getMarca(UserName);
 
   const loginError = (msg) => {
     req.session.reset();

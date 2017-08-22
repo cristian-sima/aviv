@@ -93,7 +93,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "client-sessions": "^0.8.0",
     "css-loader": "^0.28.5",
     "eslint": "^4.5.0",

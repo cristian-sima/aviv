@@ -1,7 +1,7 @@
 // @flow
 
 import {
-  validateEmail,
+  validateUserName,
   validatePassword,
   validateCaptchaSolution,
   extractErrorsFromCheckers,
@@ -9,7 +9,7 @@ import {
 
 const
   checkers = {
-    Email           : validateEmail,
+    UserName        : validateUserName,
     Password        : validatePassword,
     CaptchaSolution : validateCaptchaSolution,
   };

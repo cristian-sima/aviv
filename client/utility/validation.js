@@ -52,6 +52,22 @@ export const validateEmail = (value : string) => {
   };
 };
 
+export const validateUserName = (value : string) => {
+  const
+    lowerLimit = 2,
+    upperLimit = 25,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length < lowerLimit ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Numele de utilizator are între ${lowerLimit} și ${upperLimit}`,
+  };
+};
+
 export const validatePassword = (value : string) => {
   const
     lowerLimit = 4,

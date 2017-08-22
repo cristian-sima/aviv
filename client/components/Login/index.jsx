@@ -20,7 +20,7 @@ type FormPropTypes = {
 
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Field, reduxForm, FormSection, SubmissionError,
+import { Field, reduxForm, SubmissionError,
   change as changeAction,
   startSubmit as startFormSubmitAction,
   stopSubmit as stopFormSubmitAction,
@@ -29,7 +29,6 @@ import React from "react";
 
 import Captcha from "../Inputs/Captcha";
 import FocusTemplate from "../Inputs/FocusTemplate";
-import UserIDInput from "../Inputs/UserIDInput";
 
 import { getAuthCaptcha, getIsAccountConnected } from "reducers";
 
@@ -172,7 +171,7 @@ class Login extends React.Component {
     return (
       <div className="container ">
         <div className="
-          mt-4
+          mt-3 mt-md-5
           col-lg-6 offset-lg-4
           col-md-8 offset-md-2
           col-xl-5 offset-xl-4">
@@ -182,9 +181,15 @@ class Login extends React.Component {
                 {error}
               </div>
             ) : null}
-            <FormSection name="UserID">
-              <UserIDInput focusPassword={this.focusPassword} />
-            </FormSection>
+            <Field
+              autoFocus
+              component={FocusTemplate}
+              label="Utilizator"
+              name="UserName"
+              onRegisterRef={this.handleRegisterRef}
+              placeholder="ex. mai"
+              type="text"
+            />
             <Field
               component={FocusTemplate}
               label="Parola"
@@ -207,6 +212,7 @@ class Login extends React.Component {
                 {" Autentifică-te"}
               </button>
             </div>
+            <hr />
           </form>
         </div>
       </div>
