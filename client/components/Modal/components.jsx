@@ -4,17 +4,13 @@ import type { ModalActionType } from "types";
 
 import React from "react";
 
-import ItemDetails from "../Wall/Modal/ItemDetails";
-import CommentBox from "../Wall/Modal/CommentBox";
+import LostPassword from "../Login/Modal/LostPassword";
 
 const getComponent = (type : ModalActionType) : any => {
   switch (type) {
 
-    case "ITEM_DETAILS":
-      return ItemDetails;
-
-    case "COMMENT_BOX":
-      return CommentBox;
+    case "LOST_PASSWORD":
+      return LostPassword;
 
     default:
       return (
