@@ -44,10 +44,10 @@ export const ErrorMessage = ({ message, onRetry } : ErrorMessageProps) => (
 export const LargeErrorMessage = ({ message, onRetry, details, itemNotFound } : ErrorMessageProps) => (
   <div className="container mt-5" >
     <div className="row">
-      <div className="offset-md-1 offset-xl-2 col-md-2 col-xl-1 text-warning text-center">
+      <div className="offset-md-1 offset-xl-2 col-md-2 col-xl-2 text-warning text-center">
         <i className="fa fa-exclamation-triangle fa-5x" />
       </div>
-      <div className="col-md-8 col-xl-5">
+      <div className="col-md-8 col-xl-7">
         <h3>{message}</h3>
         <div className="mt-1 text-muted">
           {

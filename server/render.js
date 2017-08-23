@@ -32,8 +32,7 @@ const
 
 router.all("/", render);
 router.all("/login", render);
-router.all("/wall", render);
-router.all("/user-list", render);
-router.all("/list", render);
+router.all("/institutions", render);
+router.all("/users", render);
 
 export default router;

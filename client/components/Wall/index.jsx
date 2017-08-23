@@ -23,10 +23,11 @@ type WallContainerStateTypes = {
 import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Redirect } from "react-router-dom";
 
 import { LoadingMessage } from "../Messages";
 import Institutions from "../Institutions";
+import Users from "../Users";
 
 import { hostname } from "../../../config-client.json";
 
@@ -124,7 +125,7 @@ class WallContainer extends React.Component {
   }
 
   render () {
-    const { isConnecting, isMasterAccount } = this.props;
+    const { isConnecting, isMasterAccount, match : { url } } = this.props;
 
     if (isConnecting) {
       return (
@@ -134,12 +135,20 @@ class WallContainer extends React.Component {
       );
     }
 
+    if (isMasterAccount && url === "/") {
+      return (
+        <Redirect to="/institutions" />
+      );
+    }
+
+
     return (
-      <div className="container-fluid mt-2 wall">
+      <div className="container mt-2">
         {
           isMasterAccount ? (
             <div>
               <Route component={() => (<Institutions emit={this.emit} />)} exact path="/institutions" />
+              <Route component={() => (<Users emit={this.emit} />)} exact path="/users" />
             </div>
           ) : (
             <div className="fancy-text text-center">

@@ -13,8 +13,8 @@ type HeaderStateTypes = {
 
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Collapse, Nav, NavItem, NavLink, NavbarToggler } from "reactstrap";
+import { withRouter, NavLink } from "react-router-dom";
+import { Collapse, Nav, NavItem, NavbarToggler } from "reactstrap";
 
 import {
   getIsAccountConnected,
@@ -71,10 +71,20 @@ class Header extends React.Component {
               isConnected ? (
                 <Nav className="mr-auto" navbar>
                   <NavItem>
-                    <NavLink href="/institutions">{"Instituții"}</NavLink>
+                    <NavLink
+                      activeClassName="selected"
+                      className="nav-link"
+                      to="/institutions">
+                      {"Instituții"}
+                    </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/users/">{"Utilizatori"}</NavLink>
+                    <NavLink
+                      activeClassName="selected"
+                      className="nav-link"
+                      to="/users">
+                      {"Utilizatori"}
+                    </NavLink>
                   </NavItem>
                 </Nav>
               ) : null
@@ -93,4 +103,4 @@ class Header extends React.Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default connect(mapStateToProps)(withRouter(Header));

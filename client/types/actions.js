@@ -15,15 +15,7 @@ export type Action =
 | { type: 'CONFIRM_SIGN_OFF'; }
 | { type: 'CONNECTING_LIVE'; }
 | { type: 'CONNECTED_LIVE'; }
-| { type: 'UPDATING_LIST'; }
-| { type: 'UPDATE_TEMPORARY_COMMENT'; payload: string; }
-| { type: 'UPDATING_COMMENT'; }
-| { type: 'UPDATE_COMMENT'; payload: { id : string; comment: string } }
-| { type: 'TOGGLE_ITEM'; payload: string; }
-| { type: 'TOGGLE_PUBLIC_VOTE'; }
-| { type: 'TOGGLE_PUBLIC_VOTE'; }
 
-| { type: 'UPDATE_USERS'; payload: any; }
+
 | { type: 'FETCH_USERS'; payload: any; }
-| { type: 'SHOW_BUTTONS'; }
 | ModalActions

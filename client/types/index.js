@@ -6,13 +6,6 @@ import type { Action } from "./actions";
 
 export type ErrorType = string;
 
-type OptiuneNecunoscuta = -1;
-type OptiuneContra = 0;
-type OptiunePro = 1;
-type OptiuneAbtinere = 2;
-
-export type OptiuneType = OptiunePro | OptiuneContra | OptiuneAbtinere | OptiuneNecunoscuta;
-
 export type Resolve = (data : any) => void;
 export type Reject = (arg : { error : string }) => void;
 

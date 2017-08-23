@@ -3,9 +3,7 @@
 type PerformLoginTypes = {
   Password: string;
   CaptchaSolution : string;
-  Position1: string;
-  Position2: string;
-  Position3: string;
+  Username: string;
 };
 
 type ChangePasswordTypes = { password: string; confirmation : string };
@@ -41,20 +39,6 @@ export const performReconnect = () => new Promise((resolve, reject) => (
   agent.
     post("/api/auth/reconnect").
     end(withPromiseCallback(resolve, reject))
-));
-
-export const updateUserList = () => new Promise((resolve, reject) => (
-  agent.
-    post("/api/users/update").
-    type("json").
-    end(
-      withPromiseCallback(
-        ({ Users }) => resolve(
-          normalizeArray(Users)
-        ),
-        reject
-      )
-    )
 ));
 
 export const fetchUsers = () => new Promise((resolve, reject) => (

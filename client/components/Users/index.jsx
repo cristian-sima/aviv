@@ -5,11 +5,11 @@ import { withRouter } from "react-router-dom";
 
 import List from "./List";
 
-const Institutions = () => (
+const Users = () => (
   <div>
-    <h1>{"Instituții"}</h1>
+    <h1>{"Utilizatori"}</h1>
     <List />
   </div>
 );
 
-export default withRouter(Institutions);
+export default withRouter(Users);

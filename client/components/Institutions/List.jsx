@@ -87,13 +87,13 @@ class List extends React.Component {
     } = this.props;
 
     if (isFetching) {
-      return <LoadingMessage message="Preiau utilizatorii..." />;
+      return <LoadingMessage message="Preiau instituțiile..." />;
     }
 
     if (hasFetchingError) {
       return (
         <LargeErrorMessage
-          message="Nu am putut prelua utilizatorii"
+          message="Nu am putut prelua instituțiile"
           onRetry={fetchUsers}
         />
       );
@@ -108,44 +108,42 @@ class List extends React.Component {
     }
 
     return (
-      <div>
-        <div className="container">
-          <div className="table-responsive">
-            <table className="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>
-                    {"Nume și prenume"}
-                  </th>
-                  <th className="text-center">
-                    {"Marca"}
-                  </th>
-                  <th className="text-center">
-                    {"Grup"}
-                  </th>
-                  <th className="text-center">
-                    {"Parolă temporară"}
-                  </th>
-                  <th className="text-center">
-                    {"Resetează parola"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  users.map((user) => (
-                    <Row
-                      data={user}
-                      isResetingPassword={isResetingPassword}
-                      key={user.get("_id")}
-                      resetPassword={resetPassword}
-                    />
-                  )
-                  )
-                }
-              </tbody>
-            </table>
-          </div>
+      <div className="container">
+        <div className="table-responsive">
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>
+                  {"Nume și prenume"}
+                </th>
+                <th className="text-center">
+                  {"Marca"}
+                </th>
+                <th className="text-center">
+                  {"Grup"}
+                </th>
+                <th className="text-center">
+                  {"Parolă temporară"}
+                </th>
+                <th className="text-center">
+                  {"Resetează parola"}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                users.map((user) => (
+                  <Row
+                    data={user}
+                    isResetingPassword={isResetingPassword}
+                    key={user.get("_id")}
+                    resetPassword={resetPassword}
+                  />
+                )
+                )
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     );

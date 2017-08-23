@@ -1,20 +1,3 @@
-.user-ID-input {
-  width: 50px !important;
-  height: 50px;
-  display: inline-block !important;
-  padding: 7px !important;
-  margin: 0 1mm;
-  padding-left: 10px;
-  font-size: 40px !important;
-  padding-left: 13px !important;
-}
-
-.user-ID-input::-webkit-outer-spin-button,
-.user-ID-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 $bombay: #b1b2b3;
 $general-font: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
 
@@ -52,157 +35,14 @@ $general-font: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
 	white-space: nowrap;
 }
 
-.list-truncate {
-  height: 77px !important;
-  overflow-y: hidden;
-}
-
-@mixin create-ellipsis($font-size, $line-height, $lines-to-show) {
-  display: block; /* Fallback for non-webkit */
-  display: -webkit-box;
-  max-width: 100%;
-  height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
-  font-size: $font-size;
-  line-height: $line-height;
-  -webkit-line-clamp: $lines-to-show;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ellipsis-row-full {
-  @include create-ellipsis(12px, 1.3, 5);
-}
-
-.ellipsis-row-full-manage-comment {
-  @include create-ellipsis(12px, 1.3, 4);
-}
-
-.ellipsis-row-with-comment {
-  @include create-ellipsis(12px, 1.3, 3);
-}
-
-.ellipsis-comment {
-  @include create-ellipsis(12px, 1.3, 2);
-}
-
-.big-truncate {
-  height: 80px !important;
-  overflow-y: hidden;
-}
-
-.lead-truncate {
-  height: 120px !important;
-  overflow-y: hidden;
-}
-
-.lead-truncate-full {
-  height: 200px !important;
-  overflow-y: hidden;
-}
-
-.ellipsis-big {
-  @include create-ellipsis(26px, 1.5, 3);
-}
-
-.ellipsis-big-full {
-  @include create-ellipsis(26px, 1.5, 6);
-}
-
 .hr-sm {
   margin-top    : 0.3rem;
   margin-bottom : 0.3rem;
 }
 
-.wall {
-  max-width: 700px;
-}
-
-
-.item-row-enter {
-  opacity: .4;
-}
-
-.item-row-enter.item-row-enter-active {
-  opacity: 1;
-  transition: 100ms;
-}
-
-.item-row-leave {
-  opacity: 0;
-}
-
-.item-row-leave.item-row-leave-active {
-  opacity: 0;
-}
-
-.party-enter {
-  opacity: 0.01;
-}
-
-.party-enter.party-enter-active {
-  opacity: 1;
-  transition: 700ms;
-}
-
-.party-leave {
-  opacity: 1;
-}
-
-.party-leave.party-leave-active {
-  opacity: 0.01;
-  transition: 700ms;
-}
-
-
-.expressSuggestion {
-  display: inline-block;
-  &:hover {
-    transform: scale(1.2);
-  }
-  transform-origin: bottom;
-  transition: all .2s ease-in-out;
-}
-
-.list-table {
-
-  .position-table-row {
-    padding: 0;
-    text-align: center;
-  }
-
-  .details-table-row {
-    min-width: 130px !important;
-  }
-
-  td {
-    height: 130px !important;
-    overflow: hidden;
-  }
-}
-
-.name-box {
-overflow: hidden;
-display: -webkit-box;
-text-overflow: ellipsis;
-background: red;
-width: 150px;
-height: 30px;
-}
-
 .custom-header {
   font-size: 2.0rem;
   font-weight: 500;
-}
-
-.btn-black {
-  background: #4c5d79;
-  color: #fff;
-
-  &:hover, &:focus, &:active, &:disabled {
-    color: #fff;
-    background: #60718c;
-  }
 }
 
 @-webkit-keyframes uil-ring-anim {

@@ -22,20 +22,6 @@ export type AuthState = {
   +showButtons: bool;
 }
 
-export type ListState = {
-  +isUpdating : bool;
-  +itemSelected : ?string;
-
-  +itemToggled : ?string;
-  +isPublicVote : bool;
-  +isUpdatingComment : bool;
-  +temporaryComment : string;
-  +isPreparing : bool;
-
-  +data : any;
-  +list : any;
-}
-
 export type UsersState = {
   +fetched : bool;
   +fetching : bool;
@@ -51,7 +37,6 @@ export type UsersState = {
 
 export type State = {
   +auth: AuthState;
-  +list: ListState;
   +modal : ModalState;
   +users: UsersState;
 };
