@@ -5,13 +5,7 @@ import type { State, AuthState } from "types";
 import * as Immutable from "immutable";
 import { createSelector } from "reselect";
 
-import {
-  marcaOperator,
-  marcaAdministrator,
-  marcaContPublic,
-  noError,
-  contParlamentar,
-} from "utility";
+import { noError } from "utility";
 
 const newInitialState = () => ({
   captchas: Immutable.Map(),
@@ -164,34 +158,10 @@ export const
 
   getIsConnectingLive = (state : State) => state.auth.connectingLive;
 
-export const getIsSpecialAccount = createSelector(
-  getCurrentAccount,
-  (data) => {
-    const marca = data.get("marca");
-
-    return marca === marcaAdministrator || marca === marcaOperator;
-  }
-);
-
-export const getCanExpressSuggestions = createSelector(
-  getIsSpecialAccount,
-  getCurrentAccount,
-  (isSpecialAccount, data) => (
-    data.get("category") === contParlamentar && data.get("canVote") === true
-  )
-);
-
-export const getIsPublicAccount = createSelector(
+export const getIsMasterAccount = createSelector(
   getCurrentAccount,
   (data) => (
-    data.get("marca") === marcaContPublic
-  )
-);
-
-export const getIsAdministratorAccount = createSelector(
-  getCurrentAccount,
-  (data) => (
-    data.get("marca") === marcaAdministrator
+    data.get("marca") === "master"
   )
 );
 

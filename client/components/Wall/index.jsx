@@ -12,8 +12,7 @@ type WallContainerPropTypes = {
     url: string;
   };
 
-  isPreparing: bool;
-  isUpdating: bool;
+  isMasterAccount: bool;
   isConnecting: boolean;
 };
 
@@ -24,9 +23,10 @@ type WallContainerStateTypes = {
 import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 import { LoadingMessage } from "../Messages";
+import Institutions from "../Institutions";
 
 import { hostname } from "../../../config-client.json";
 
@@ -37,21 +37,14 @@ import {
 
 import {
   getIsConnectingLive,
-  getIsSpecialAccount,
-  getIsPublicAccount,
-  getIsUpdatingLive,
-  getIsPreparing,
+  getIsMasterAccount,
 } from "reducers";
 
 const
   mapStateToProps = (state : State) => ({
-    isConnecting : getIsConnectingLive(state),
-    isUpdating   : getIsUpdatingLive(state),
+    isConnecting: getIsConnectingLive(state),
 
-    isPreparing: getIsPreparing(state),
-
-    isPublicAccount  : getIsPublicAccount(state),
-    isSpecialAccount : getIsSpecialAccount(state),
+    isMasterAccount: getIsMasterAccount(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     connectingLive () {
@@ -116,9 +109,8 @@ class WallContainer extends React.Component {
 
   shouldComponentUpdate (nextProps : WallContainerPropTypes) {
     return (
-      this.props.isPreparing !== nextProps.isPreparing ||
       this.props.isConnecting !== nextProps.isConnecting ||
-      this.props.isUpdating !== nextProps.isUpdating ||
+      this.props.isMasterAccount !== nextProps.isMasterAccount ||
       this.props.match.url !== nextProps.match.url
     );
   }
@@ -132,7 +124,7 @@ class WallContainer extends React.Component {
   }
 
   render () {
-    const { isConnecting, isUpdating, isPreparing } = this.props;
+    const { isConnecting, isMasterAccount } = this.props;
 
     if (isConnecting) {
       return (
@@ -142,24 +134,20 @@ class WallContainer extends React.Component {
       );
     }
 
-    if (isUpdating) {
-      return (
-        <div className="container mt-3">
-          <LoadingMessage message="Actualizez..." />
-        </div>
-      );
-    }
-
-    if (isPreparing) {
-      return (
-        <div className="container mt-3">
-          <LoadingMessage message="Preiau datele..." />
-        </div>
-      );
-    }
-
     return (
-      <div className="text-center mt-5">{"De făcut"}</div>
+      <div className="container-fluid mt-2 wall">
+        {
+          isMasterAccount ? (
+            <div>
+              <Route component={() => (<Institutions emit={this.emit} />)} exact path="/institutions" />
+            </div>
+          ) : (
+            <div className="fancy-text text-center">
+              {"De realizat"}
+            </div>
+          )
+        }
+      </div>
     );
   }
 }

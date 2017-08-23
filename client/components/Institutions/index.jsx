@@ -15,7 +15,7 @@ import { Button } from "reactstrap";
 import { connect } from "react-redux";
 
 import { updateUsers } from "actions";
-import { getIsUpdatingUserList, getErrorUpdateUsers } from "reducers";
+import { getIsUpdatingUserList, getErrorUpdateUsers, getIsAdministratorAccount } from "reducers";
 
 import ListContainer from "./ListContainer";
 import { LoadingMessage } from "../Messages";
@@ -24,6 +24,7 @@ const
   mapStateToProps = (state : State) => ({
     isUpdating : getIsUpdatingUserList(state),
     hasError   : getErrorUpdateUsers(state),
+    isAllowed  : getIsAdministratorAccount(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     updateList () {

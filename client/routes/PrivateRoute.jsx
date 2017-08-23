@@ -16,7 +16,7 @@ type PrivateRoutePropTypes = {
 
 import React from "react";
 
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -32,7 +32,6 @@ import {
 
 import Login from "../components/Login";
 
-import UserList from "../components/UserList";
 import Wall from "../components/Wall";
 import ChangePassword from "../components/ChangePassword";
 import { LoadingMessage } from "../components/Messages";
@@ -87,8 +86,7 @@ class PrivateRoute extends React.Component {
 
     return (
       <div>
-        <Route component={Wall} exact path="/(list)?" />
-        <Route component={UserList} path="/user-list" />
+        <Wall />
       </div>
     );
   }
