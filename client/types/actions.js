@@ -17,5 +17,7 @@ export type Action =
 | { type: 'CONNECTED_LIVE'; }
 
 
+| { type: 'FETCH_INSTITUTIONS'; payload: any; }
+
 | { type: 'FETCH_USERS'; payload: any; }
 | ModalActions

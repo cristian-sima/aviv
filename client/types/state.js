@@ -35,8 +35,17 @@ export type UsersState = {
   +data: any;
 }
 
+export type InstitutionsState = {
+  +fetched : bool;
+  +fetching : bool;
+  +errorFetching : ErrorType;
+
+  +data: any;
+}
+
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
+  +institutions: InstitutionsState;
   +users: UsersState;
 };

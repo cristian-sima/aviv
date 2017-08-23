@@ -55,6 +55,20 @@ export const fetchUsers = () => new Promise((resolve, reject) => (
     )
 ));
 
+export const fetchInstitutionss = () => new Promise((resolve, reject) => (
+  agent.
+    get("/api/institutions").
+    type("json").
+    end(
+      withPromiseCallback(
+        ({ Institutions }) => resolve(
+          normalizeArray(Institutions)
+        ),
+        reject
+      )
+    )
+));
+
 export const resetPassword = (id : string) => new Promise((resolve, reject) => (
   agent.
     post(`api/users/${id}/reset-password`).

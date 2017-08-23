@@ -3,17 +3,17 @@
 import type { Dispatch, State } from "types";
 
 type ListPropTypes = {
-  users: any;
+  institutions: any;
   hasFetchingError: boolean;
   isFetching: boolean;
-  shouldFetchUsers: boolean;
+  shouldFetchInstitutions: boolean;
   info: any;
   isResetingPassword: boolean;
 
   showModifyModal: (id : number) => void;
-  deleteUser: (id : number) => void;
-  fetchUsers: () => void;
-  showCreateUserModal: () => void;
+  deleteInstitution: (id : number) => void;
+  fetchInstitutions: () => void;
+  showCreateInstitutionModal: () => void;
   resetPassword: (id : string) => () => void;
 };
 
@@ -24,15 +24,15 @@ import { LargeErrorMessage, LoadingMessage } from "../Messages";
 import Row from "./Row";
 
 import {
-  fetchUsers as fetchUsersAction,
+  fetchInstitutions as fetchInstitutionsAction,
   resetPassword as resetPasswordAction,
 } from "actions";
 
 import {
-  getUsersHasError,
-  getUsersAreFetching,
-  getUsersShouldFetch,
-  getUsers,
+  getInstitutionsHasError,
+  getInstitutionsAreFetching,
+  getInstitutionsShouldFetch,
+  getInstitutions,
   getIsResetingPassword,
 } from "reducers";
 
@@ -40,14 +40,14 @@ const
   mapStateToProps = (state : State) => ({
     isResetingPassword: getIsResetingPassword(state),
 
-    users            : getUsers(state),
-    isFetching       : getUsersAreFetching(state),
-    hasFetchingError : getUsersHasError(state),
-    shouldFetchUsers : getUsersShouldFetch(state),
+    institutions            : getInstitutions(state),
+    isFetching              : getInstitutionsAreFetching(state),
+    hasFetchingError        : getInstitutionsHasError(state),
+    shouldFetchInstitutions : getInstitutionsShouldFetch(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchUsers () {
-      dispatch(fetchUsersAction());
+    fetchInstitutions () {
+      dispatch(fetchInstitutionsAction());
     },
     resetPassword: (id : string) => () => {
       dispatch(resetPasswordAction(id));
@@ -59,27 +59,27 @@ class List extends React.Component {
   props: ListPropTypes;
 
   componentDidMount () {
-    const { shouldFetchUsers, fetchUsers } = this.props;
+    const { shouldFetchInstitutions, fetchInstitutions } = this.props;
 
-    if (shouldFetchUsers) {
-      fetchUsers();
+    if (shouldFetchInstitutions) {
+      fetchInstitutions();
     }
   }
 
   shouldComponentUpdate (nextProps : ListPropTypes) {
     return (
       nextProps.isResetingPassword !== this.props.isResetingPassword ||
-      nextProps.shouldFetchUsers !== this.props.shouldFetchUsers ||
+      nextProps.shouldFetchInstitutions !== this.props.shouldFetchInstitutions ||
       nextProps.hasFetchingError !== this.props.hasFetchingError ||
       nextProps.isFetching !== this.props.isFetching ||
-      nextProps.users !== this.props.users
+      nextProps.institutions !== this.props.institutions
     );
   }
 
   render () {
     const {
-      users,
-      fetchUsers,
+      institutions,
+      fetchInstitutions,
       hasFetchingError,
       isFetching,
       resetPassword,
@@ -94,15 +94,15 @@ class List extends React.Component {
       return (
         <LargeErrorMessage
           message="Nu am putut prelua instituțiile"
-          onRetry={fetchUsers}
+          onRetry={fetchInstitutions}
         />
       );
     }
 
-    if (users.size === 0) {
+    if (institutions.size === 0) {
       return (
         <div className="text-center h4">
-          {"Nu există utilizatori"}
+          {"Nu există instituții"}
         </div>
       );
     }
@@ -132,11 +132,11 @@ class List extends React.Component {
             </thead>
             <tbody>
               {
-                users.map((user) => (
+                institutions.map((institution) => (
                   <Row
-                    data={user}
+                    data={institution}
                     isResetingPassword={isResetingPassword}
-                    key={user.get("_id")}
+                    key={institution.get("_id")}
                     resetPassword={resetPassword}
                   />
                 )
