@@ -55,7 +55,7 @@ export const fetchUsers = () => new Promise((resolve, reject) => (
     )
 ));
 
-export const fetchInstitutionss = () => new Promise((resolve, reject) => (
+export const fetchInstitutions = () => new Promise((resolve, reject) => (
   agent.
     get("/api/institutions").
     type("json").

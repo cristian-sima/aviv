@@ -3,8 +3,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-import users from "./users";
 import auth from "./auth";
+import users from "./users";
+import institutions from "./institutions";
 
 import { sessionMiddleware, findCurrentAccount } from "./utility";
 
@@ -24,5 +25,6 @@ router.use(findCurrentAccount);
 
 router.use("/auth", auth);
 router.use("/users", users);
+router.use("/institutions", institutions);
 
 export default router;

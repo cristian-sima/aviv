@@ -8,13 +8,11 @@ type ListPropTypes = {
   isFetching: boolean;
   shouldFetchInstitutions: boolean;
   info: any;
-  isResetingPassword: boolean;
 
   showModifyModal: (id : number) => void;
   deleteInstitution: (id : number) => void;
   fetchInstitutions: () => void;
   showCreateInstitutionModal: () => void;
-  resetPassword: (id : string) => () => void;
 };
 
 import { connect } from "react-redux";
@@ -25,7 +23,6 @@ import Row from "./Row";
 
 import {
   fetchInstitutions as fetchInstitutionsAction,
-  resetPassword as resetPasswordAction,
 } from "actions";
 
 import {
@@ -33,13 +30,10 @@ import {
   getInstitutionsAreFetching,
   getInstitutionsShouldFetch,
   getInstitutions,
-  getIsResetingPassword,
 } from "reducers";
 
 const
   mapStateToProps = (state : State) => ({
-    isResetingPassword: getIsResetingPassword(state),
-
     institutions            : getInstitutions(state),
     isFetching              : getInstitutionsAreFetching(state),
     hasFetchingError        : getInstitutionsHasError(state),
@@ -47,10 +41,9 @@ const
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     fetchInstitutions () {
-      dispatch(fetchInstitutionsAction());
-    },
-    resetPassword: (id : string) => () => {
-      dispatch(resetPasswordAction(id));
+      setTimeout(() => {
+        dispatch(fetchInstitutionsAction());
+      });
     },
   });
 
@@ -68,7 +61,6 @@ class List extends React.Component {
 
   shouldComponentUpdate (nextProps : ListPropTypes) {
     return (
-      nextProps.isResetingPassword !== this.props.isResetingPassword ||
       nextProps.shouldFetchInstitutions !== this.props.shouldFetchInstitutions ||
       nextProps.hasFetchingError !== this.props.hasFetchingError ||
       nextProps.isFetching !== this.props.isFetching ||
@@ -82,8 +74,6 @@ class List extends React.Component {
       fetchInstitutions,
       hasFetchingError,
       isFetching,
-      resetPassword,
-      isResetingPassword,
     } = this.props;
 
     if (isFetching) {
@@ -125,9 +115,6 @@ class List extends React.Component {
                 <th className="text-center">
                   {"Parolă temporară"}
                 </th>
-                <th className="text-center">
-                  {"Resetează parola"}
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -135,9 +122,7 @@ class List extends React.Component {
                 institutions.map((institution) => (
                   <Row
                     data={institution}
-                    isResetingPassword={isResetingPassword}
                     key={institution.get("_id")}
-                    resetPassword={resetPassword}
                   />
                 )
                 )

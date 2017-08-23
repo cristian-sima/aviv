@@ -141,7 +141,6 @@ class WallContainer extends React.Component {
       );
     }
 
-
     return (
       <div className="container mt-2">
         {

@@ -65,10 +65,15 @@ class Header extends React.Component {
             <img alt="logo" className="d-inline-block align-top mr-1" src="/media/small.png" />
             {"aviz.gov.ro"}
           </span>
-          <NavbarToggler onClick={this.toggle} right />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            {
-              isConnected ? (
+          {
+            isConnected ? (
+              <NavbarToggler onClick={this.toggle} right />
+            ) : null
+          }
+          {
+            isConnected ? (
+              <Collapse isOpen={this.state.isOpen} navbar>
+
                 <Nav className="mr-auto" navbar>
                   <NavItem>
                     <NavLink
@@ -87,16 +92,12 @@ class Header extends React.Component {
                     </NavLink>
                   </NavItem>
                 </Nav>
-              ) : null
-            }
-            {
-              isConnected ? (
                 <div className="clearfix">
                   <DisconnectBox />
                 </div>
-              ) : null
-            }
-          </Collapse>
+              </Collapse>
+            ) : null
+          }
         </nav>
       </div>
     );
