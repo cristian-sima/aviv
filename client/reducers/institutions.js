@@ -48,6 +48,7 @@ const reducer = (state : InstitutionsState = newInitialState(), action : any) =>
     case "FETCH_INSTITUTIONS_FULFILLED":
       return fetchInstitutionsFulfilled(state, action);
 
+    case "CONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 
