@@ -9,8 +9,8 @@ type ListPropTypes = {
   shouldFetchInstitutions: boolean;
   info: any;
 
-  showModifyModal: (id : number) => void;
-  deleteInstitution: (id : number) => void;
+  showModifyModal: (id : string) => () => void;
+  showDeleteModal: (id : string) => () => void;
   fetchInstitutions: () => void;
   showCreateInstitutionModal: () => void;
 };
@@ -23,6 +23,9 @@ import Row from "./Row";
 
 import {
   fetchInstitutions as fetchInstitutionsAction,
+  hideModal as hideModalAction,
+  deleteInstitutionModal as deleteInstitutionAction,
+  modifyInstitutionModal as modifyInstitutionAction,
 } from "actions";
 
 import {
@@ -44,6 +47,17 @@ const
       setTimeout(() => {
         dispatch(fetchInstitutionsAction());
       });
+    },
+    showDeleteModal: (id : string) => () => {
+      dispatch(deleteInstitutionAction(id));
+    },
+    showModifyModal: (id : string) => () => {
+      dispatch(modifyInstitutionAction({
+        id,
+        cbAfter: () => {
+          dispatch(hideModalAction());
+        },
+      }));
     },
   });
 
@@ -74,6 +88,8 @@ class List extends React.Component {
       fetchInstitutions,
       hasFetchingError,
       isFetching,
+      showModifyModal,
+      showDeleteModal,
     } = this.props;
 
     if (isFetching) {
@@ -104,16 +120,13 @@ class List extends React.Component {
             <thead>
               <tr>
                 <th>
-                  {"Nume și prenume"}
+                  {"Denumire"}
                 </th>
                 <th className="text-center">
-                  {"Marca"}
+                  {"Modifică"}
                 </th>
                 <th className="text-center">
-                  {"Grup"}
-                </th>
-                <th className="text-center">
-                  {"Parolă temporară"}
+                  {"Șterge"}
                 </th>
               </tr>
             </thead>
@@ -122,7 +135,9 @@ class List extends React.Component {
                 institutions.map((institution) => (
                   <Row
                     data={institution}
+                    deleteRow={showDeleteModal}
                     key={institution.get("_id")}
+                    modifyRow={showModifyModal}
                   />
                 )
                 )

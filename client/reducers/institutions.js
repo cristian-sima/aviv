@@ -34,6 +34,14 @@ const
     fetching : false,
 
     data: payload.entities,
+  }),
+  setInstitution = (state : InstitutionsState, { payload }) => ({
+    ...state,
+    data: state.data.set(String(payload.get("_id")), payload),
+  }),
+  deleteInstitution = (state : InstitutionsState, { payload }) => ({
+    ...state,
+    data: state.data.delete(String(payload)),
   });
 
 
@@ -47,6 +55,13 @@ const reducer = (state : InstitutionsState = newInitialState(), action : any) =>
 
     case "FETCH_INSTITUTIONS_FULFILLED":
       return fetchInstitutionsFulfilled(state, action);
+
+    case "ADD_INSTITUTION":
+    case "MODIFY_INSTITUTION":
+      return setInstitution(state, action);
+
+    case "DELETE_INSTITUTION":
+      return deleteInstitution(state, action);
 
     case "CONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":
@@ -67,9 +82,10 @@ export const
   getInstitutions = createSelector(
     getData,
     (map) => map.toList().sortBy(
-      (institution) => institution.get("marca")
+      (institution) => institution.get("name")
     )
-  );
+  ),
+  getInstitution = (state : State, id : string) => state.institutions.data.get(id);
 
 export const getInstitutionsAreFetched = createSelector(
   getFetching,

@@ -2,18 +2,20 @@
 
 type RowPropTypes = {
   data : any;
+  modifyRow: (id : string) => () => void;
+  deleteRow: (id : string) => () => void;
 };
 
 import React from "react";
 
 const Row = ({
   data,
+  modifyRow,
+  deleteRow,
 } : RowPropTypes) => {
+
   const
-    marca = data.get("marca"),
-    requireChange = data.get("requireChange"),
-    temporaryPassword = data.get("temporaryPassword"),
-    group = data.get("group"),
+    id = data.get("_id"),
     name = data.get("name");
 
   return (
@@ -22,13 +24,18 @@ const Row = ({
         {name}
       </td>
       <td className="text-center">
-        {marca}
+        <button
+          className="btn btn-secondary btn-sm"
+          onClick={modifyRow(id)}>
+          <i className="fa fa-pencil" />
+        </button>
       </td>
       <td className="text-center">
-        {group}
-      </td>
-      <td className="no-wrap font-weight-bold text-center">
-        {requireChange ? temporaryPassword : null}
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={deleteRow(id)}>
+          <i className="fa fa-trash-o" />
+        </button>
       </td>
     </tr>
   );

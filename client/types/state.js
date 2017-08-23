@@ -46,6 +46,7 @@ export type InstitutionsState = {
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
+  +notifications: any;
   +institutions: InstitutionsState;
   +users: UsersState;
 };

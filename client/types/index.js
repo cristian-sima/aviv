@@ -15,6 +15,10 @@ export type Response = {
   body: any;
 };
 
+export type Notification = {
+  key: number;
+};
+
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 export type GetState = () => State;

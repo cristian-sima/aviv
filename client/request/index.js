@@ -69,6 +69,46 @@ export const fetchInstitutions = () => new Promise((resolve, reject) => (
     )
 ));
 
+
+export const addInstitution = (data : any) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        put("/api/institutions").
+        set("Accept", "application/json").
+        send(data).
+        end(
+          withPromiseCallback(resolve, reject)
+        )
+    )
+  )
+);
+
+export const modifyInstitution = (data : any) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        post(`/api/institutions/${data._id}`).
+        set("Accept", "application/json").
+        send(data).
+        end(
+          withPromiseCallback(resolve, reject)
+        )
+    )
+  )
+);
+
+export const deleteInstitution = (id : number) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        del(`/api/institutions/${id}`).
+        set("Accept", "application/json").
+        end(withPromiseCallback(resolve, reject))
+    )
+  )
+);
+
 export const resetPassword = (id : string) => new Promise((resolve, reject) => (
   agent.
     post(`api/users/${id}/reset-password`).

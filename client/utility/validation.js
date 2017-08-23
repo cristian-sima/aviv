@@ -68,6 +68,22 @@ export const validateUserName = (value : string) => {
   };
 };
 
+export const validateInstitutionName = (value : string) => {
+  const
+    lowerLimit = 5,
+    upperLimit = 100,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length < lowerLimit ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Denumirea are între ${lowerLimit} și ${upperLimit} de caractere`,
+  };
+};
+
 export const validatePassword = (value : string) => {
   const
     lowerLimit = 4,
