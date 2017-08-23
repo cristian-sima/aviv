@@ -13,19 +13,10 @@ const
   activeDuration = 300000;
 
 export const
-  marcaOperator = 0,
-  marcaAdministrator = 999,
-  marcaContPublic = 998,
-
-  contParlamentar = 0,
-
+  marcaMaster = "master",
   selectOnlyUsers = {
     marca: {
-      $nin: [
-        marcaOperator,
-        marcaAdministrator,
-        marcaContPublic,
-      ],
+      $nin: [marcaMaster],
     },
   },
 
@@ -38,8 +29,8 @@ export const
     activeDuration,
   }),
 
-  isSpecialAccount = (marca : number) => marca === marcaOperator || marca === marcaAdministrator,
-  isNormalUser = (marca : number) => !isSpecialAccount(marca),
+  isMasterAccount = (marca : number) => marca === marcaMaster,
+  isNormalUser = (marca : number) => !isMasterAccount(marca),
 
   getToday = () => {
     const
@@ -95,8 +86,8 @@ export const
     });
   },
 
-  requireAdministrator = ({ user : { marca } } : Request, res : Response, next : Next) => {
-    if (marca === marcaAdministrator) {
+  requireMaster = ({ user : { marca } } : Request, res : Response, next : Next) => {
+    if (marca === marcaMaster) {
       return next();
     }
 

@@ -6,8 +6,6 @@ import createIO from "socket.io";
 
 import { error, sessionMiddleware } from "../utility";
 
-import * as items from "./items";
-
 const performCreateIO = (server : ExpressServer, db : Database) => {
   const io = createIO(server);
 
@@ -86,10 +84,10 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
       });
     });
 
-    socket.on("UPDATING_LIST", items.updateList(socket, db));
-    socket.on("SELECT_ITEM", items.selectItem(socket, db));
-    socket.on("EXPRESS_SUGGESTION", items.expressSuggestion(socket, db));
-    socket.on("UPDATE_COMMENT", items.updateComment(socket, db));
+    // socket.on("UPDATING_LIST", items.updateList(socket, db));
+    // socket.on("SELECT_ITEM", items.selectItem(socket, db));
+    // socket.on("EXPRESS_SUGGESTION", items.expressSuggestion(socket, db));
+    // socket.on("UPDATE_COMMENT", items.updateComment(socket, db));
   });
 
   io.on("disconnect", (socket) => {

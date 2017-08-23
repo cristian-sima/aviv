@@ -2,21 +2,16 @@
 
 import express from "express";
 
-import { requireLogin, requireAdministrator } from "../utility";
+import { requireLogin, requireMaster } from "../utility";
 
-import { updateUsers, getUsers, resetPassword } from "./operations";
+import { getUsers, resetPassword } from "./operations";
 
 const router = express.Router();
 
 router.get("/", [
   requireLogin,
-  requireAdministrator,
+  requireMaster,
   getUsers,
-]);
-router.post("/update", [
-  requireLogin,
-  requireAdministrator,
-  updateUsers,
 ]);
 router.post("/:accountID/reset-password", [
   requireLogin,

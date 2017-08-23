@@ -1,14 +1,5 @@
 // @flow
 
-import type { AccountCategory } from "../types";
-
-
-type GetMarcaArgTypes = {
-  Position1?: string;
-  Position2?: string;
-  Position3?: string;
-}
-
 type DataType = {| nume : string; prenume: string; marca: string; grup: string; vot: boolean; |};
 
 type PrepareUserType = (data : DataType, temporaryPassword : string) => {|
@@ -18,14 +9,7 @@ type PrepareUserType = (data : DataType, temporaryPassword : string) => {|
   temporaryPassword: string;
   requireChange: boolean;
   canVote: boolean;
-  category: AccountCategory;
 |}
-
-import { contParlamentar } from "../utility";
-
-export const getMarca = ({ Position1, Position2, Position3 } : GetMarcaArgTypes) => (
-  Number(`${Position1 || " "}${Position2 || " "}${Position3 || " "}`)
-);
 
 export const generateTemporaryPassword = () => {
   const
@@ -40,12 +24,11 @@ export const prepareUser : PrepareUserType = (data, temporaryPassword) => {
   const { nume, prenume, marca, grup, vot } = data;
 
   return {
-    name     : `${nume} ${prenume}`,
-    marca    : Number(marca),
-    group    : grup,
+    name    : `${nume} ${prenume}`,
+    marca   : Number(marca),
+    group   : grup,
     temporaryPassword,
-    canVote  : vot,
-    category : contParlamentar,
+    canVote : vot,
 
     requireChange: true,
   };

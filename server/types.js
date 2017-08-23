@@ -1,33 +1,15 @@
 // @flow
 
-export type AccountCategory = 0 | 1 | 2
-
 export type User = {
   _id: string;
   group: string;
   marca: number;
   name: string;
-  canVote: boolean;
   password: string;
-  category: AccountCategory;
 }
 
 export type Item = {
   _id: string;
-}
-
-export type RawItem = {
-  titlu: string;
-  proiect: string;
-  pozitie: string;
-  guvern?: string;
-  comisia?: string;
-  descriere?: string;
-  "camera decizionala"?: string;
-  "data guvern"?: string;
-  idx?: string;
-  urgenta?: bool;
-  organica?: bool;
 }
 
 export type ExpressServer = any;
@@ -79,17 +61,4 @@ export type Socket = {
   emit: Emiter;
   broadcast: Emit;
   to: (group: string) => Emit;
-}
-
-type OptiuneNecunoscuta = -1;
-type OptiuneContra = 0;
-type OptiunePro = 1;
-type OptiuneAbtinere = 2;
-
-export type OptiuneType = OptiunePro | OptiuneContra | OptiuneAbtinere | OptiuneNecunoscuta;
-
-export type VoteItemData = {
-  optiune: OptiuneType;
-  isPublicVote: bool;
-  id: string;
 }
