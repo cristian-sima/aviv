@@ -21,13 +21,7 @@ type PrepareUserType = (data : DataType, temporaryPassword : string) => {|
   category: AccountCategory;
 |}
 
-type ErrorType = (error? : Error) => any;
-
-type GetSpecialAccounts = (callback : (specialAccounts : Array<*>) => any, error : ErrorType) => any;
-
-import bcrypt from "bcrypt";
-
-import { marcaOperator, marcaAdministrator, marcaContPublic, contParlamentar } from "../utility";
+import { contParlamentar } from "../utility";
 
 export const getMarca = ({ Position1, Position2, Position3 } : GetMarcaArgTypes) => (
   Number(`${Position1 || " "}${Position2 || " "}${Position3 || " "}`)
@@ -56,33 +50,3 @@ export const prepareUser : PrepareUserType = (data, temporaryPassword) => {
     requireChange: true,
   };
 };
-
-export const getSpecialAccounts : GetSpecialAccounts = (callback, error) => (
-  bcrypt.hash("parola", 10, (errHasing, hash) => {
-    if (errHasing) {
-      return error(errHasing);
-    }
-
-    return callback([
-      {
-        marca             : marcaOperator,
-        name              : "Operator",
-        temporaryPassword : "1234",
-        requireChange     : true,
-      },
-      {
-        marca             : marcaAdministrator,
-        name              : "Administrator",
-        temporaryPassword : "1234",
-        requireChange     : true,
-      },
-      {
-        marca             : marcaContPublic,
-        name              : "Public",
-        temporaryPassword : "",
-        requireChange     : false,
-        password          : hash,
-      },
-    ]);
-  })
-);

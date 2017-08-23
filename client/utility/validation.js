@@ -64,7 +64,7 @@ export const validateUserName = (value : string) => {
 
   return {
     notValid,
-    error: `Numele de utilizator are între ${lowerLimit} și ${upperLimit}`,
+    error: `Utilizatorul are între ${lowerLimit} și ${upperLimit} de caractere`,
   };
 };
 

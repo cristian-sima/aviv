@@ -4,8 +4,6 @@ import type { Request, Response } from "../types";
 
 import bcrypt from "bcrypt";
 
-import { getSpecialAccounts, getMarca } from "./util";
-
 import { StatusServiceUnavailable, marcaContPublic } from "../utility";
 
 export const login = (req : Request, res : Response) => {
@@ -17,7 +15,7 @@ export const login = (req : Request, res : Response) => {
     Password : RawPassword,
   } = body;
 
-  const marca = getMarca(UserName);
+  const marca = UserName;
 
   const loginError = (msg) => {
     req.session.reset();
@@ -25,10 +23,6 @@ export const login = (req : Request, res : Response) => {
       Error: msg || "Datele nu au fost corecte pentru a vă conecta",
     });
   };
-
-  if (isNaN(marca)) {
-    return loginError();
-  }
 
   const users = db.collection("users");
 
@@ -56,6 +50,7 @@ export const login = (req : Request, res : Response) => {
         };
 
         if (user.requireChange) {
+
           if (user.temporaryPassword === RawPassword) {
             return connect();
           }
@@ -91,15 +86,18 @@ export const login = (req : Request, res : Response) => {
           return loginError(errCreate);
         }
 
-        return getSpecialAccounts((specialAccounts) => (
-          users.insertMany(specialAccounts, (errUsersInsert) => {
-            if (errUsersInsert) {
-              return loginError(errUsersInsert);
-            }
+        return users.insert({
+          marca             : "master",
+          name              : "Administrator",
+          temporaryPassword : "1234",
+          requireChange     : true,
+        }, (errInsert) => {
+          if (errInsert) {
+            return loginError(errInsert);
+          }
 
-            return findCurrentUser();
-          })
-        ), loginError);
+          return findCurrentUser();
+        });
       });
     }
 
