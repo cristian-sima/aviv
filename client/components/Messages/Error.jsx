@@ -27,10 +27,10 @@ export const ErrorMessage = ({ message, onRetry } : ErrorMessageProps) => (
               className="btn btn-primary btn-sm"
               onClick={onRetry}
               type="button">
-              <span className="hidden-sm-down">
+              <span className="d-none d-md-inline">
                 {"Reîncearcă"}
               </span>
-              <span className="visible-up hidden-md-up">
+              <span className="visible-up d-md-none">
                 <i className="fa fa-refresh" />
               </span>
             </button>

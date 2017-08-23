@@ -29,8 +29,6 @@ import {
   getCurrentAccount,
 } from "reducers";
 
-const maxChars = 15;
-
 const
   mapStateToProps = (state : State) => ({
     account                 : getCurrentAccount(state),
@@ -111,13 +109,7 @@ class DisconnectBox extends React.Component {
             ) : (
               <div className="float-right">
                 <span className="mr-2">
-                  <span className="hidden-sm-up">
-                    {name.substring(0, maxChars)}
-                    {name.length > maxChars ? "..." : null}
-                  </span>
-                  <span className="hidden-xs-down">
-                    {name}
-                  </span>
+                  {name}
                 </span>
                 {" "}
                 <button
@@ -125,7 +117,7 @@ class DisconnectBox extends React.Component {
                   onClick={confirmSignOff}>
                   <i className="fa fa-sign-out" />
                   {" "}
-                  <span className="hidden-md-down">{"Deconectează-mă"}</span>
+                  <span className="d-none d-lg-inline">{"Deconectează-mă"}</span>
                 </button>
               </div>
             )

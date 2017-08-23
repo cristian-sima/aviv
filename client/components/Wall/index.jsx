@@ -14,8 +14,6 @@ type WallContainerPropTypes = {
 
   isPreparing: bool;
   isUpdating: bool;
-  isSpecialAccount: bool;
-  isPublicAccount: bool;
   isConnecting: boolean;
 };
 
@@ -26,13 +24,9 @@ type WallContainerStateTypes = {
 import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { LoadingMessage } from "../Messages";
-import CurrentItem from "./CurrentItem";
-import List from "./List";
-
-import DisconnectBox from "../Header/DisconnectBox";
 
 import { hostname } from "../../../config-client.json";
 
@@ -124,10 +118,8 @@ class WallContainer extends React.Component {
     return (
       this.props.isPreparing !== nextProps.isPreparing ||
       this.props.isConnecting !== nextProps.isConnecting ||
-      this.props.isPublicAccount !== nextProps.isPublicAccount ||
       this.props.isUpdating !== nextProps.isUpdating ||
-      this.props.match.url !== nextProps.match.url ||
-      this.props.isSpecialAccount !== nextProps.isSpecialAccount
+      this.props.match.url !== nextProps.match.url
     );
   }
 
@@ -140,7 +132,7 @@ class WallContainer extends React.Component {
   }
 
   render () {
-    const { isConnecting, isUpdating, isPublicAccount, isPreparing } = this.props;
+    const { isConnecting, isUpdating, isPreparing } = this.props;
 
     if (isConnecting) {
       return (
@@ -167,21 +159,7 @@ class WallContainer extends React.Component {
     }
 
     return (
-      <div className="container-fluid mt-2 wall">
-        {
-          isPublicAccount ? (
-            <div>
-              <CurrentItem emit={this.emit} />
-              <DisconnectBox />
-            </div>
-          ) : (
-            <div>
-              <Route component={CurrentItem} exact path="/" />
-              <Route component={() => (<List emit={this.emit} />)} exact path="/list" />
-            </div>
-          )
-        }
-      </div>
+      <div className="text-center mt-5">{"De făcut"}</div>
     );
   }
 }
