@@ -1,6 +1,6 @@
 // @flow
 
-import type { Response, Request, Next } from "./types";
+import type { Response, Request, Next, CheckerResponse } from "./types";
 
 import createClientSession from "client-sessions";
 
@@ -13,10 +13,10 @@ const
   activeDuration = 300000;
 
 export const
-  marcaMaster = "master",
+  usernameMaster = "master",
   selectOnlyUsers = {
-    marca: {
-      $nin: [marcaMaster],
+    username: {
+      $nin: [usernameMaster],
     },
   },
 
@@ -29,8 +29,8 @@ export const
     activeDuration,
   }),
 
-  isMasterAccount = (marca : number) => marca === marcaMaster,
-  isNormalUser = (marca : number) => !isMasterAccount(marca),
+  isMasterAccount = (username : number) => username === usernameMaster,
+  isNormalUser = (username : number) => !isMasterAccount(username),
 
   getToday = () => {
     const
@@ -53,15 +53,15 @@ export const
 
     const thereIsASession = (
       typeof session !== "undefined" &&
-      typeof session.marca !== "undefined"
+      typeof session.username !== "undefined"
     );
 
     if (thereIsASession) {
       const
-        { marca } = session,
+        { username } = session,
         users = db.collection("users");
 
-      return users.findOne({ marca }, (err, user) => {
+      return users.findOne({ username }, (err, user) => {
         if (!err && user) {
           req.user = user;
           delete req.user.password;
@@ -86,12 +86,32 @@ export const
     });
   },
 
-  requireMaster = ({ user : { marca } } : Request, res : Response, next : Next) => {
-    if (marca === marcaMaster) {
+  requireMaster = ({ user : { username } } : Request, res : Response, next : Next) => {
+    if (username === usernameMaster) {
       return next();
     }
 
     return res.status(StatusForbidden).json({
       Error: notAllowedMessage,
     });
+  },
+
+  extractErrorsFromCheckers = (checkers : any, values : any) : CheckerResponse => {
+    for (const field in checkers) {
+      if (Object.prototype.hasOwnProperty.call(checkers, field)) {
+        const
+          checker = checkers[field],
+          result = checker(values[field]),
+          { notValid } = result;
+
+        if (notValid) {
+          return result;
+        }
+      }
+    }
+
+    return {
+      notValid : false,
+      error    : "",
+    };
   };

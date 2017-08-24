@@ -1,10 +1,10 @@
 // @flow
 
-type DataType = {| nume : string; prenume: string; marca: string; grup: string; vot: boolean; |};
+type DataType = {| nume : string; prenume: string; username: string; grup: string; vot: boolean; |};
 
 type PrepareUserType = (data : DataType, temporaryPassword : string) => {|
   name: string;
-  marca: number;
+  username: number;
   group: string;
   temporaryPassword: string;
   requireChange: boolean;
@@ -21,14 +21,14 @@ export const generateTemporaryPassword = () => {
 };
 
 export const prepareUser : PrepareUserType = (data, temporaryPassword) => {
-  const { nume, prenume, marca, grup, vot } = data;
+  const { nume, prenume, username, grup, vot } = data;
 
   return {
-    name    : `${nume} ${prenume}`,
-    marca   : Number(marca),
-    group   : grup,
+    name     : `${nume} ${prenume}`,
+    username : Number(username),
+    group    : grup,
     temporaryPassword,
-    canVote : vot,
+    canVote  : vot,
 
     requireChange: true,
   };

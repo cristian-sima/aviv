@@ -1,11 +1,15 @@
 // @flow
 
 export type User = {
-  _id: string;
-  group: string;
-  marca: number;
+  _id?: string;
+  username: string;
   name: string;
+  phone: string;
+  email: string;
+
   password: string;
+  temporaryPassword: string;
+  requireChange: bool;
 }
 
 export type Item = {
@@ -31,8 +35,13 @@ export type Database = {
 
 type Session = {
   reset: () => void;
-  marca: number;
+  username: number;
   user: User;
+};
+
+export type CheckerResponse = {
+  error: string;
+  notValid: bool;
 };
 
 type Emiter = (name : string, data? : any) => void;

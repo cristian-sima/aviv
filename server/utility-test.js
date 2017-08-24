@@ -1,49 +1,49 @@
 import { isSpecialAccount, isNormalUser } from "./utility";
 
 describe("isSpecialAccount", () => {
-  describe("given the marca 0", () => {
+  describe("given the username 0", () => {
     it("detects a special account", () => {
-      const marca = 0;
+      const username = 0;
 
-      expect(isSpecialAccount(marca)).toEqual(true);
+      expect(isSpecialAccount(username)).toEqual(true);
     });
   });
-  describe("given the marca 999", () => {
+  describe("given the username 999", () => {
     it("detects a special account", () => {
-      const marca = 999;
+      const username = 999;
 
-      expect(isSpecialAccount(marca)).toEqual(true);
+      expect(isSpecialAccount(username)).toEqual(true);
     });
   });
   describe("given any other number is not", () => {
     it("detects a normal account", () => {
-      const marca = 221;
+      const username = 221;
 
-      expect(isSpecialAccount(marca)).toEqual(false);
+      expect(isSpecialAccount(username)).toEqual(false);
     });
   });
 });
 
 describe("isNormalUser", () => {
-  describe("given the marca 0", () => {
+  describe("given the username 0", () => {
     it("detects a special account", () => {
-      const marca = 0;
+      const username = 0;
 
-      expect(isNormalUser(marca)).toEqual(false);
+      expect(isNormalUser(username)).toEqual(false);
     });
   });
-  describe("given the marca 999", () => {
+  describe("given the username 999", () => {
     it("detects a special account", () => {
-      const marca = 999;
+      const username = 999;
 
-      expect(isNormalUser(marca)).toEqual(false);
+      expect(isNormalUser(username)).toEqual(false);
     });
   });
   describe("given any other number is not", () => {
     it("detects a normal account", () => {
-      const marca = 221;
+      const username = 221;
 
-      expect(isNormalUser(marca)).toEqual(true);
+      expect(isNormalUser(username)).toEqual(true);
     });
   });
 });

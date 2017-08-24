@@ -20,15 +20,15 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
 
     const thereIsASession = (
       typeof session !== "undefined" &&
-        typeof session.marca !== "undefined"
+        typeof session.username !== "undefined"
     );
 
     if (thereIsASession) {
       const
-        { marca } = session,
+        { username } = session,
         users = db.collection("users");
 
-      return users.findOne({ marca }, (errFindOne, user) => {
+      return users.findOne({ username }, (errFindOne, user) => {
         if (errFindOne) {
           return next(error(errFindOne));
         }

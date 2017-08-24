@@ -15,7 +15,7 @@ export const login = (req : Request, res : Response) => {
     Password : RawPassword,
   } = body;
 
-  const marca = UserName;
+  const username = UserName;
 
   const loginError = (msg) => {
     req.session.reset();
@@ -29,7 +29,7 @@ export const login = (req : Request, res : Response) => {
   const
     findCurrentUser = () => {
 
-      const credentials = { marca };
+      const credentials = { username };
 
       users.findOne(credentials, (err, user) => {
 
@@ -38,7 +38,7 @@ export const login = (req : Request, res : Response) => {
         }
 
         const connect = () => {
-          req.session.marca = marca;
+          req.session.username = username;
 
           res.json({
             Error   : "",
@@ -87,7 +87,7 @@ export const login = (req : Request, res : Response) => {
         }
 
         return users.insert({
-          marca             : "master",
+          username          : "master",
           name              : "Administrator",
           temporaryPassword : "1234",
           requireChange     : true,
@@ -171,7 +171,7 @@ export const signOff = ({ session } : Request, res : Response) => {
   const
     thereIsASession = (
       typeof session !== "undefined" &&
-    typeof session.marca !== "undefined"
+    typeof session.username !== "undefined"
     );
 
   if (thereIsASession) {
@@ -187,7 +187,7 @@ export const reconnect = ({ session, user } : Request, res : Response) => {
   const
     thereIsASession = (
       typeof session !== "undefined" &&
-    typeof session.marca !== "undefined" &&
+    typeof session.username !== "undefined" &&
     typeof user !== "undefined"
     );
 

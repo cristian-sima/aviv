@@ -127,14 +127,14 @@ describe("prepareUser", () => {
       data = {
         nume    : "Sima",
         prenume : "Cristian",
-        marca   : "1",
+        username   : "1",
         grup    : "PSD",
       },
       temporaryPassword = "1234",
       result = prepareUser(data, temporaryPassword),
       expected = {
         name  : "Sima Cristian",
-        marca : 1,
+        username : 1,
         group : "PSD",
         temporaryPassword,
 

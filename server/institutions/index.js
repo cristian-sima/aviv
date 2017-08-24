@@ -4,7 +4,12 @@ import express from "express";
 
 import { requireLogin, requireMaster } from "../utility";
 
-import { getInstitutions, addInstitution, modifyInstitution, deleteInstitution } from "./operations";
+import {
+  getInstitutions,
+  addInstitution,
+  modifyInstitution,
+  deleteInstitution,
+} from "./operations";
 
 const router = express.Router();
 
