@@ -20,9 +20,11 @@ export type Action =
 | { type: 'FETCH_INSTITUTIONS'; payload: any; }
 | { type: 'ADD_INSTITUTION'; payload: any; }
 | { type: 'MODIFY_INSTITUTION'; payload: any; }
-| { type: 'DELETE_INSTITUTION'; payload: number; }
+| { type: 'DELETE_INSTITUTION'; payload: string; }
 
-| { type: 'FETCH_USERS'; payload: any; }
+| { type: 'ADD_USER'; payload: any; }
+| { type: 'MODIFY_USER'; payload: any; }
+| { type: 'DELETE_USER'; payload: string; }
 
 | { type: 'DELETE_NOTIFICATION', payload: number }
 | ModalActions

@@ -21,7 +21,7 @@ export const modifyInstitution = (institution : any) : Action => ({
   payload : institution,
 });
 
-export const deleteInstitution = (id : number) : Action => ({
+export const deleteInstitution = (id : string) : Action => ({
   type    : "DELETE_INSTITUTION",
   payload : id,
 });

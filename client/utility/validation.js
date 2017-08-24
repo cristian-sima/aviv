@@ -43,7 +43,7 @@ export const validateEmail = (value : string) => {
   const
     notValid = (
       typeof value === "undefined" ||
-    !isValidEmail(value)
+      !isValidEmail(value)
     );
 
   return {
@@ -65,6 +65,36 @@ export const validateUserName = (value : string) => {
   return {
     notValid,
     error: `Utilizatorul are între ${lowerLimit} și ${upperLimit} de caractere`,
+  };
+};
+
+export const validatePhone = (value : string) => {
+  const
+    upperLimit = 25,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Telefonul are cel mult ${upperLimit} de caractere`,
+  };
+};
+
+export const validateFullName = (value : string) => {
+  const
+    lowerLimit = 5,
+    upperLimit = 100,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length < lowerLimit ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Numele are între ${lowerLimit} și ${upperLimit} de caractere`,
   };
 };
 

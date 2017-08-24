@@ -35,7 +35,7 @@ const
     ...state,
 
     isUpdating : false,
-    data       : payload.entities,
+    data       : payload.users.entities,
 
     fetched  : true,
     fetching : false,
@@ -55,7 +55,7 @@ const
     fetched  : true,
     fetching : false,
 
-    data: payload.entities,
+    data: payload.users.entities,
   }),
   resetPasswordPending = (state : UsersState) => ({
     ...state,
@@ -80,18 +80,26 @@ const
         temporaryPassword,
       });
     }),
+  }),
+  setUser = (state : UsersState, { payload }) => ({
+    ...state,
+    data: state.data.set(String(payload.get("_id")), payload),
+  }),
+  deleteUser = (state : UsersState, { payload }) => ({
+    ...state,
+    data: state.data.delete(String(payload)),
   });
 
 
 const reducer = (state : UsersState = newInitialState(), action : any) => {
   switch (action.type) {
-    case "UPDATE_USERS_PENDING":
+    case "FETCH_INSTITUTIONS_PENDING":
       return updateUsersPending(state);
 
-    case "UPDATE_USERS_REJECTED":
+    case "FETCH_INSTITUTIONS_REJECTED":
       return updateUsersRejected(state);
 
-    case "UPDATE_USERS_FULFILLED":
+    case "FETCH_INSTITUTIONS_FULFILLED":
       return updateUsersFulFilled(state, action);
 
     case "FETCH_USERS_PENDING":
@@ -115,6 +123,13 @@ const reducer = (state : UsersState = newInitialState(), action : any) => {
     case "RESET_PASSWORD_FULFILLED":
       return resetPasswordFulfilled(state, action);
 
+    case "ADD_USER":
+    case "MODIFY_USER":
+      return setUser(state, action);
+
+    case "DELETE_USER":
+      return deleteUser(state, action);
+
     default:
       return state;
   }
@@ -131,6 +146,11 @@ const
   getData = (state : State) => state.users.data;
 
 export const
+  getUser = createSelector(
+    getData,
+    (state, id) => id,
+    (data, id) => data.get(id)
+  ),
   getIsResetingPassword = (state : State) => state.users.isResetingPassword;
 
 export const getErrorUpdateUsers = createSelector(
@@ -147,9 +167,17 @@ export const
   getUsers = createSelector(
     getData,
     (map) => map.toList().sortBy(
-      (user) => user.get("marca")
+      (user) => user.get("name")
     )
   );
+
+export const getUsersByInstitution = createSelector(
+  getData,
+  (state, id) => id,
+  (data, id) => data.filter((user) => (
+    user.get("institutionID") === id
+  )).toList()
+);
 
 export const getUsersAreFetched = createSelector(
   getFetching,

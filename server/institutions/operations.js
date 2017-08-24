@@ -4,25 +4,37 @@ import type { Response, Request } from "../types";
 
 import { ObjectId } from "mongodb";
 
-import { error } from "../utility";
+import { error, selectOnlyUsers } from "../utility";
 
 export const getInstitutions = ({ db } : Request, res : Response) => {
 
-  const
-    institutions = db.collection("institutions");
+  const findErr = {
+    Error: "Nu am putut prelua lista",
+  };
 
-  institutions.find().toArray((errFind, data) => {
-    if (errFind) {
-      return res.json({
-        Error: "Nu am putut prelua lista",
-      });
-    }
+  return db.
+    collection("institutions").
+    find().
+    toArray((errInstitutions, institutions) => {
+      if (errInstitutions) {
+        return res.json(findErr);
+      }
 
-    return res.json({
-      Institutions : data,
-      Error        : "",
+      return db.
+        collection("users").
+        find(selectOnlyUsers, { "password": 0 }).
+        toArray((errUsers, users) => {
+          if (errUsers) {
+            return res.json(findErr);
+          }
+
+          return res.json({
+            Users        : users,
+            Institutions : institutions,
+            Error        : "",
+          });
+        });
     });
-  });
 };
 
 export const addInstitution = ({ db, body : { name } } : Request, res : Response) => {

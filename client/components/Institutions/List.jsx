@@ -9,6 +9,7 @@ type ListPropTypes = {
   shouldFetchInstitutions: boolean;
   info: any;
 
+  showUsers: (id : string) => () => void;
   showModifyModal: (id : string) => () => void;
   showDeleteModal: (id : string) => () => void;
   fetchInstitutions: () => void;
@@ -26,6 +27,7 @@ import {
   hideModal as hideModalAction,
   deleteInstitutionModal as deleteInstitutionAction,
   modifyInstitutionModal as modifyInstitutionAction,
+  showUsersForInstitutionModal as showUsersForInstitutionModalAction,
 } from "actions";
 
 import {
@@ -59,6 +61,11 @@ const
         },
       }));
     },
+    showUsers: (institutionID : string) => () => {
+      dispatch(showUsersForInstitutionModalAction({
+        institutionID,
+      }));
+    },
   });
 
 class List extends React.Component {
@@ -90,6 +97,7 @@ class List extends React.Component {
       isFetching,
       showModifyModal,
       showDeleteModal,
+      showUsers,
     } = this.props;
 
     if (isFetching) {
@@ -138,6 +146,7 @@ class List extends React.Component {
                     deleteRow={showDeleteModal}
                     key={institution.get("_id")}
                     modifyRow={showModifyModal}
+                    showUsers={showUsers}
                   />
                 )
                 )

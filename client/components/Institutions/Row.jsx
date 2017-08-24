@@ -4,6 +4,7 @@ type RowPropTypes = {
   data : any;
   modifyRow: (id : string) => () => void;
   deleteRow: (id : string) => () => void;
+  showUsers: (id : string) => () => void;
 };
 
 import React from "react";
@@ -12,6 +13,7 @@ const Row = ({
   data,
   modifyRow,
   deleteRow,
+  showUsers,
 } : RowPropTypes) => {
 
   const
@@ -21,7 +23,11 @@ const Row = ({
   return (
     <tr>
       <td className="no-wrap">
-        {name}
+        <button
+          className="btn btn-sm btn btn-link"
+          onClick={showUsers(id)}>
+          {name}
+        </button>
       </td>
       <td className="text-center">
         <button

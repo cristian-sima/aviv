@@ -41,34 +41,20 @@ export const performReconnect = () => new Promise((resolve, reject) => (
     end(withPromiseCallback(resolve, reject))
 ));
 
-export const fetchUsers = () => new Promise((resolve, reject) => (
-  agent.
-    get("/api/users").
-    type("json").
-    end(
-      withPromiseCallback(
-        ({ Users }) => resolve(
-          normalizeArray(Users)
-        ),
-        reject
-      )
-    )
-));
-
 export const fetchInstitutions = () => new Promise((resolve, reject) => (
   agent.
     get("/api/institutions").
     type("json").
     end(
       withPromiseCallback(
-        ({ Institutions }) => resolve(
-          normalizeArray(Institutions)
-        ),
+        ({ Institutions, Users }) => resolve({
+          institutions : normalizeArray(Institutions),
+          users        : normalizeArray(Users),
+        }),
         reject
       )
     )
 ));
-
 
 export const addInstitution = (data : any) => (
   new Promise(
@@ -103,6 +89,45 @@ export const deleteInstitution = (id : number) => (
     (resolve, reject) => (
       agent.
         del(`/api/institutions/${id}`).
+        set("Accept", "application/json").
+        end(withPromiseCallback(resolve, reject))
+    )
+  )
+);
+
+export const addUser = (data : any) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        put("/api/users").
+        set("Accept", "application/json").
+        send(data).
+        end(
+          withPromiseCallback(resolve, reject)
+        )
+    )
+  )
+);
+
+export const modifyUser = (data : any) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        post(`/api/users/${data._id}`).
+        set("Accept", "application/json").
+        send(data).
+        end(
+          withPromiseCallback(resolve, reject)
+        )
+    )
+  )
+);
+
+export const deleteUser = (id : number) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        del(`/api/users/${id}`).
         set("Accept", "application/json").
         end(withPromiseCallback(resolve, reject))
     )

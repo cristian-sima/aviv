@@ -33,7 +33,7 @@ const
     fetched  : true,
     fetching : false,
 
-    data: payload.entities,
+    data: payload.institutions.entities,
   }),
   setInstitution = (state : InstitutionsState, { payload }) => ({
     ...state,

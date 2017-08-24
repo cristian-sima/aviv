@@ -39,3 +39,39 @@ export const deleteInstitutionModal = (id : string) : Action => (
     id,
   })
 );
+
+export const showUsersForInstitutionModal = ({ institutionID } : {
+  institutionID: string,
+}) : Action => (
+  createModal("SHOW_USERS_FOR_INSTITUTION", {
+    institutionID,
+  })
+);
+
+export const addUserModal = ({ institutionID } : { institutionID : string }) : Action => (
+  createModal("ADD_USER", {
+    institutionID,
+  })
+);
+
+export const modifyUserModal = ({ id, cbAfter, institutionID } : {
+  id: string,
+  institutionID: string,
+  cbAfter? : (user : any) => void,
+}) : Action => (
+  createModal("MODIFY_USER", {
+    id,
+    institutionID,
+    cbAfter,
+  })
+);
+
+export const deleteUserModal = ({ id, institutionID } : {
+  id: string,
+  institutionID: string,
+}) : Action => (
+  createModal("DELETE_USER", {
+    id,
+    institutionID,
+  })
+);

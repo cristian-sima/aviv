@@ -3,14 +3,8 @@
 import type { Action } from "types";
 
 import {
-  fetchUsers as fetchUsersRequest,
   resetPassword as resetPasswordRequest,
 } from "request";
-
-export const fetchUsers = () : Action => ({
-  type    : "FETCH_USERS",
-  payload : fetchUsersRequest(),
-});
 
 export const resetPassword = (id : string) : Action => ({
   type    : "RESET_PASSWORD",
@@ -18,4 +12,19 @@ export const resetPassword = (id : string) : Action => ({
   meta    : {
     id,
   },
+});
+
+export const addUser = (user : any) : Action => ({
+  type    : "ADD_USER",
+  payload : user,
+});
+
+export const modifyUser = (user : any) : Action => ({
+  type    : "MODIFY_USER",
+  payload : user,
+});
+
+export const deleteUser = (id : string) : Action => ({
+  type    : "DELETE_USER",
+  payload : id,
 });

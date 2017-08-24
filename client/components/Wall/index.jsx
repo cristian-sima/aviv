@@ -27,7 +27,6 @@ import { Route, withRouter, Redirect } from "react-router-dom";
 
 import { LoadingMessage } from "../Messages";
 import Institutions from "../Institutions";
-import Users from "../Users";
 
 import { hostname } from "../../../config-client.json";
 
@@ -147,7 +146,6 @@ class WallContainer extends React.Component {
           isMasterAccount ? (
             <div>
               <Route component={() => (<Institutions emit={this.emit} />)} exact path="/institutions" />
-              <Route component={() => (<Users emit={this.emit} />)} exact path="/users" />
             </div>
           ) : (
             <div className="fancy-text text-center">
