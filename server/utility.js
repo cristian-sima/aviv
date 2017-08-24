@@ -13,7 +13,7 @@ const
   activeDuration = 300000;
 
 export const
-  usernameMaster = "master",
+  usernameMaster = "MASTER",
   selectOnlyUsers = {
     username: {
       $nin: [usernameMaster],

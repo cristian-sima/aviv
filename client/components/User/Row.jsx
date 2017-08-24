@@ -28,12 +28,28 @@ class Row extends React.Component {
 
     const
       ID = data.get("_id"),
-      name = data.get("name");
+      name = data.get("name"),
+      username = data.get("username"),
+      email = data.get("email"),
+      temporaryPassword = data.get("temporaryPassword"),
+      phone = data.get("phone");
 
     return (
       <tr>
         <td>
           {name}
+        </td>
+        <td>
+          {username}
+        </td>
+        <td>
+          <a href={`mailto:${email}`}>{email}</a>
+        </td>
+        <td>
+          {phone}
+        </td>
+        <td className="text-center">
+          {temporaryPassword}
         </td>
         <td className="text-center" style={{ minWidth: 88 }}>
           <Button

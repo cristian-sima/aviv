@@ -36,6 +36,7 @@ class List extends React.Component {
           <div className="row mt-1 mr-1 ">
             <div className="col-12 text-right">
               <Button
+                className="mb-2"
                 color="success"
                 onClick={showCreateUserModal}>
                 {"Utilizator nou"}
@@ -48,6 +49,18 @@ class List extends React.Component {
                 <tr>
                   <th className="name-row">
                     {"Nume și prenume"}
+                  </th>
+                  <th className="name-row">
+                    {"Utilizator"}
+                  </th>
+                  <th className="name-row">
+                    {"E-mail"}
+                  </th>
+                  <th className="name-row">
+                    {"Telefon"}
+                  </th>
+                  <th className="name-row">
+                    {"Parolă temporară"}
                   </th>
                   <th className="text-center">
                     <i aria-hidden="true" className="fa fa-cog" />

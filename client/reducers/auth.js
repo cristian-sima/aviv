@@ -161,7 +161,7 @@ export const
 export const getIsMasterAccount = createSelector(
   getCurrentAccount,
   (data) => (
-    data.get("username") === "master"
+    data.get("username") === "MASTER"
   )
 );
 

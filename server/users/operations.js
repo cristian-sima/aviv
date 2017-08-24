@@ -98,16 +98,26 @@ export const addUser = ({ db, body } : Request, res : Response) => {
       });
     }
 
-    return users.insert(user, (errInsert, { ops }) => {
-      if (errFind) {
+    const whereClause = { username };
+
+    return users.findOne(whereClause, (errFindDistict, data) => {
+      if (errFindDistict || data !== null) {
         return res.json({
-          Error: "Nu am putut introduce utilizatorul",
+          Error: `Utilizatorul ${username} este deja folosit`,
         });
       }
 
-      return res.json({
-        Error : "",
-        User  : ops[0],
+      return users.insert(user, (errInsert, { ops }) => {
+        if (errFind) {
+          return res.json({
+            Error: "Nu am putut introduce utilizatorul",
+          });
+        }
+
+        return res.json({
+          Error : "",
+          User  : ops[0],
+        });
       });
     });
   });

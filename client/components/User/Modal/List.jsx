@@ -24,7 +24,7 @@ const
 
 
 const ModalWrap = ({ cbAfter, institutionID, institution } : ModalWrapPropTypes) => (
-  <SimpleModal size="lg" title={institution.get("name")}>
+  <SimpleModal size="lg" title={institution && institution.get("name")}>
     <ListContainer cbAfter={cbAfter} institutionID={institutionID} />
   </SimpleModal>
 );

@@ -87,7 +87,7 @@ export const login = (req : Request, res : Response) => {
         }
 
         return users.insert({
-          username          : "master",
+          username          : "MASTER",
           name              : "Administrator",
           temporaryPassword : "1234",
           requireChange     : true,

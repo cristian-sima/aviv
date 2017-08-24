@@ -31,6 +31,8 @@ import React from "react";
 import Captcha from "../Inputs/Captcha";
 import FocusTemplate from "../Inputs/FocusTemplate";
 
+import { toUpper } from "utility";
+
 import { getAuthCaptcha, getIsAccountConnected } from "reducers";
 
 import validate from "./validate";
@@ -192,8 +194,9 @@ class Login extends React.Component {
               component={FocusTemplate}
               label="Utilizator"
               name="UserName"
+              normalize={toUpper}
               onRegisterRef={this.handleRegisterRef}
-              placeholder="ex. mai"
+              placeholder="ex. MAI01"
               type="text"
             />
             <Field
