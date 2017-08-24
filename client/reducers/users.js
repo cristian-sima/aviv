@@ -15,8 +15,6 @@ const newInitialState = () => ({
   isUpdating  : false,
   errorUpdate : noError,
 
-  isResetingPassword: false,
-
   data: Immutable.Map(),
 });
 
@@ -57,17 +55,8 @@ const
 
     data: payload.users.entities,
   }),
-  resetPasswordPending = (state : UsersState) => ({
+  resetPassword = (state : UsersState, { payload: { temporaryPassword, id } }) => ({
     ...state,
-    isResetingPassword: true,
-  }),
-  resetPasswordRejected = (state : UsersState) => ({
-    ...state,
-    isResetingPassword: false,
-  }),
-  resetPasswordFulfilled = (state : UsersState, { payload: { temporaryPassword }, meta : { id } }) => ({
-    ...state,
-    isResetingPassword: false,
 
     data: state.data.update(id, (user) => {
       if (typeof user === "undefined") {
@@ -114,14 +103,8 @@ const reducer = (state : UsersState = newInitialState(), action : any) => {
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 
-    case "RESET_PASSWORD_PENDING":
-      return resetPasswordPending(state);
-
-    case "RESET_PASSWORD_REJECTED":
-      return resetPasswordRejected(state);
-
-    case "RESET_PASSWORD_FULFILLED":
-      return resetPasswordFulfilled(state, action);
+    case "RESET_PASSWORD":
+      return resetPassword(state, action);
 
     case "ADD_USER":
     case "MODIFY_USER":
@@ -150,8 +133,7 @@ export const
     getData,
     (state, id) => id,
     (data, id) => data.get(id)
-  ),
-  getIsResetingPassword = (state : State) => state.users.isResetingPassword;
+  );
 
 export const getErrorUpdateUsers = createSelector(
   errorUpdateUserListSelector,

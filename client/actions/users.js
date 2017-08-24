@@ -2,16 +2,12 @@
 
 import type { Action } from "types";
 
-import {
-  resetPassword as resetPasswordRequest,
-} from "request";
-
-export const resetPassword = (id : string) : Action => ({
-  type    : "RESET_PASSWORD",
-  payload : resetPasswordRequest(id),
-  meta    : {
-    id,
-  },
+export const resetPassword = (payload : {
+  id: string;
+  temporaryPassword: string;
+}) : Action => ({
+  type: "RESET_PASSWORD",
+  payload,
 });
 
 export const addUser = (user : any) : Action => ({

@@ -6,6 +6,7 @@ type UserListPropTypes = {
   users: any;
   institutionID: string;
 
+  confirmReset: (id : string) => () => void;
   showModifyModal: (id : string) => () => void;
   showDeleteModal: (id : string) => () => void;
   showCreateUserModal: () => void;
@@ -25,6 +26,7 @@ import {
   deleteUserModal as deleteUserAction,
   addUserModal as showAddUserAction,
   modifyUserModal as modifyUserAction,
+  confirmResetPasswordModal as confirmResetPasswordModalAction,
   hideModal,
 } from "actions";
 
@@ -43,6 +45,9 @@ const
         id,
         institutionID,
       }));
+    },
+    confirmReset: (id : string) => () => {
+      dispatch(confirmResetPasswordModalAction(id));
     },
     showModifyModal: (id : string) => () => {
       dispatch(modifyUserAction({
@@ -75,6 +80,7 @@ class UserList extends React.Component {
       showDeleteModal,
       showCreateUserModal,
       showModifyModal,
+      confirmReset,
     } = this.props;
 
     if (users.size === 0) {
@@ -97,6 +103,7 @@ class UserList extends React.Component {
 
     return (
       <List
+        confirmReset={confirmReset}
         showCreateUserModal={showCreateUserModal}
         showDeleteModal={showDeleteModal}
         showModifyModal={showModifyModal}

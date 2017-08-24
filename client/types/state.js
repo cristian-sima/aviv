@@ -30,8 +30,6 @@ export type UsersState = {
   +isUpdating : bool;
   +errorUpdate : ErrorType;
 
-  +isResetingPassword: bool;
-
   +data: any;
 }
 

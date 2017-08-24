@@ -3,6 +3,7 @@
 type ListPropTypes = {
   users: any;
 
+  confirmReset: (id : string) => () => void;
   showModifyModal: (id : string) => () => void;
   showDeleteModal: (id : string) => () => void;
   showCreateUserModal: () => void;
@@ -28,6 +29,7 @@ class List extends React.Component {
       showCreateUserModal,
       showDeleteModal,
       showModifyModal,
+      confirmReset,
     } = this.props;
 
     return (
@@ -71,6 +73,7 @@ class List extends React.Component {
                 {
                   users.map((user) => (
                     <Row
+                      confirmReset={confirmReset}
                       data={user}
                       key={user.get("_id")}
                       showDeleteModal={showDeleteModal}

@@ -3,6 +3,7 @@
 type RowPropTypes = {
   data : any;
 
+  confirmReset: (id : string) => () => void;
   showModifyModal: (id : string) => () => void;
   showDeleteModal: (id : string) => () => void;
 };
@@ -24,6 +25,7 @@ class Row extends React.Component {
       data,
       showDeleteModal,
       showModifyModal,
+      confirmReset,
     } = this.props;
 
     const
@@ -49,7 +51,17 @@ class Row extends React.Component {
           {phone}
         </td>
         <td className="text-center">
-          {temporaryPassword}
+          {
+            temporaryPassword === "" ? (
+              <Button
+                color="primary"
+                onClick={confirmReset(ID)}
+                size="sm">
+                <i className="fa fa-refresh mr-1" />
+                {"Resetează"}
+              </Button>
+            ) : temporaryPassword
+          }
         </td>
         <td className="text-center" style={{ minWidth: 88 }}>
           <Button

@@ -14,6 +14,7 @@ import ShowAccountsForInstitution from "../User/Modal/List";
 import AddUser from "../User/Modal/Add";
 import ModifyUser from "../User/Modal/Modify";
 import DeleteUser from "../User/Modal/Delete";
+import ConfirmResetUserPassword from "../User/Modal/ConfirmReset";
 
 const getComponent = (type : ModalActionType) : any => {
   switch (type) {
@@ -41,6 +42,9 @@ const getComponent = (type : ModalActionType) : any => {
 
     case "DELETE_USER":
       return DeleteUser;
+
+    case "CONFIRM_RESET_USER_PASSWORD":
+      return ConfirmResetUserPassword;
 
     default:
       return (

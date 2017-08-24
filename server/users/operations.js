@@ -29,12 +29,12 @@ export const getUsers = ({ db } : Request, res : Response) => {
 };
 
 export const resetPassword = (req : Request, res : Response) => {
-  const { db, params : { accountID } } = req;
+  const { db, params : { userID } } = req;
 
   const
     users = db.collection("users"),
     whereQuery = {
-      _id: ObjectId(accountID),
+      _id: ObjectId(userID),
     };
 
   return users.findOne(whereQuery, (errFindUser) => {
@@ -58,7 +58,10 @@ export const resetPassword = (req : Request, res : Response) => {
         return error(errUpdate);
       }
 
+      console.log("whereQuery", whereQuery);
+
       return res.json({
+        Error: "",
         temporaryPassword,
       });
     });

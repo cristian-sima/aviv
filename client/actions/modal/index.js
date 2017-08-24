@@ -75,3 +75,9 @@ export const deleteUserModal = ({ id, institutionID } : {
     institutionID,
   })
 );
+
+export const confirmResetPasswordModal = (id : string) : Action => (
+  createModal("CONFIRM_RESET_USER_PASSWORD", {
+    id,
+  })
+);
