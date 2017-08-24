@@ -22,7 +22,7 @@ const
     input,
     meta: { submitting, touched, error },
     showWarnings,
-    } : VatFieldPropTypes) => (
+  } : VatFieldPropTypes) => (
     <div className={classnames({
       "inline-form-group has-warning": showWarnings && touched && error,
     })}>

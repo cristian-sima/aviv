@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable handle-callback-err, react/forbid-component-props */
+/* eslint-disable handle-callback-err */
+/* eslint-disable react/forbid-component-props, react/default-props-match-prop-types */
 
 import type { Dispatch } from "types";
 

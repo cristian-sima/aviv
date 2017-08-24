@@ -13,8 +13,8 @@ type HeaderStateTypes = {
 
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, NavLink } from "react-router-dom";
-import { Collapse, Nav, NavItem, NavbarToggler } from "reactstrap";
+import { withRouter } from "react-router-dom";
+import { Collapse, NavbarToggler } from "reactstrap";
 
 import {
   getIsAccountConnected,
