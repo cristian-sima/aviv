@@ -8,6 +8,8 @@ import {
   getUsers,
   resetPassword,
   addUser,
+  modifyUser,
+  deleteUser,
 } from "./operations";
 
 const router = express.Router();
@@ -24,9 +26,20 @@ router.put("/", [
   addUser,
 ]);
 
-router.post("/:accountID/reset-password", [
+router.post("/:userID", [
+  requireLogin,
+  modifyUser,
+]);
+
+router.delete("/:userID", [
+  requireLogin,
+  deleteUser,
+]);
+
+router.post("/:userID/reset-password", [
   requireLogin,
   resetPassword,
 ]);
+
 
 export default router;

@@ -33,9 +33,12 @@ const
   });
 
 const AddForm = reduxForm({
-  buttonLabel : "Adaugă",
-  form        : USER_FORM,
-  title       : "Adaugă",
+  buttonLabel   : "Adaugă",
+  form          : USER_FORM,
+  initialValues : Immutable.Map({
+    "phone": "",
+  }),
+  title: "Adaugă",
   validate,
 })(Form);
 

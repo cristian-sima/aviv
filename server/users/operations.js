@@ -122,3 +122,95 @@ export const addUser = ({ db, body } : Request, res : Response) => {
     });
   });
 };
+
+export const modifyUser = (req : Request, res : Response) => {
+  const { db, params : { userID }, body } = req;
+
+  const
+    theID = ObjectId(userID),
+    users = db.collection("users"),
+    whereQuery = {
+      _id: theID,
+    },
+    { name, username, phone, email } = body,
+    user = {
+      name,
+      username,
+      email,
+      phone,
+    },
+    response = isValidUser(user);
+
+  if (response.notValid) {
+    return res.json({
+      Error: response.error,
+    });
+  }
+
+  const whereClause = {
+    username,
+    _id: {
+      $nin: [theID],
+    },
+  };
+
+  return users.findOne(whereQuery, (errFindUser, data) => {
+
+    if (errFindUser) {
+      return error(errFindUser);
+    }
+
+    const
+      setQuery = {
+        "$set": {
+          name,
+          username,
+          email,
+          phone,
+        },
+      };
+
+    return users.findOne(whereClause, (errFindDistict, duplicate) => {
+      if (errFindDistict || duplicate !== null) {
+        return res.json({
+          Error: `Utilizatorul ${username} este deja folosit`,
+        });
+      }
+
+      return users.update(whereQuery, setQuery, (errUpdate) => {
+        if (errUpdate) {
+          return error(errUpdate);
+        }
+
+        return res.json({
+          User: {
+            ...data,
+            ...user,
+          },
+          Error: "",
+        });
+      });
+    });
+  });
+};
+
+export const deleteUser = (req : Request, res : Response) => {
+  const { db, params : { userID } } = req;
+
+  const
+    users = db.collection("users"),
+    whereQuery = {
+      _id: ObjectId(userID),
+    };
+
+  return users.remove(whereQuery, (errDelete) => {
+
+    if (errDelete) {
+      return error(errDelete);
+    }
+
+    return res.json({
+      Error: "",
+    });
+  });
+};

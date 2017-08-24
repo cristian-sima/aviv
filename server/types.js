@@ -7,9 +7,9 @@ export type User = {
   phone: string;
   email: string;
 
-  password: string;
-  temporaryPassword: string;
-  requireChange: bool;
+  password?: string;
+  temporaryPassword?: string;
+  requireChange?: bool;
 }
 
 export type Item = {

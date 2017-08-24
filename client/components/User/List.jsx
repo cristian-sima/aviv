@@ -33,7 +33,7 @@ class List extends React.Component {
     return (
       <div>
         <div className="container">
-          <div className="row mt-1 mr-1 ">
+          <div className="row mr-1 ">
             <div className="col-12 text-right">
               <Button
                 className="mb-2"
