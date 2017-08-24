@@ -2,6 +2,10 @@
 
 import type { Response, Request } from "../types";
 
+import { ObjectId } from "mongodb";
+
+import { error } from "../utility";
+
 export const getInstitutions = ({ db } : Request, res : Response) => {
 
   const
@@ -48,6 +52,65 @@ export const addInstitution = ({ db, body : { name } } : Request, res : Response
     return res.json({
       Institution : ops[0],
       Error       : "",
+    });
+  });
+};
+
+export const modifyInstitution = (req : Request, res : Response) => {
+  const { db, params : { institutionID }, body : { name } } = req;
+
+  const
+    institutions = db.collection("institutions"),
+    whereQuery = {
+      _id: ObjectId(institutionID),
+    };
+
+  return institutions.findOne(whereQuery, (errFindUser, data) => {
+
+    if (errFindUser) {
+      return error(errFindUser);
+    }
+
+    const
+      setQuery = {
+        "$set": {
+          name,
+        },
+      };
+
+    return institutions.update(whereQuery, setQuery, (errUpdate) => {
+      if (errUpdate) {
+        return error(errUpdate);
+      }
+
+      return res.json({
+        Institution: {
+          ...data,
+          name,
+        },
+        Error: "",
+      });
+    });
+  });
+};
+
+export const deleteInstitution = (req : Request, res : Response) => {
+  const { db, params : { institutionID } } = req;
+
+  const
+    institutions = db.collection("institutions"),
+    whereQuery = {
+      _id: ObjectId(institutionID),
+    };
+
+  return institutions.remove(whereQuery, (errDelete) => {
+
+    if (errDelete) {
+      return error(errDelete);
+    }
+
+    return res.json({
+      Error: "",
     });
   });
 };

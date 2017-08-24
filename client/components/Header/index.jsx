@@ -73,25 +73,7 @@ class Header extends React.Component {
           {
             isConnected ? (
               <Collapse isOpen={this.state.isOpen} navbar>
-
-                <Nav className="mr-auto" navbar>
-                  <NavItem>
-                    <NavLink
-                      activeClassName="selected"
-                      className="nav-link"
-                      to="/institutions">
-                      {"Instituții"}
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      activeClassName="selected"
-                      className="nav-link"
-                      to="/users">
-                      {"Utilizatori"}
-                    </NavLink>
-                  </NavItem>
-                </Nav>
+                <div className="mr-auto" />
                 <div className="clearfix">
                   <DisconnectBox />
                 </div>
@@ -103,5 +85,28 @@ class Header extends React.Component {
     );
   }
 }
+
+
+/*
+
+                <Nav className="mr-auto" navbar>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="selected"
+                      className="nav-link"
+                      to="/institutions">
+                      {"Instituții"}
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+
+                <NavItem>
+  <NavLink
+    activeClassName="selected"
+    className="nav-link"
+    to="/users">
+    {"Utilizatori"}
+  </NavLink>
+</NavItem> */
 
 export default connect(mapStateToProps)(withRouter(Header));

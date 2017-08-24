@@ -61,7 +61,7 @@ class Confirm extends React.Component {
     focusButton        : true,
 
     isResponseValid: (response : any) => ({
-      valid : response === "",
+      valid : response.Error === "",
       error : response,
     }),
   }
