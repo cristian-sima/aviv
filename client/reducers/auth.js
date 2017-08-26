@@ -158,6 +158,13 @@ export const
 
   getIsConnectingLive = (state : State) => state.auth.connectingLive;
 
+export const getCurrentInstitutionID = createSelector(
+  getCurrentAccount,
+  (data) => (
+    typeof data === "undefined" ? "" : data.get("institutionID")
+  )
+);
+
 export const getIsMasterAccount = createSelector(
   getCurrentAccount,
   (data) => (

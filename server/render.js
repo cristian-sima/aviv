@@ -33,6 +33,8 @@ const
 router.all("/", render);
 router.all("/login", render);
 router.all("/institutions", render);
+router.all("/add-item", render);
+router.all("/to-approv", render);
 router.all("/users", render);
 
 export default router;

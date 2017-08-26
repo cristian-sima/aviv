@@ -76,28 +76,17 @@ export const login = (req : Request, res : Response) => {
 
     if (nrOfUsers === 0) {
 
-      const insertQuery = {
-        session      : null,
-        itemSelected : null,
-      };
-
-      return db.collection("info").insert(insertQuery, (errCreate) => {
-        if (errCreate) {
-          return loginError(errCreate);
+      return users.insert({
+        username          : "MASTER",
+        name              : "Administrator",
+        temporaryPassword : "1234",
+        requireChange     : true,
+      }, (errInsert) => {
+        if (errInsert) {
+          return loginError(errInsert);
         }
 
-        return users.insert({
-          username          : "MASTER",
-          name              : "Administrator",
-          temporaryPassword : "1234",
-          requireChange     : true,
-        }, (errInsert) => {
-          if (errInsert) {
-            return loginError(errInsert);
-          }
-
-          return findCurrentUser();
-        });
+        return findCurrentUser();
       });
     }
 

@@ -108,3 +108,19 @@ export const validateCaptchaSolution = (value : string) => {
     error: "Codul are exact șase cifre",
   };
 };
+
+export const validateItemName = (value : string) => {
+  const
+    lowerLimit = 5,
+    upperLimit = 1000,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length < lowerLimit ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Titlul are între ${lowerLimit} și ${upperLimit} de caractere`,
+  };
+};

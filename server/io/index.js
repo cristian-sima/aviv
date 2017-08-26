@@ -58,31 +58,7 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
 
     const { user } = socket.request.session;
 
-    socket.join(user.group);
-
-    const list = db.collection("list");
-
-    list.find({}).toArray((errFindList, data) => {
-      if (errFindList) {
-        return error(errFindList);
-      }
-
-      const info = db.collection("info");
-
-      return info.findOne({}, (errFindInfo, { itemSelected }) => {
-        if (errFindInfo) {
-          return error(errFindInfo);
-        }
-
-        return socket.emit("msg", {
-          type    : "UPDATE_LIST",
-          payload : {
-            list         : data || [],
-            itemSelected : itemSelected || null,
-          },
-        });
-      });
-    });
+    socket.join(user.institutionID);
 
     // socket.on("UPDATING_LIST", items.updateList(socket, db));
     // socket.on("SELECT_ITEM", items.selectItem(socket, db));

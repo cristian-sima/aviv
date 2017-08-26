@@ -75,12 +75,12 @@ const reducer = (state : InstitutionsState = newInitialState(), action : any) =>
 const
   getFetching = (state : State) => state.institutions.fetching,
   getFetched = (state : State) => state.institutions.fetched,
-  getError = (state : State) => state.institutions.errorFetching,
-  getData = (state : State) => state.institutions.data;
+  getError = (state : State) => state.institutions.errorFetching;
 
 export const
+  getInstitutionsData = (state : State) => state.institutions.data,
   getInstitutions = createSelector(
-    getData,
+    getInstitutionsData,
     (map) => map.toList().sortBy(
       (institution) => institution.get("name")
     )

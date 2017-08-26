@@ -23,10 +23,11 @@ type WallContainerStateTypes = {
 import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { LoadingMessage } from "../Messages";
-import Institutions from "../Institutions";
+
+import InstitutionsContainer from "./InstitutionsContainer";
 
 import { hostname } from "../../../config-client.json";
 
@@ -37,14 +38,11 @@ import {
 
 import {
   getIsConnectingLive,
-  getIsMasterAccount,
 } from "reducers";
 
 const
   mapStateToProps = (state : State) => ({
     isConnecting: getIsConnectingLive(state),
-
-    isMasterAccount: getIsMasterAccount(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     connectingLive () {
@@ -141,21 +139,9 @@ class WallContainer extends React.Component {
     }
 
     return (
-      <div className="container mt-2">
-        {
-          isMasterAccount ? (
-            <div>
-              <Route component={() => (<Institutions emit={this.emit} />)} exact path="/institutions" />
-            </div>
-          ) : (
-            <div className="fancy-text text-center">
-              {"De realizat"}
-            </div>
-          )
-        }
-      </div>
+      <InstitutionsContainer emit={this.emit} />
     );
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WallContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(WallContainer);
