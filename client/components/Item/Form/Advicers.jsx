@@ -14,12 +14,12 @@ const AdvicersArray = ({ fields } : AdvicersArrayPropTypes) => (
 
   <div className="form-group row">
     <label
-      className="col-md-4 text-md-right form-control-label"
+      className="col-md-2 col-xl-4 text-md-right form-control-label"
       htmlFor={"authors"}>
       {"Avizatori"}
       <BadgeNumber value={fields.length} />
     </label>
-    <div className="col-md-8">
+    <div className="col-md-10 col-xl-8">
       <InstitutionList
         fields={fields}
         remove={fields.push}

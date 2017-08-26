@@ -122,7 +122,9 @@ class Form extends React.Component {
     return (
       <div className="container">
         <form autoComplete="off" onSubmit={this.handleSubmitForm}>
-          <h2>{title}</h2>
+          <div className="text-center">
+            <h2>{title}</h2>
+          </div>
           {error && errMessage}
           <div className="text-right">
             <button
@@ -144,8 +146,10 @@ class Form extends React.Component {
           <Field
             component={FocusTextarea}
             label="Titlu"
+            left="col-md-2 col-xl-4"
             name="name"
             onRegisterRef={this.handleRegisterRef}
+            right="col-md-10 col-xl-8"
             rows={6}
             withRef
           />

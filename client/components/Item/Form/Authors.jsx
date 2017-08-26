@@ -15,18 +15,20 @@ const AuthorsArray = ({ fields, institutionID } : AuthorsArrayPropTypes) => (
 
   <div className="form-group row">
     <label
-      className="col-md-4 text-md-right form-control-label"
+      className="col-md-2 col-xl-4 text-md-right form-control-label"
       htmlFor={"advicers"}>
       {"Coinițiatori"}
       <BadgeNumber value={fields.length - 1} />
     </label>
-    <div className="col-md-8">
+    <div className="col-md-10 col-xl-8">
       <div>
-        <InstitutionList
-          fields={fields}
-          hideInstitutionID={institutionID}
-          remove={fields.push}
-        />
+        <div classNames={fields.size > 0 ? "mb-2" : ""}>
+          <InstitutionList
+            fields={fields}
+            hideInstitutionID={institutionID}
+            remove={fields.push}
+          />
+        </div>
         <SelectInstitution
           add={fields.push}
         />
