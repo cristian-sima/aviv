@@ -24,7 +24,7 @@ const InstitutionList = ({ fields, institutions, hideInstitutionID } : Instituti
   <div>
     {
       fields.length === 0 ? null : (
-        <ul classNames={fields.size > 0 ? "mb-2" : ""}>
+        <ul className={fields.size > 0 ? "mb-2" : ""}>
           <ReactCSSTransitionGroup
             transitionEnterTimeout={100}
             transitionLeaveTimeout={10}

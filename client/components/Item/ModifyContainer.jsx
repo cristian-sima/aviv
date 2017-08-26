@@ -31,7 +31,7 @@ import { getUser } from "reducers";
 import { LargeErrorMessage } from "../Messages";
 import Form, { validate } from "./Form";
 
-import { USER_FORM } from "utility/forms";
+import { ITEM_FORM } from "utility/forms";
 
 const
   mapStateToProps = (state : State, { id } : OwnProps) => ({
@@ -46,7 +46,7 @@ const
 
 const ConnectedForm = reduxForm({
   buttonLabel : "Modifică",
-  form        : USER_FORM,
+  form        : ITEM_FORM,
   title       : "Modifică datele",
   validate,
 })(Form);

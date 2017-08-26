@@ -4,6 +4,8 @@ import type { ExpressServer, Database, Socket, Next } from "../types";
 
 import createIO from "socket.io";
 
+import * as items from "./items";
+
 import { error, sessionMiddleware } from "../utility";
 
 const performCreateIO = (server : ExpressServer, db : Database) => {
@@ -60,7 +62,7 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
 
     socket.join(user.institutionID);
 
-    // socket.on("UPDATING_LIST", items.updateList(socket, db));
+    socket.on("ADD_ITEM", items.addItem(socket, db, io));
     // socket.on("SELECT_ITEM", items.selectItem(socket, db));
     // socket.on("EXPRESS_SUGGESTION", items.expressSuggestion(socket, db));
     // socket.on("UPDATE_COMMENT", items.updateComment(socket, db));
@@ -69,7 +71,7 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
   io.on("disconnect", (socket) => {
     const { user } = socket.request.session;
 
-    socket.leave(user.group);
+    socket.leave(user.institutionID);
   });
 };
 

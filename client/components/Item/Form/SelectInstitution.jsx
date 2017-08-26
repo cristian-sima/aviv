@@ -15,10 +15,10 @@ import { createSelector } from "reselect";
 import { getInstitutions } from "reducers";
 
 
-import { USER_FORM } from "utility/forms";
+import { ITEM_FORM } from "utility/forms";
 
 const
-  getValues = getFormValues(USER_FORM),
+  getValues = getFormValues(ITEM_FORM),
   getAuthors = createSelector(
     getValues,
     (form) => form.get("authors")

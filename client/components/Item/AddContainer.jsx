@@ -4,11 +4,12 @@ import type { Dispatch, State } from "types";
 
 type AddUserPropTypes = {
   institutionID: string;
-  addUserLocally: (user : any) => void;
+  emit: (name : string, msg : any) => void;
+  emitAddItem: (item : any) => void;
 };
 
 import { connect } from "react-redux";
-import { SubmissionError, reduxForm, reset } from "redux-form/immutable";
+import { reduxForm, startSubmit, reset } from "redux-form/immutable";
 import * as Immutable from "immutable";
 import React from "react";
 
@@ -19,27 +20,31 @@ import {
   addUser as addUserAction,
 } from "actions";
 
-import { addUser as addUserRequest } from "request";
-
 import { getCurrentInstitutionID } from "reducers";
 
-import { USER_FORM } from "utility/forms";
+import { ITEM_FORM } from "utility/forms";
 
 const
   mapStateToProps = (state : State) => ({
     institutionID: getCurrentInstitutionID(state),
   }),
-  mapDispatchToProps = (dispatch : Dispatch) => ({
-    addUserLocally (user : any) {
-      dispatch(addUserAction(user));
+  mapDispatchToProps = (dispatch : Dispatch, { emit }) => ({
+    addUserLocally (item : any) {
+      dispatch(addUserAction(item));
       dispatch(notify("Contul a fost adăugat"));
-      dispatch(reset(USER_FORM));
+      dispatch(reset(ITEM_FORM));
+    },
+    emitAddItem (data) {
+      dispatch(startSubmit(ITEM_FORM));
+      setTimeout(() => {
+        emit("ADD_ITEM", data);
+      });
     },
   });
 
 const AddForm = reduxForm({
   buttonLabel : "Adaugă",
-  form        : USER_FORM,
+  form        : ITEM_FORM,
   title       : "Inițiază act normativ",
   validate,
 })(Form);
@@ -48,41 +53,15 @@ class AddUser extends React.Component {
 
   props: AddUserPropTypes;
 
-  handleSubmit: (formData : any) => Promise<*>;
+  handleSubmit: (formData : any) => any;
 
   constructor () {
     super();
 
     this.handleSubmit = (formData : any) => {
+      const { emitAddItem } = this.props;
 
-      const
-        { addUserLocally, institutionID } = this.props,
-        data = {
-          ...formData.toJS(),
-          institutionID,
-        };
-
-      return addUserRequest(data).
-        then((response) => {
-          if (response.Error === "") {
-            addUserLocally(Immutable.Map(response.User));
-          } else {
-            throw new SubmissionError({
-              _error: response.Error,
-            });
-          }
-        }).
-        catch((error) => {
-          if (error) {
-            if (error instanceof SubmissionError) {
-              throw error;
-            }
-
-            throw new SubmissionError({
-              _error: "Am pierdut conexiunea cu server-ul",
-            });
-          }
-        });
+      emitAddItem(formData.toJS());
     };
   }
 

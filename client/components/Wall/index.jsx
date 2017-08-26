@@ -6,6 +6,7 @@ import type { Dispatch, State } from "types";
 type WallContainerPropTypes = {
   connectingLive: () => void;
   connectedLive: () => void;
+  processForm: (msg : any) => void;
   processIncommingMessage: (msg : any) => void;
 
   match: {
@@ -24,6 +25,7 @@ import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
 import { Redirect } from "react-router-dom";
+import { stopSubmit, reset } from "redux-form/immutable";
 
 import { LoadingMessage } from "../Messages";
 
@@ -32,6 +34,7 @@ import InstitutionsContainer from "./InstitutionsContainer";
 import { hostname } from "../../../config-client.json";
 
 import {
+  notify,
   connectingLive as connectingLiveAction,
   connectedLive as connectedLiveAction,
 } from "actions";
@@ -50,6 +53,25 @@ const
     },
     connectedLive () {
       dispatch(connectedLiveAction());
+    },
+    processForm ({ status, form, error, message }) {
+      switch (status) {
+        case "FAILED":
+          dispatch(
+            stopSubmit(form, {
+              errors: error,
+            })
+          );
+          break;
+        case "SUCCESS":
+          dispatch(reset(form));
+          dispatch(stopSubmit(form));
+          setTimeout(() => {
+            dispatch(notify(message));
+          });
+          break;
+        default:
+      }
     },
     processIncommingMessage (msg) {
       dispatch(msg);
@@ -82,6 +104,7 @@ class WallContainer extends React.Component {
       connectingLive,
       connectedLive,
       processIncommingMessage,
+      processForm,
     } = this.props;
 
     connectingLive();
@@ -93,6 +116,7 @@ class WallContainer extends React.Component {
     });
 
     socket.on("msg", processIncommingMessage);
+    socket.on("FORM", processForm);
 
     socket.on("disconnect", () => {
       connectingLive();

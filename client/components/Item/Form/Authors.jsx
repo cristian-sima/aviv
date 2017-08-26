@@ -22,7 +22,7 @@ const AuthorsArray = ({ fields, institutionID } : AuthorsArrayPropTypes) => (
     </label>
     <div className="col-md-10 col-xl-8">
       <div>
-        <div classNames={fields.size > 0 ? "mb-2" : ""}>
+        <div className={fields.size > 0 ? "mb-2" : ""}>
           <InstitutionList
             fields={fields}
             hideInstitutionID={institutionID}

@@ -47,18 +47,6 @@ class Form extends React.Component {
       showAuthors: false,
     };
 
-    this.handleSubmitForm = (data : any) => {
-      const { handleSubmit } = this.props;
-
-      const result = handleSubmit(data);
-
-      if (typeof result.then !== "undefined") {
-        result.then(() => {
-          this.focusNameInput();
-        });
-      }
-    };
-
     this.handleRegisterRef = (node : any) => {
       this.field = node;
     };
@@ -96,6 +84,7 @@ class Form extends React.Component {
       title,
       submitting,
       institutionID,
+      handleSubmit,
     } = this.props;
 
     const { showAuthors } = this.state;
@@ -121,7 +110,7 @@ class Form extends React.Component {
 
     return (
       <div className="container">
-        <form autoComplete="off" onSubmit={this.handleSubmitForm}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <div className="text-center">
             <h2>{title}</h2>
           </div>
