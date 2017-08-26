@@ -7,7 +7,6 @@ type AuthorsArrayPropTypes = {
 
 import React from "react";
 
-import BadgeNumber from "./BadgeNumber";
 import InstitutionList from "./InstitutionList";
 import SelectInstitution from "./SelectInstitution";
 
@@ -18,7 +17,6 @@ const AuthorsArray = ({ fields, institutionID } : AuthorsArrayPropTypes) => (
       className="col-md-2 col-xl-4 text-md-right form-control-label"
       htmlFor={"advicers"}>
       {"Coinițiatori"}
-      <BadgeNumber value={fields.length - 1} />
     </label>
     <div className="col-md-10 col-xl-8">
       <div>

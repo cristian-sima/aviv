@@ -6,7 +6,6 @@ type AdvicersArrayPropTypes = {
 
 import React from "react";
 
-import BadgeNumber from "./BadgeNumber";
 import InstitutionList from "./InstitutionList";
 import SelectInstitution from "./SelectInstitution";
 
@@ -17,7 +16,6 @@ const AdvicersArray = ({ fields } : AdvicersArrayPropTypes) => (
       className="col-md-2 col-xl-4 text-md-right form-control-label"
       htmlFor={"authors"}>
       {"Avizatori"}
-      <BadgeNumber value={fields.length} />
     </label>
     <div className="col-md-10 col-xl-8">
       <InstitutionList
