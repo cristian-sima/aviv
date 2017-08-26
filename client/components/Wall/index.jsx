@@ -158,7 +158,7 @@ class WallContainer extends React.Component {
       );
     }
 
-    if (isMasterAccount && url === "/") {
+    if (isMasterAccount && url !== "/institutions") {
       return (
         <Redirect to="/institutions" />
       );

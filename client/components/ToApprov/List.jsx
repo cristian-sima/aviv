@@ -3,10 +3,10 @@
 type ListPropTypes = {
   hasFetchingError: boolean;
   items: any;
-  isFetchingItemsToAdvice: boolean;
+  isFetching: boolean;
   currentFrom: number;
   showLoadMoreButton: boolean;
-  totalNumberOfItemsToAdvice: number;
+  total: number;
   institutions: any;
 
   loadItemsToAdvice: () => void;
@@ -47,8 +47,8 @@ const Info = ({ shown, total } : InfoPropTypes) => (
 const List = (props : ListPropTypes) => {
   const {
     items,
-    totalNumberOfItemsToAdvice,
-    isFetchingItemsToAdvice,
+    total,
+    isFetching,
     hasFetchingError,
     loadNextPage,
     showLoadMoreButton,
@@ -69,7 +69,7 @@ const List = (props : ListPropTypes) => {
         <div className="mt-1">
           <Info
             shown={items.size}
-            total={totalNumberOfItemsToAdvice}
+            total={total}
           />
         </div>
         <div className="table-responsive">
@@ -103,7 +103,7 @@ const List = (props : ListPropTypes) => {
         </div>
         <div className="my-2">
           {
-            (isFetchingItemsToAdvice) ? (
+            (isFetching) ? (
               <LoadingSmallMessage message="Încarc actele pentru avizat..." />
             ) : null
           }
@@ -121,7 +121,7 @@ const List = (props : ListPropTypes) => {
             showLoadMoreButton ? (
               <button
                 className="btn btn-info btn-block"
-                disabled={isFetchingItemsToAdvice}
+                disabled={isFetching}
                 onClick={loadNextPage}
                 type="button">
                 {"Încarcă mai multe"}

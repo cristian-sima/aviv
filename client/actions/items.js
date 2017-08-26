@@ -8,6 +8,6 @@ import {
 } from "request";
 
 export const fetchItemsToAdviceFrom = (from : number) : Action => ({
-  type    : "COMPANY_FETCH_INVOICES",
+  type    : "FETCH_ITEMS_TO_ADVICE",
   payload : fetchItemsToAdviceFromRequest(from),
 });

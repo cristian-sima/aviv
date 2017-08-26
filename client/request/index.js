@@ -142,8 +142,7 @@ export const resetPassword = (id : string) => new Promise((resolve, reject) => (
     end(withPromiseCallback(resolve, reject))
 ));
 
-
-export const fetchItemsToAdvice = (from : number) => (
+export const fetchItemsToAdviceFrom = (from : number) => (
   new Promise(
     (resolve, reject) => (
       agent.

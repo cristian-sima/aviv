@@ -26,5 +26,7 @@ export type Action =
 | { type: 'MODIFY_USER'; payload: any; }
 | { type: 'DELETE_USER'; payload: string; }
 
+| { type: 'FETCH_ITEMS_TO_ADVICE', payload: any }
+
 | { type: 'DELETE_NOTIFICATION', payload: number }
 | ModalActions

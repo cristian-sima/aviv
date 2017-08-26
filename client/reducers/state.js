@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form/immutable";
 import { routerReducer } from "react-router-redux";
 import { reducer as notifications } from "react-notification-system-redux";
+import { reducer as uiReducer } from "redux-ui";
 
 import auth from "./auth";
 import institutions from "./institutions";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
 
   notifications,
   form   : formReducer,
+  ui     : uiReducer,
   router : routerReducer,
 });
 

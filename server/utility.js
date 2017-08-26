@@ -4,6 +4,8 @@ import type { Response, Request, Next, CheckerResponse } from "./types";
 
 import createClientSession from "client-sessions";
 
+export const rowsPerLoad = 25;
+
 const
   StatusForbidden = 403,
 
