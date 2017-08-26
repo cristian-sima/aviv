@@ -7,7 +7,7 @@ import Notifications from "react-notification-system-redux";
 const createNotification = (level : string) => (title : any, options : any) : Action => (
   Notifications.show({
     title,
-    position    : "tr",
+    position    : "tc",
     autoDismiss : 3,
     ...options,
   }, level)

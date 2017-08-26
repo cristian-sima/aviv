@@ -25,7 +25,7 @@ import Row from "./Row";
 import {
   fetchInstitutions as fetchInstitutionsAction,
   hideModal as hideModalAction,
-  deleteInstitutionModal as deleteInstitutionAction,
+  deleteInstitutionModal as deleteInstitutionModalAction,
   modifyInstitutionModal as modifyInstitutionAction,
   showUsersForInstitutionModal as showUsersForInstitutionModalAction,
 } from "actions";
@@ -51,7 +51,7 @@ const
       });
     },
     showDeleteModal: (id : string) => () => {
-      dispatch(deleteInstitutionAction(id));
+      dispatch(deleteInstitutionModalAction(id));
     },
     showModifyModal: (id : string) => () => {
       dispatch(modifyInstitutionAction({

@@ -3,7 +3,7 @@
 import type { State, Dispatch } from "types";
 
 type OwnProps = {
-  id: number;
+  id: string;
 };
 
 import { connect } from "react-redux";
