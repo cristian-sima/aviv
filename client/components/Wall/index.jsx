@@ -43,6 +43,8 @@ import {
   getIsConnectingLive,
 } from "reducers";
 
+import processMesssages from "./processMesssages";
+
 const
   mapStateToProps = (state : State) => ({
     isConnecting: getIsConnectingLive(state),
@@ -74,7 +76,7 @@ const
       }
     },
     processIncommingMessage (msg) {
-      dispatch(msg);
+      processMesssages(dispatch, msg);
     },
   });
 

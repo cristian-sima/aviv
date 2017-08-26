@@ -12,6 +12,8 @@ import agent from "superagent";
 
 import { withPromiseCallback, normalizeArray } from "utility";
 
+import { normalizeArrayOfItems } from "./normalize";
+
 export const performLogin = (data : PerformLoginTypes) => new Promise((resolve, reject) => (
   agent.
     post("/api/login").
@@ -139,3 +141,27 @@ export const resetPassword = (id : string) => new Promise((resolve, reject) => (
     post(`api/users/${id}/reset-password`).
     end(withPromiseCallback(resolve, reject))
 ));
+
+
+export const fetchItemsToAdvice = (from : number) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        get("/api/items/items-to-advice").
+        query({
+          from,
+        }).
+        set("Accept", "application/json").
+        end(
+          withPromiseCallback(
+            ({ Items, Total, LastFetchedNumber }) => resolve({
+              Items: normalizeArrayOfItems(Items),
+              LastFetchedNumber,
+              Total,
+            }),
+            reject
+          )
+        )
+    )
+  )
+);

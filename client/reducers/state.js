@@ -9,6 +9,7 @@ import auth from "./auth";
 import institutions from "./institutions";
 import users from "./users";
 import modal from "./modal";
+import items from "./items";
 
 // try to keep them in alphabetic order
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   institutions,
   users,
   modal,
+  items,
 
   notifications,
   form   : formReducer,

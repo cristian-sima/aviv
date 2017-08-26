@@ -41,10 +41,28 @@ export type InstitutionsState = {
   +data: any;
 }
 
+export type ItemsByIDState = any;
+
+export type ItemsToAdviceState = {
+  +IDs: any;
+  +error: string;
+  +fetched: bool;
+  +fetching: bool;
+
+  +lastFetchedNumber: number;
+  +total: number;
+};
+
+type ItemsState = {
+  +byID: ItemsByIDState;
+  +toAdvice: ItemsToAdviceState;
+}
+
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
   +notifications: any;
   +institutions: InstitutionsState;
   +users: UsersState;
+  +items: ItemsState;
 };
