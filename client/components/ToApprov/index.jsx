@@ -32,7 +32,7 @@ type StateProps = {
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
-  lastFetchedNumber: number;
+  lastFetchedID: number;
   shouldFetchItemsToAdvice: boolean;
   shouldFetchLastItemNumber: boolean;
   total: number;
@@ -57,10 +57,10 @@ import {
   getIsFetchingItemsToAdvice,
   getIsFetchingItemsToAdviceError,
   getTotalItemsToAdviceSelector,
-  lastFetchedItemsToAdviceNumberSelector,
+  lastFetchedItemsToAdviceIDSelector,
   shouldFetchItemsToAdviceFrom,
 
-  getInstitutions,
+  getInstitutionsData,
 } from "reducers";
 
 import { rowsPerLoad } from "utility";
@@ -71,16 +71,16 @@ import {
 
 const
   mapStateToProps = (state : State, { ui : { currentFrom } } : OwnProps) => ({
-    hasFetchingError  : getIsFetchingItemsToAdviceError(state),
-    items             : getItemsToAdviceUpTo(state, currentFrom + rowsPerLoad),
-    isFetching        : getIsFetchingItemsToAdvice(state),
-    total             : getTotalItemsToAdviceSelector(state),
-    lastFetchedNumber : lastFetchedItemsToAdviceNumberSelector(state),
+    hasFetchingError : getIsFetchingItemsToAdviceError(state),
+    items            : getItemsToAdviceUpTo(state, currentFrom + rowsPerLoad),
+    isFetching       : getIsFetchingItemsToAdvice(state),
+    total            : getTotalItemsToAdviceSelector(state),
+    lastFetchedID    : lastFetchedItemsToAdviceIDSelector(state),
 
     shouldFetchLastItemNumber : shouldFetchItemsToAdviceFrom(state, currentFrom),
     shouldFetchItemsToAdvice  : shouldFetchItemsToAdviceFrom(state, currentFrom + rowsPerLoad),
 
-    institutions: getInstitutions(state),
+    institutions: getInstitutionsData(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     fetchItemsToAdviceFrom: (from : number) => dispatch(
@@ -98,17 +98,17 @@ const
       ),
 
       loadItemsToAdvice () {
-        const { shouldFetchLastItemNumber, lastFetchedNumber } = stateProps;
+        const { shouldFetchLastItemNumber, lastFetchedID } = stateProps;
         const { fetchItemsToAdviceFrom } = dispatchProps;
 
         if (shouldFetchLastItemNumber) {
-          fetchItemsToAdviceFrom(lastFetchedNumber + 1);
+          fetchItemsToAdviceFrom(lastFetchedID);
         }
       },
 
       loadNextPage: () => {
         const { updateUI, ui : { currentFrom } } = ownProps;
-        const { shouldFetchItemsToAdvice, lastFetchedNumber } = stateProps;
+        const { shouldFetchItemsToAdvice, lastFetchedID } = stateProps;
         const { fetchItemsToAdviceFrom } = dispatchProps;
 
         const updateUIValue = (newCurrentFrom : number) => updateUI({
@@ -116,8 +116,8 @@ const
         });
 
         if (shouldFetchItemsToAdvice) {
-          updateUIValue(lastFetchedNumber + 1);
-          fetchItemsToAdviceFrom(lastFetchedNumber + 1);
+          updateUIValue(lastFetchedID);
+          fetchItemsToAdviceFrom(lastFetchedID);
         } else {
         // just update it, because it gets the items locally
           updateUIValue(currentFrom + rowsPerLoad);
@@ -136,6 +136,7 @@ class ItemList extends React.Component {
 
   shouldComponentUpdate (nextProps : ItemListPropTypes) {
     return (
+      this.props.institutions !== nextProps.institutions ||
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.items !== nextProps.items ||
       this.props.isFetching !== nextProps.isFetching ||
@@ -151,10 +152,15 @@ class ItemList extends React.Component {
       items,
       isFetching,
       loadItemsToAdvice,
+      institutions,
     } = this.props;
 
     if (items.size === 0 && isFetching) {
       return <LoadingMessage message="Preiau actele pentru avizat..." />;
+    }
+
+    if (institutions.size === 0) {
+      return <LoadingMessage message="Încă puțin..." />;
     }
 
     if (items.size === 0 && hasFetchingError) {

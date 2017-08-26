@@ -9,6 +9,7 @@ export * from "./validation";
 
 export const
   noError = "",
+  noID = "",
   nothingFetched = -1,
   notFetched = -1,
   rowsPerLoad = 25;

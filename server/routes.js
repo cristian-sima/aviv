@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import auth from "./auth";
 import users from "./users";
 import institutions from "./institutions";
+import items from "./items";
 
 import { sessionMiddleware, findCurrentAccount } from "./utility";
 
@@ -26,5 +27,6 @@ router.use(findCurrentAccount);
 router.use("/auth", auth);
 router.use("/users", users);
 router.use("/institutions", institutions);
+router.use("/items", items);
 
 export default router;

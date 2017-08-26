@@ -142,13 +142,13 @@ export const resetPassword = (id : string) => new Promise((resolve, reject) => (
     end(withPromiseCallback(resolve, reject))
 ));
 
-export const fetchItemsToAdviceFrom = (from : number) => (
+export const fetchItemsToAdviceFrom = (lastID : string) => (
   new Promise(
     (resolve, reject) => (
       agent.
         get("/api/items/items-to-advice").
         query({
-          from,
+          lastID,
         }).
         set("Accept", "application/json").
         end(

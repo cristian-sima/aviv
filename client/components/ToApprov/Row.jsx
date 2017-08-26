@@ -1,13 +1,12 @@
 // @flow
 
 import React from "react";
+import moment from "moment";
 
 type RowPropTypes = {
   data: any;
   institutions: any;
 };
-
-import { connect } from "react-redux";
 
 class Row extends React.Component {
   props: RowPropTypes;
@@ -29,14 +28,32 @@ class Row extends React.Component {
 
     return (
       <tr>
-        <td className="wrap">{date}</td>
-        <td>{name}</td>
-        <td>
+        <td
+          className="wrap"
+          style={{
+            width: 190,
+          }}>
           {
-            authors.map((author) => institutions.getIn([
-              author,
-              "name",
-            ]))
+            moment(date).format("lll")
+          }
+        </td>
+        <td className="w-200">{name}</td>
+        <td
+          className="small no-wrap" style={{
+            width: 300,
+          }}>
+          {
+            authors.map((author) => (
+              <div key={author}>
+                <span>{"- "}</span>
+                {
+                  institutions.getIn([
+                    author,
+                    "name",
+                  ])
+                }
+              </div>
+            ))
           }
         </td>
       </tr>
@@ -44,4 +61,4 @@ class Row extends React.Component {
   }
 }
 
-export default connect()(Row);
+export default Row;

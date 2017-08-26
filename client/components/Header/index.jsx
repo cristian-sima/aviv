@@ -79,7 +79,7 @@ class Header extends React.Component {
                       activeClassName="selected"
                       className="nav-link"
                       to="/to-approv">
-                      {"Pentru avizare"}
+                      {"Pentru avizat"}
                     </NavLink>
                   </NavItem>
                 </Nav>

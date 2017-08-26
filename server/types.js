@@ -6,7 +6,7 @@ export type User = {
   name: string;
   phone: string;
   email: string;
-  institutionID: string;
+  institutionID?: string;
 
   password?: string;
   temporaryPassword?: string;
@@ -56,6 +56,7 @@ export type Request = {
   session: Session;
   user: User;
   params: any;
+  query: any;
 };
 
 export type Response = {

@@ -49,7 +49,7 @@ export type ItemsToAdviceState = {
   +fetched: bool;
   +fetching: bool;
 
-  +lastFetchedNumber: number;
+  +lastFetchedID: string;
   +total: number;
 };
 

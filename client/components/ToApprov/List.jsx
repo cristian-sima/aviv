@@ -37,7 +37,7 @@ const getInvoiceForm = (value : number) : string => {
 const Info = ({ shown, total } : InfoPropTypes) => (
   <div className="text-muted">
     {
-      shown === total ? `Există spre avizare ${getInvoiceForm(total)}` : (
+      shown === total ? `Există spre avizat ${getInvoiceForm(total)}` : (
         `Afișez ${shown === total ? "toate actele - " : `${shown} din`} ${getInvoiceForm(total)}`
       )
     }
@@ -60,7 +60,7 @@ const List = (props : ListPropTypes) => {
       <div className="container">
         <div className="row mt-3 mr-1">
           <div className="col-6">
-            <h2>{"Acte pentru avizare"}</h2>
+            <h2>{"Acte pentru avizat"}</h2>
           </div>
           <div className="col-6 text-right">
             <AddButton />
@@ -76,14 +76,14 @@ const List = (props : ListPropTypes) => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                <th className="text-right">
-                  {"Data"}
+                <th>
+                  {"Publicat la"}
                 </th>
                 <th className="text-center">
                   {"Titlu"}
                 </th>
                 <th className="text-center">
-                  {"Inițiator"}
+                  {"Inițiatori"}
                 </th>
               </tr>
             </thead>
@@ -93,7 +93,7 @@ const List = (props : ListPropTypes) => {
                   <Row
                     data={item}
                     institutions={institutions}
-                    key={item.get("ID")}
+                    key={item.get("_id")}
                   />
                 )
                 )

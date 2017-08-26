@@ -7,7 +7,7 @@ type SimpleSelector = (state : State, itemID : string) => any
 import { createSelector } from "reselect";
 import * as Immutable from "immutable";
 
-import { noError, nothingFetched, rowsPerLoad } from "utility";
+import { noError, noID, nothingFetched, rowsPerLoad } from "utility";
 
 const newInitialState = () : ItemsToAdviceState => ({
   IDs      : Immutable.List(),
@@ -15,8 +15,8 @@ const newInitialState = () : ItemsToAdviceState => ({
   fetched  : false,
   fetching : false,
 
-  lastFetchedNumber : nothingFetched,
-  total             : nothingFetched,
+  lastFetchedID : noID,
+  total         : nothingFetched,
 });
 
 const
@@ -32,18 +32,18 @@ const
   }),
   fetchItemsFulfilled = (state : ItemsToAdviceState, { payload }) => ({
     ...state,
-    error             : noError,
-    fetched           : true,
-    lastFetchedNumber : payload.LastFetchedNumber,
-    fetching          : false,
-    total             : payload.Total,
+    error         : noError,
+    fetched       : true,
+    lastFetchedID : payload.LastFetchedID,
+    fetching      : false,
+    total         : payload.Total,
 
     IDs: state.IDs.concat(payload.Items.result),
   }),
   addItem = (state : ItemsToAdviceState, { payload }) => {
-    const { lastFetchedNumber, total } = state;
+    const { lastFetchedID, total } = state;
 
-    if (lastFetchedNumber === nothingFetched) {
+    if (lastFetchedID === noID) {
       return state;
     }
 
@@ -51,22 +51,14 @@ const
 
     return {
       ...state,
-      IDs               : state.IDs.push(itemID),
-      lastFetchedNumber : lastFetchedNumber + 1,
-      total             : total + 1,
+      IDs   : state.IDs.push(itemID),
+      total : total + 1,
     };
   },
   deleteItem = (state : ItemsToAdviceState, { payload : { item } }) => {
-    const { lastFetchedNumber, total } = state;
+    const { total } = state;
 
-    const getLastFetchedPage = () => {
-        if (lastFetchedNumber === nothingFetched) {
-          return nothingFetched;
-        }
-
-        return lastFetchedNumber - 1;
-      },
-      getTotal = () => {
+    const getTotal = () => {
         if (total === nothingFetched) {
           return nothingFetched;
         }
@@ -80,8 +72,7 @@ const
       IDs: state.IDs.delete(
         state.IDs.indexOf(itemID)
       ),
-      lastFetchedNumber : getLastFetchedPage(),
-      total             : getTotal(),
+      total: getTotal(),
     };
   };
 
@@ -97,7 +88,7 @@ export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action 
     case "FETCH_ITEMS_TO_ADVICE_FULFILLED":
       return fetchItemsFulfilled(state, action);
 
-    case "ADD_ITEM_STARTED":
+    case "ADD_ITEM_TO_ADVICE":
       return addItem(state, action);
 
     case "DELETE_ITEM":
@@ -116,8 +107,8 @@ const
 
 export const
   getTotalItemsToAdviceSelector = (state : State) => state.items.toAdvice.total,
-  lastFetchedItemsToAdviceNumberSelector = (state : State) => (
-    state.items.toAdvice.lastFetchedNumber
+  lastFetchedItemsToAdviceIDSelector = (state : State) => (
+    state.items.toAdvice.lastFetchedID
   );
 
 export const getItem = (state : State, id : string) => (
@@ -142,12 +133,12 @@ export const getIsFetchingItemsToAdvice = createSelector(
 
 export const getShouldFetchItemsToAdvice = createSelector(
   getIsFetchingItemsToAdvice,
-  lastFetchedItemsToAdviceNumberSelector,
+  IDsListSelector,
   getTotalItemsToAdviceSelector,
   (state, from: number) => from,
-  (isFetching, lastFetchedNumber, total, from) => (
+  (isFetching, list, total, from) => (
     !isFetching &&
-    (from + rowsPerLoad - 1 > lastFetchedNumber) &&
+    (from + rowsPerLoad - 1 > list.size) &&
     (
       (total === nothingFetched) ||
       (total > from)
@@ -161,17 +152,17 @@ export const getIsFetchingItemsToAdviceError = createSelector(
 );
 
 export const getCanLoadItemsToAdviceLocally = createSelector(
-  lastFetchedItemsToAdviceNumberSelector,
+  IDsListSelector,
   (state, from) => from,
-  (lastFetchedNumber, from) => (
-    from + rowsPerLoad <= lastFetchedNumber
+  (list, from) => (
+    from + rowsPerLoad <= list.size
   )
 );
 
 export const getSortedItems = createSelector(
   getItems,
   (list) => (
-    list.sortBy((item) => -item.get("_id"))
+    list.sortBy((item) => -new Date(item.get("date")).getTime())
   )
 );
 
