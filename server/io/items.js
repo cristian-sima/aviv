@@ -14,7 +14,14 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     institutionsInvolved = authors.concat(advicers),
     response = isValidItem({
       name,
-    });
+    }),
+    emitFormError = (msg) => (
+      socket.emit("FORM", {
+        status : "FAILED",
+        error  : msg,
+        form   : "ITEM_FORM",
+      })
+    );
 
   // check data
 
@@ -26,6 +33,16 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
         form   : "ITEM_FORM",
       })
     );
+  }
+
+  if (authors.length === 0) {
+    return (
+      emitFormError("Trebuie furnizat cel puțin un autor")
+    );
+  }
+
+  if (advicers.length === 0) {
+    return emitFormError("Trebuie furnizat cel puțin un avizator");
   }
 
   const whereClauseFind = {
@@ -45,24 +62,12 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
   return institutions.find(whereClauseFind, (errFind) => {
 
     if (errFind) {
-      return (
-        socket.emit("FORM", {
-          status : "FAILED",
-          error  : "Aceste instituții nu există",
-          form   : "ITEM_FORM",
-        })
-      );
+      return emitFormError("Aceste instituții nu există");
     }
 
     return items.insert(rawItem, (errInsertItem, { ops }) => {
       if (errInsertItem) {
-        return (
-          socket.emit("FORM", {
-            status : "FAILED",
-            error  : "Nu am putut introduce actul normativ",
-            form   : "ITEM_FORM",
-          })
-        );
+        return emitFormError("Nu am putut introduce actul normativ");
       }
 
       for (const key in authors) {

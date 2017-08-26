@@ -61,7 +61,7 @@ const
         case "FAILED":
           dispatch(
             stopSubmit(form, {
-              errors: error,
+              "_error": error,
             })
           );
           break;

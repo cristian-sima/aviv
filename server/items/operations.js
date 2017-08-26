@@ -10,8 +10,10 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
     { institutionID } = user,
     { lastID } = query;
 
+  console.log("institutionID", institutionID);
+
   const whereGeneral = {
-    authors: {
+    advicers: {
       "$in": [institutionID],
     },
   };
