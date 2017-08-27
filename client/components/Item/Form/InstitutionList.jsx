@@ -48,7 +48,7 @@ const InstitutionList = ({ fields, institutions, hideInstitutionID } : Instituti
                       { "-" }
                     </span>
                     <span
-                      className="text-danger hover"
+                      className="text-danger cursor-pointer"
                       onClick={() => fields.remove(index)}>
                       {"Șterge"}
                     </span>
