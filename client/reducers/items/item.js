@@ -6,12 +6,20 @@ type SimpleSelector = (state : State, itemID : string) => any
 
 import { createSelector } from "reselect";
 
+import { getCurrentAccount } from "../auth";
+
 const byIDsMapSelector = (state : State) => state.items.byID;
 
 import { noError } from "utility";
 
 export const getItem = (state : State, id : string) => (
   byIDsMapSelector(state).get(id)
+);
+
+export const getIsCurrentAccountAdvicer = createSelector(
+  getItem,
+  getCurrentAccount,
+  (item, account) => item && item.get("advicers").includes(account.get("institutionID"))
 );
 
 export const getIsFetchingItemDetailsError : SimpleSelector = createSelector(

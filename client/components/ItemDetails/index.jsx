@@ -17,13 +17,10 @@ type ItemPagePropTypes = {
   shouldFetch: boolean;
 
   institutions: any;
+  isAdvicer: bool;
 
   fetchItemDetails: () => void;
 }
-
-type ItemPageStateTypes = {
-  activeTab : string;
-};
 
 import React from "react";
 import { connect } from "react-redux";
@@ -40,6 +37,7 @@ import {
   getShouldFetchItemDetails,
 
   getInstitutionsData,
+  getIsCurrentAccountAdvicer,
 } from "reducers";
 
 import {
@@ -53,7 +51,8 @@ const
     isFetching       : getIsFetchingItemDetails(state, item),
     shouldFetch      : getShouldFetchItemDetails(state, item),
 
-    institutions: getInstitutionsData(state),
+    institutions : getInstitutionsData(state),
+    isAdvicer    : getIsCurrentAccountAdvicer(state, item),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { match: { params } } : OwnProps) => ({
     fetchItemDetails () {
@@ -64,8 +63,6 @@ const
 class ItemPage extends React.Component {
   props: ItemPagePropTypes;
 
-  state: ItemPageStateTypes;
-
   componentDidMount () {
     const { shouldFetch, fetchItemDetails } = this.props;
 
@@ -74,13 +71,12 @@ class ItemPage extends React.Component {
     }
   }
 
-  shouldComponentUpdate (nextProps : ItemPagePropTypes, nextState : ItemPageStateTypes) {
+  shouldComponentUpdate (nextProps : ItemPagePropTypes) {
     return (
       this.props.data !== nextProps.data ||
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.isFetching !== nextProps.isFetching ||
-      this.props.shouldFetch !== nextProps.shouldFetch ||
-      this.state.activeTab !== nextState.activeTab
+      this.props.shouldFetch !== nextProps.shouldFetch
     );
   }
 
