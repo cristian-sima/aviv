@@ -73,13 +73,13 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
     case "FETCH_ITEMS_TO_ADVICE_FULFILLED":
       return mergeWith(state, action);
 
-    case "FETCH_ITEM_PENDING": {
+    case "FETCH_ITEM_DETAILS_PENDING": {
       return fetchItemPending(state, action);
     }
-    case "FETCH_ITEM_REJECTED":
+    case "FETCH_ITEM_DETAILS_REJECTED":
       return fetchItemRejected(state, action);
 
-    case "FETCH_ITEM_FULFILLED":
+    case "FETCH_ITEM_DETAILS_FULFILLED":
       return fetchItemFulFilled(state, action);
 
     case "ADD_ITEM_STARTED":
