@@ -18,8 +18,14 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
     },
   };
 
+  console.log("typeof lastID", typeof lastID);
 
-  const whereClause = lastID === "" ? whereGeneral : {
+  const searchGeneral = (
+    typeof lastID === "undefined" ||
+    lastID === ""
+  );
+
+  const whereClause = searchGeneral ? whereGeneral : {
     ...whereGeneral,
     _id: { $lt: lastID },
   };
@@ -27,7 +33,6 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
   db.
     collection("items").
     find(whereClause).
-    skip(rowsPerLoad).
     limit(rowsPerLoad).
     sort({ _id: -1 }).
     toArray((errFind, data) => {
@@ -47,8 +52,11 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
             });
           }
 
+          const LastFetchedID = (data.length > 0) ? data[data.length - 1]._id : "";
+
           return res.json({
             Items: data,
+            LastFetchedID,
 
             Total,
             Error: "",

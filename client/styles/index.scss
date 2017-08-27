@@ -118,15 +118,13 @@ $general-font: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
   animation: uil-ring-anim 1s linear infinite;
 }
 
-
-
 .item-row-enter {
   opacity: .4;
 }
 
 .item-row-enter.item-row-enter-active {
   opacity: 1;
-  transition: 300ms;
+  transition: 700ms;
 }
 
 .item-row-leave {

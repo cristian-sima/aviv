@@ -153,9 +153,9 @@ export const fetchItemsToAdviceFrom = (lastID : string) => (
         set("Accept", "application/json").
         end(
           withPromiseCallback(
-            ({ Items, Total, LastFetchedNumber }) => resolve({
+            ({ Items, Total, LastFetchedID }) => resolve({
               Items: normalizeArrayOfItems(Items),
-              LastFetchedNumber,
+              LastFetchedID,
               Total,
             }),
             reject

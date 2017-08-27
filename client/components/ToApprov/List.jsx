@@ -21,6 +21,7 @@ type InfoPropTypes = {
 import React from "react";
 
 import { numberToLocaleForm } from "utility";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Row from "./Row";
 import AddButton from "./AddButton";
@@ -87,7 +88,11 @@ const List = (props : ListPropTypes) => {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <ReactCSSTransitionGroup
+              component="tbody"
+              transitionEnterTimeout={700}
+              transitionLeaveTimeout={10}
+              transitionName="item-row">
               {
                 items.map((item) => (
                   <Row
@@ -98,7 +103,7 @@ const List = (props : ListPropTypes) => {
                 )
                 )
               }
-            </tbody>
+            </ReactCSSTransitionGroup>
           </table>
         </div>
         <div className="my-2">

@@ -116,7 +116,7 @@ const
         });
 
         if (shouldFetchItemsToAdvice) {
-          updateUIValue(lastFetchedID);
+          updateUIValue(stateProps.items.size);
           fetchItemsToAdviceFrom(lastFetchedID);
         } else {
         // just update it, because it gets the items locally
