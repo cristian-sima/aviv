@@ -68,6 +68,9 @@ const List = (props : ListPropTypes) => {
         <table className="table table-striped table-hover items-to-advice-table">
           <thead>
             <tr>
+              <th className="no-wrap">
+                {"Public la"}
+              </th>
               <th className="text-center">
                 {"Titlu"}
               </th>

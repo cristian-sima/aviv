@@ -12,7 +12,7 @@ export const
   noID = "",
   nothingFetched = -1,
   notFetched = -1,
-  rowsPerLoad = 5;
+  rowsPerLoad = 11;
 
 const plainNumberFormat : any = new Intl.NumberFormat("ro");
 
