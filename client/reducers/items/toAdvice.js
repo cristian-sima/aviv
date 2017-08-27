@@ -45,32 +45,10 @@ const
       return state;
     }
 
-    const itemID = String(payload.get("_id"));
-
     return {
       ...state,
-      IDs   : state.IDs.push(itemID),
+      IDs   : state.IDs.push(payload.get("_id")),
       total : total + 1,
-    };
-  },
-  deleteItem = (state : ItemsToAdviceState, { payload : { item } }) => {
-    const { total } = state;
-
-    const getTotal = () => {
-        if (total === nothingFetched) {
-          return nothingFetched;
-        }
-
-        return total - 1;
-      },
-      itemID = String(item.get("_id"));
-
-    return {
-      ...state,
-      IDs: state.IDs.delete(
-        state.IDs.indexOf(itemID)
-      ),
-      total: getTotal(),
     };
   };
 
@@ -88,9 +66,6 @@ export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action 
 
     case "ADD_ITEM_TO_ADVICE":
       return addItem(state, action);
-
-    case "DELETE_ITEM":
-      return deleteItem(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":

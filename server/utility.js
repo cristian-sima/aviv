@@ -4,7 +4,7 @@ import type { Response, Request, Next, CheckerResponse } from "./types";
 
 import createClientSession from "client-sessions";
 
-export const rowsPerLoad = 11;
+export const rowsPerLoad = 2;
 
 const
   StatusForbidden = 403,
@@ -31,7 +31,7 @@ export const
     activeDuration,
   }),
 
-  isMasterAccount = (username : number) => username === usernameMaster,
+  isMasterAccount = (username : string) => username === usernameMaster,
   isNormalUser = (username : number) => !isMasterAccount(username),
 
   getToday = () => {

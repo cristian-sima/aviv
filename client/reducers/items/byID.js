@@ -66,11 +66,6 @@ const
         detailsFetchingError : noError,
       })
     )
-  ),
-  deleteItem = (state : ItemsByIDState, { payload : { item } }) => (
-    state.delete(
-      String(item.get("_id"))
-    )
   );
 
 export const byIDItems = (state : ItemsByIDState = initialState, action : any) => {
@@ -89,11 +84,7 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
 
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
-    case "MODIFY_ITEM":
       return addOrModifyItem(state, action);
-
-    case "DELETE_ITEM":
-      return deleteItem(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":

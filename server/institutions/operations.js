@@ -4,9 +4,24 @@ import type { Response, Request } from "../types";
 
 import { ObjectId } from "mongodb";
 
-import { error, selectOnlyUsers } from "../utility";
+import { error, selectOnlyUsers, isMasterAccount } from "../utility";
 
-export const getInstitutions = ({ db } : Request, res : Response) => {
+const getProjectQuery = (username : string) => {
+  if (isMasterAccount(username)) {
+    return {
+      "password": 0,
+    };
+  }
+
+  return {
+    password          : 0,
+    requireChange     : 0,
+    temporaryPassword : 0,
+    username          : 0,
+  };
+};
+
+export const getInstitutions = ({ db, user : { username } } : Request, res : Response) => {
 
   const findErr = {
     Error: "Nu am putut prelua lista",
@@ -20,9 +35,11 @@ export const getInstitutions = ({ db } : Request, res : Response) => {
         return res.json(findErr);
       }
 
+      const projectQuery = getProjectQuery(username);
+
       return db.
         collection("users").
-        find(selectOnlyUsers, { "password": 0 }).
+        find(selectOnlyUsers, projectQuery).
         toArray((errUsers, users) => {
           if (errUsers) {
             return res.json(findErr);
