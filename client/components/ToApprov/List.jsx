@@ -24,7 +24,6 @@ import { numberToLocaleForm } from "utility";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Row from "./Row";
-import AddButton from "./AddButton";
 import { ErrorMessage, LoadingSmallMessage } from "../Messages";
 
 const getInvoiceForm = (value : number) : string => {
@@ -57,83 +56,71 @@ const List = (props : ListPropTypes) => {
   } = props;
 
   return (
-    <div>
-      <div className="container">
-        <div className="row mt-3 mr-1">
-          <div className="col-6">
-            <h2>{"Acte pentru avizat"}</h2>
-          </div>
-          <div className="col-6 text-right">
-            <AddButton />
-          </div>
-        </div>
-        <div className="mt-1">
-          <Info
-            shown={items.size}
-            total={total}
-          />
-        </div>
-        <div className="table-responsive">
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>
-                  {"Publicat la"}
-                </th>
-                <th className="text-center">
-                  {"Titlu"}
-                </th>
-                <th className="text-center">
-                  {"Inițiatori"}
-                </th>
-              </tr>
-            </thead>
-            <ReactCSSTransitionGroup
-              component="tbody"
-              transitionEnterTimeout={700}
-              transitionLeaveTimeout={10}
-              transitionName="item-row">
-              {
-                items.map((item) => (
-                  <Row
-                    data={item}
-                    institutions={institutions}
-                    key={item.get("_id")}
-                  />
-                )
-                )
-              }
-            </ReactCSSTransitionGroup>
-          </table>
-        </div>
-        <div className="my-2">
-          {
-            (isFetching) ? (
-              <LoadingSmallMessage message="Încarc actele pentru avizat..." />
-            ) : null
-          }
-          {
-            (hasFetchingError) ? (
-              <ErrorMessage
-                message="Nu am putut prelua actele pentru avizat"
-                onRetry={loadNextPage}
-              />
-            ) : null
-          }
-        </div>
-        <div className="text-center my-2" >
-          {
-            showLoadMoreButton ? (
-              <button
-                className="btn btn-info btn-block"
-                disabled={isFetching}
-                onClick={loadNextPage}
-                type="button">
-                {"Încarcă mai multe"}
-              </button>
-            ) : null
-          }
-        </div>
+    <div className="container">
+      <h2>{"Acte pentru avizat"}</h2>
+      <div className="mt-1">
+        <Info
+          shown={items.size}
+          total={total}
+        />
+      </div>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover items-to-advice-table">
+          <thead>
+            <tr>
+              <th className="text-center">
+                {"Titlu"}
+              </th>
+              <th className="text-center">
+                {"Inițiatori"}
+              </th>
+            </tr>
+          </thead>
+          <ReactCSSTransitionGroup
+            component="tbody"
+            transitionEnterTimeout={0}
+            transitionLeaveTimeout={10}
+            transitionName="item-row">
+            {
+              items.map((item) => (
+                <Row
+                  data={item}
+                  institutions={institutions}
+                  key={item.get("_id")}
+                />
+              )
+              )
+            }
+          </ReactCSSTransitionGroup>
+        </table>
+      </div>
+      <div className="my-2">
+        {
+          (isFetching) ? (
+            <LoadingSmallMessage message="Încarc actele pentru avizat..." />
+          ) : null
+        }
+        {
+          (hasFetchingError) ? (
+            <ErrorMessage
+              message="Nu am putut prelua actele pentru avizat"
+              onRetry={loadNextPage}
+            />
+          ) : null
+        }
+      </div>
+      <div className="text-center my-2" >
+        {
+          showLoadMoreButton ? (
+            <button
+              className="btn btn-info btn-block"
+              disabled={isFetching}
+              onClick={loadNextPage}
+              type="button">
+              {"Încarcă mai multe"}
+            </button>
+          ) : null
+        }
       </div>
     </div>
   );

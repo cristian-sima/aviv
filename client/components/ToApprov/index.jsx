@@ -32,7 +32,7 @@ type StateProps = {
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
-  lastFetchedID: number;
+  lastFetchedID: string;
   shouldFetchItemsToAdvice: boolean;
   shouldFetchLastItemNumber: boolean;
   total: number;
@@ -47,7 +47,6 @@ import { withRouter } from "react-router-dom";
 import React from "react";
 import ui from "redux-ui";
 
-import AddButton from "./AddButton";
 import List from "./List";
 
 import { LargeErrorMessage, LoadingMessage } from "../Messages";
@@ -181,15 +180,8 @@ class ItemList extends React.Component {
 
     if (items.size === 0) {
       return (
-        <div>
-          <div className="text-center fancy-text" style={{ marginTop: "8rem" }}>
-            <div>
-              {"Nu există acte de avizat"}
-            </div>
-          </div>
-          <div className="text-center mt-2">
-            <AddButton message="Inițiază act normativ" />
-          </div>
+        <div className="text-center fancy-text" style={{ marginTop: "8rem" }}>
+          {"Nu există acte de avizat"}
         </div>
       );
     }

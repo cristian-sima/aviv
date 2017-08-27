@@ -82,6 +82,14 @@ class Header extends React.Component {
                       {"Pentru avizat"}
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="selected"
+                      className="nav-link"
+                      to="/started">
+                      {"Inițiate"}
+                    </NavLink>
+                  </NavItem>
                 </Nav>
                 <div className="mr-auto" />
                 <div className="clearfix">

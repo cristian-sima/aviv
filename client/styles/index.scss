@@ -120,11 +120,13 @@ $general-font: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
 
 .item-row-enter {
   opacity: .4;
+	background: #ffeeba !important;
 }
 
 .item-row-enter.item-row-enter-active {
   opacity: 1;
-  transition: 700ms;
+	background-color: inherit !important;
+  transition: 1000ms;
 }
 
 .item-row-leave {
@@ -136,7 +138,17 @@ $general-font: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
 }
 
 
-
+.items-to-advice-table {
+	.item-date {
+		min-width: 190px;
+	}
+	.item-name {
+		min-width: 300px;
+	}
+	.item-authors {
+		min-width: 300px;
+	}
+}
 
 
 

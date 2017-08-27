@@ -28,20 +28,11 @@ class Row extends React.Component {
 
     return (
       <tr>
-        <td
-          className="wrap"
-          style={{
-            width: 190,
-          }}>
-          {
-            moment(date).format("lll")
-          }
+        <td className="no-wrap item-date">
+          { moment(date).format("lll") }
         </td>
-        <td className="w-200">{name}</td>
-        <td
-          className="small no-wrap" style={{
-            width: 300,
-          }}>
+        <td className="item-name">{name}</td>
+        <td className="small no-wrap item-authors">
           {
             authors.map((author) => (
               <div key={author}>
