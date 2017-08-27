@@ -135,8 +135,7 @@ export const getShouldFetchItemsToAdvice = createSelector(
   getIsFetchingItemsToAdvice,
   IDsListSelector,
   getTotalItemsToAdviceSelector,
-  (state, from: number) => from,
-  (isFetching, list, total, from) => (
+  (isFetching, list, total) => (
     !isFetching &&
     (
       (total === nothingFetched) ||

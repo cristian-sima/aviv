@@ -9,12 +9,7 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
   const
     { db, user, query } = req,
     { institutionID } = user,
-    { lastID, from } = query;
-
-  console.log("-----");
-  console.log("institutionID", institutionID);
-  console.log("lastID", lastID);
-  console.log("from", from);
+    { lastID } = query;
 
   const whereGeneral = {
     advicers: {
@@ -37,7 +32,6 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
   db.
     collection("items").
     find(whereClause).
-    // skip(Number(from)).
     limit(rowsPerLoad).
     sort({ _id: -1 }).
     toArray((errFind, data) => {

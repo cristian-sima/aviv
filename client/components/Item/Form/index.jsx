@@ -115,15 +115,20 @@ class Form extends React.Component {
             <h2>{title}</h2>
           </div>
           {error && errMessage}
-          <div className="text-right">
-            <button
-              className="btn btn-link"
-              onClick={this.toggleAuthors}
-              type="button">
-              {
-                showAuthors ? "Ascunde coinițiatori" : "Afișează coinițiatori"
-              }
-            </button>
+          <div className="row">
+            <div className="col-md-2" />
+            <div className="col-md-10 col-xl-8">
+              <div className="text-right">
+                <button
+                  className="btn btn-link"
+                  onClick={this.toggleAuthors}
+                  type="button">
+                  {
+                    showAuthors ? "Ascunde coinițiatori" : "Afișează coinițiatori"
+                  }
+                </button>
+              </div>
+            </div>
           </div>
           <Collapse isOpen={showAuthors}>
             <FieldArray
@@ -135,7 +140,7 @@ class Form extends React.Component {
           <Field
             component={FocusTextarea}
             label="Titlu"
-            left="col-md-2 col-xl-4"
+            left="col-md-2"
             name="name"
             onRegisterRef={this.handleRegisterRef}
             right="col-md-10 col-xl-8"

@@ -12,7 +12,7 @@ type ItemListPropTypes = {
   total: number;
   institutions: any;
 
-  loadItemsToAdvice: () => void;
+  loadData: () => void;
   loadNextPage: () => void;
 };
 
@@ -32,14 +32,14 @@ type StateProps = {
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
-  lastFetchedID: string;
+  lastID: string;
   shouldFetchItemsToAdvice: boolean;
   shouldFetchLastItemNumber: boolean;
   total: number;
 };
 
 type DispatchProps = {
-  fetchItemsToAdviceFrom: (data : { from : number, lastID: string }) => void;
+  fetchItemsToAdviceFrom: (lastID : string) => void;
 };
 
 import { connect } from "react-redux";
@@ -74,7 +74,7 @@ const
     items            : getItemsToAdviceUpTo(state, currentFrom + rowsPerLoad),
     isFetching       : getIsFetchingItemsToAdvice(state),
     total            : getTotalItemsToAdviceSelector(state),
-    lastFetchedID    : lastFetchedItemsToAdviceIDSelector(state),
+    lastID           : lastFetchedItemsToAdviceIDSelector(state),
 
     shouldFetchLastItemNumber : shouldFetchItemsToAdviceFrom(state, currentFrom),
     shouldFetchItemsToAdvice  : shouldFetchItemsToAdviceFrom(state, currentFrom + rowsPerLoad),
@@ -82,8 +82,8 @@ const
     institutions: getInstitutionsData(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchItemsToAdviceFrom: (data : { from : number, lastID: string }) => dispatch(
-      fetchItemsToAdviceFromAction(data)
+    fetchItemsToAdviceFrom: (lastID: string) => dispatch(
+      fetchItemsToAdviceFromAction(lastID)
     ),
   }),
   mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps, ownProps : OwnProps) => ({
@@ -96,22 +96,18 @@ const
         stateProps.items.size !== stateProps.total
       ),
 
-      loadItemsToAdvice () {
-        const { shouldFetchLastItemNumber, lastFetchedID } = stateProps;
+      loadData () {
+        const { shouldFetchLastItemNumber, lastID } = stateProps;
         const { fetchItemsToAdviceFrom } = dispatchProps;
-        const { ui : { currentFrom } } = ownProps;
 
         if (shouldFetchLastItemNumber) {
-          fetchItemsToAdviceFrom({
-            from   : currentFrom,
-            lastID : lastFetchedID,
-          });
+          fetchItemsToAdviceFrom(lastID);
         }
       },
 
       loadNextPage: () => {
         const { updateUI, ui : { currentFrom } } = ownProps;
-        const { shouldFetchItemsToAdvice, lastFetchedID } = stateProps;
+        const { shouldFetchItemsToAdvice, lastID } = stateProps;
         const { fetchItemsToAdviceFrom } = dispatchProps;
 
         const updateUIValue = (newCurrentFrom : number) => updateUI({
@@ -120,10 +116,7 @@ const
 
         if (shouldFetchItemsToAdvice) {
           updateUIValue(stateProps.items.size);
-          fetchItemsToAdviceFrom({
-            from   : Number(currentFrom) + rowsPerLoad,
-            lastID : lastFetchedID,
-          });
+          fetchItemsToAdviceFrom(lastID);
         } else {
         // just update it, because it gets the items locally
           updateUIValue(currentFrom + rowsPerLoad);
@@ -137,7 +130,7 @@ class ItemList extends React.Component {
   props: ItemListPropTypes;
 
   componentDidMount () {
-    this.props.loadItemsToAdvice();
+    this.props.loadData();
   }
 
   shouldComponentUpdate (nextProps : ItemListPropTypes) {
@@ -157,7 +150,7 @@ class ItemList extends React.Component {
       hasFetchingError,
       items,
       isFetching,
-      loadItemsToAdvice,
+      loadData,
       institutions,
     } = this.props;
 
@@ -173,7 +166,7 @@ class ItemList extends React.Component {
       return (
         <LargeErrorMessage
           message="Nu am putut prelua actele pentru avizat"
-          onRetry={loadItemsToAdvice}
+          onRetry={loadData}
         />
       );
     }

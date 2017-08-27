@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable react/jsx-no-bind */
 
 import type { Dispatch, State } from "types";
 

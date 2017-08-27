@@ -13,7 +13,7 @@ const AdvicersArray = ({ fields } : AdvicersArrayPropTypes) => (
 
   <div className="form-group row">
     <label
-      className="col-md-2 col-xl-4 text-md-right form-control-label"
+      className="col-md-2 text-md-right form-control-label"
       htmlFor={"authors"}>
       {"Avizatori"}
     </label>

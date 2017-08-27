@@ -125,17 +125,17 @@ describe("prepareUser", () => {
   it("works", () => {
     const
       data = {
-        nume    : "Sima",
-        prenume : "Cristian",
-        username   : "1",
-        grup    : "PSD",
+        nume     : "Sima",
+        prenume  : "Cristian",
+        username : "1",
+        grup     : "PSD",
       },
       temporaryPassword = "1234",
       result = prepareUser(data, temporaryPassword),
       expected = {
-        name  : "Sima Cristian",
+        name     : "Sima Cristian",
         username : 1,
-        group : "PSD",
+        group    : "PSD",
         temporaryPassword,
 
         requireChange: true,

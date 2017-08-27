@@ -9,7 +9,6 @@ type ListPropTypes = {
   total: number;
   institutions: any;
 
-  loadItemsToAdvice: () => void;
   loadNextPage: () => void;
 }
 
