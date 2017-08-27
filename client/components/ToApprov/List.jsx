@@ -99,7 +99,7 @@ const List = (props : ListPropTypes) => {
       <div className="my-2">
         {
           (isFetching) ? (
-            <LoadingSmallMessage message="Încarc actele pentru avizat..." />
+            <LoadingSmallMessage message="Încarc mai multe acte..." />
           ) : null
         }
         {

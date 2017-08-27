@@ -32,7 +32,7 @@ export const
   }),
 
   isMasterAccount = (username : string) => username === usernameMaster,
-  isNormalUser = (username : number) => !isMasterAccount(username),
+  isNormalUser = (username : string) => !isMasterAccount(username),
 
   getToday = () => {
     const
