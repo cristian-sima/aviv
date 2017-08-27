@@ -48,6 +48,10 @@ export const connectingLive = () : Action => ({
   type: "CONNECTING_LIVE",
 });
 
+export const reConnectingLive = () : Action => ({
+  type: "RECONNECTING_LIVE",
+});
+
 export const connectedLive = () : Action => ({
   type: "CONNECTED_LIVE",
 });

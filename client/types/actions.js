@@ -14,6 +14,7 @@ export type Action =
 | { type: 'RECONNECT'; payload: any; }
 | { type: 'CONFIRM_SIGN_OFF'; }
 | { type: 'CONNECTING_LIVE'; }
+| { type: 'RECONNECTING_LIVE'; }
 | { type: 'CONNECTED_LIVE'; }
 
 

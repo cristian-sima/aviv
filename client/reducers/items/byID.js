@@ -95,6 +95,10 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
     case "DELETE_ITEM":
       return deleteItem(state, action);
 
+    case "RECONNECTING_LIVE":
+    case "SIGN_OFF_FULFILLED":
+      return state.clear();
+
     default:
       return state;
   }

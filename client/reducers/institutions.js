@@ -63,7 +63,7 @@ const reducer = (state : InstitutionsState = newInitialState(), action : any) =>
     case "DELETE_INSTITUTION":
       return deleteInstitution(state, action);
 
-    case "CONNECTING_LIVE":
+    case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 

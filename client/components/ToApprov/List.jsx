@@ -68,7 +68,7 @@ const List = (props : ListPropTypes) => {
           <thead>
             <tr>
               <th className="no-wrap">
-                {"Public la"}
+                {"Publicat la"}
               </th>
               <th className="text-center">
                 {"Titlu"}

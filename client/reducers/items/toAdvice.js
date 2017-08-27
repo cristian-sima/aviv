@@ -94,6 +94,10 @@ export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action 
     case "DELETE_ITEM":
       return deleteItem(state, action);
 
+    case "RECONNECTING_LIVE":
+    case "SIGN_OFF_FULFILLED":
+      return newInitialState();
+
     default:
       return state;
   }

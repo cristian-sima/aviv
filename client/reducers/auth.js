@@ -130,6 +130,7 @@ const authReducer = (state : AuthState = newInitialState(), action : any) => {
     case "RECONNECT_FULFILLED":
       return accountConnected(state, action);
 
+    case "RECONNECTING_LIVE":
     case "CONNECTING_LIVE":
       return connectingLive(state);
 

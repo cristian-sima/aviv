@@ -15,9 +15,6 @@ const
   ),
   hideModal = (state : ModalState) => (
     state.pop()
-  ),
-  selectItem = (state : ModalState) => (
-    state.filter((item) => item.type === "COMMENT_BOX")
   );
 
 const reducer = (state : ModalState = initialState, action : Action) => {
@@ -27,12 +24,6 @@ const reducer = (state : ModalState = initialState, action : Action) => {
 
     case "HIDE_MODAL":
       return hideModal(state);
-
-    case "SELECT_ITEM":
-      return selectItem(state);
-
-    case "UPDATING_LIST":
-      return state.clear();
 
     default:
       return state;
