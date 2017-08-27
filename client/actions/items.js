@@ -7,7 +7,7 @@ import {
   fetchItemsToAdviceFrom as fetchItemsToAdviceFromRequest,
 } from "request";
 
-export const fetchItemsToAdviceFrom = (from : number) : Action => ({
+export const fetchItemsToAdviceFrom = (data : { from : number, lastID: string }) : Action => ({
   type    : "FETCH_ITEMS_TO_ADVICE",
-  payload : fetchItemsToAdviceFromRequest(from),
+  payload : fetchItemsToAdviceFromRequest(data),
 });

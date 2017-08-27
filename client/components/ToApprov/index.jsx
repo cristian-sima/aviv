@@ -39,7 +39,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  fetchItemsToAdviceFrom: (page : number) => void;
+  fetchItemsToAdviceFrom: (data : { from : number, lastID: string }) => void;
 };
 
 import { connect } from "react-redux";
@@ -83,8 +83,8 @@ const
     institutions: getInstitutionsData(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchItemsToAdviceFrom: (from : number) => dispatch(
-      fetchItemsToAdviceFromAction(from)
+    fetchItemsToAdviceFrom: (data : { from : number, lastID: string }) => dispatch(
+      fetchItemsToAdviceFromAction(data)
     ),
   }),
   mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps, ownProps : OwnProps) => ({
@@ -100,9 +100,13 @@ const
       loadItemsToAdvice () {
         const { shouldFetchLastItemNumber, lastFetchedID } = stateProps;
         const { fetchItemsToAdviceFrom } = dispatchProps;
+        const { ui : { currentFrom } } = ownProps;
 
         if (shouldFetchLastItemNumber) {
-          fetchItemsToAdviceFrom(lastFetchedID);
+          fetchItemsToAdviceFrom({
+            from   : currentFrom,
+            lastID : lastFetchedID,
+          });
         }
       },
 
@@ -117,7 +121,10 @@ const
 
         if (shouldFetchItemsToAdvice) {
           updateUIValue(stateProps.items.size);
-          fetchItemsToAdviceFrom(lastFetchedID);
+          fetchItemsToAdviceFrom({
+            from   : Number(currentFrom) + rowsPerLoad,
+            lastID : lastFetchedID,
+          });
         } else {
         // just update it, because it gets the items locally
           updateUIValue(currentFrom + rowsPerLoad);

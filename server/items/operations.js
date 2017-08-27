@@ -1,6 +1,7 @@
 // @flow
 
 import type { Response, Request } from "../types";
+import { ObjectId } from "mongodb";
 
 import { rowsPerLoad } from "../utility";
 
@@ -8,17 +9,18 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
   const
     { db, user, query } = req,
     { institutionID } = user,
-    { lastID } = query;
+    { lastID, from } = query;
 
+  console.log("-----");
   console.log("institutionID", institutionID);
+  console.log("lastID", lastID);
+  console.log("from", from);
 
   const whereGeneral = {
     advicers: {
       "$in": [institutionID],
     },
   };
-
-  console.log("typeof lastID", typeof lastID);
 
   const searchGeneral = (
     typeof lastID === "undefined" ||
@@ -27,12 +29,15 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
 
   const whereClause = searchGeneral ? whereGeneral : {
     ...whereGeneral,
-    _id: { $lt: lastID },
+    _id: { $lt: ObjectId(lastID) },
   };
+
+  console.log("whereClause", whereClause);
 
   db.
     collection("items").
     find(whereClause).
+    // skip(Number(from)).
     limit(rowsPerLoad).
     sort({ _id: -1 }).
     toArray((errFind, data) => {

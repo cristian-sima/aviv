@@ -138,10 +138,9 @@ export const getShouldFetchItemsToAdvice = createSelector(
   (state, from: number) => from,
   (isFetching, list, total, from) => (
     !isFetching &&
-    (from + rowsPerLoad - 1 > list.size) &&
     (
       (total === nothingFetched) ||
-      (total > from)
+      (total > list.size)
     )
   )
 );
