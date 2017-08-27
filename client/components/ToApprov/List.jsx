@@ -37,7 +37,7 @@ const getInvoiceForm = (value : number) : string => {
 const Info = ({ shown, total } : InfoPropTypes) => (
   <div className="text-muted">
     {
-      shown === total ? `Există spre avizat ${getInvoiceForm(total)}` : (
+      shown === total ? `Există spre avizare ${getInvoiceForm(total)}` : (
         `Afișez ${shown === total ? "toate actele - " : `${shown} din`} ${getInvoiceForm(total)}`
       )
     }
