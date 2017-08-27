@@ -1,173 +1,94 @@
 // @flow
-/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/jsx-no-bind, react/require-optimization */
 
 import type { Dispatch, State } from "types";
 
-type WallContainerPropTypes = {
-  connectingLive: () => void;
-  connectedLive: () => void;
-  processForm: (msg : any) => void;
-  processIncommingMessage: (msg : any) => void;
+type ListPropTypes = {
+  hasFetchingError: boolean;
+  isFetching: boolean;
+  shouldFetchInstitutions: boolean;
+  isMasterAccount: boolean;
+  institutions: any;
+  areFetched: boolean;
 
-  match: {
-    url: string;
-  };
-
-  isMasterAccount: bool;
-  isConnecting: boolean;
+  fetchInstitutions: () => void;
 };
 
-type WallContainerStateTypes = {
-  socket?: any;
-};
-
-import React from "react";
 import { connect } from "react-redux";
-import io from "socket.io-client";
-import { Redirect } from "react-router-dom";
-import { stopSubmit, reset } from "redux-form/immutable";
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import { LoadingMessage } from "../Messages";
+import Wall from "./Wall";
 
-import InstitutionsContainer from "./InstitutionsContainer";
-
-import { hostname } from "../../../config-client.json";
+import { LargeErrorMessage, LoadingMessage } from "../Messages";
 
 import {
-  notify,
-  connectingLive as connectingLiveAction,
-  connectedLive as connectedLiveAction,
+  fetchInstitutions as fetchInstitutionsAction,
 } from "actions";
 
 import {
-  getIsConnectingLive,
+  getInstitutionsHasError,
+  getInstitutionsAreFetching,
+  getInstitutionsShouldFetch,
+  getInstitutionsData,
+  getInstitutionsAreFetched,
 } from "reducers";
-
-import processMesssages from "./processMesssages";
 
 const
   mapStateToProps = (state : State) => ({
-    isConnecting: getIsConnectingLive(state),
+    isFetching              : getInstitutionsAreFetching(state),
+    hasFetchingError        : getInstitutionsHasError(state),
+    shouldFetchInstitutions : getInstitutionsShouldFetch(state),
+    areFetched              : getInstitutionsAreFetched(state),
+
+    institutions: getInstitutionsData(state),
+
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    connectingLive () {
-      dispatch(connectingLiveAction());
-    },
-    connectedLive () {
-      dispatch(connectedLiveAction());
-    },
-    processForm ({ status, form, error, message }) {
-      switch (status) {
-        case "FAILED":
-          dispatch(
-            stopSubmit(form, {
-              "_error": error,
-            })
-          );
-          break;
-        case "SUCCESS":
-          dispatch(reset(form));
-          dispatch(stopSubmit(form));
-          setTimeout(() => {
-            dispatch(notify(message));
-          });
-          break;
-        default:
-      }
-    },
-    processIncommingMessage (msg) {
-      processMesssages(dispatch, msg);
+    fetchInstitutions () {
+      setTimeout(() => {
+        dispatch(fetchInstitutionsAction());
+      });
     },
   });
 
-class WallContainer extends React.Component {
-  props: WallContainerPropTypes;
-  state: WallContainerStateTypes;
+class List extends React.Component {
 
-  emit: (name : string, msg : any) => void;
-
-  constructor (props : WallContainerPropTypes) {
-    super(props);
-
-    this.state = {
-    };
-
-    this.emit = (name : string, msg : any) => {
-      const { socket } = this.state;
-
-      if (typeof socket !== "undefined") {
-        socket.emit(name, msg);
-      }
-    };
-  }
+  props: ListPropTypes;
 
   componentDidMount () {
-    const {
-      connectingLive,
-      connectedLive,
-      processIncommingMessage,
-      processForm,
-    } = this.props;
+    const { shouldFetchInstitutions, fetchInstitutions } = this.props;
 
-    connectingLive();
-
-    const socket = io(hostname, { secure: true });
-
-    socket.on("connect", () => {
-      connectedLive();
-    });
-
-    socket.on("msg", processIncommingMessage);
-    socket.on("FORM", processForm);
-
-    socket.on("disconnect", () => {
-      connectingLive();
-    });
-
-    setTimeout(() => {
-      this.setState({
-        socket,
-      });
-    });
-  }
-
-  shouldComponentUpdate (nextProps : WallContainerPropTypes) {
-    return (
-      this.props.isConnecting !== nextProps.isConnecting ||
-      this.props.isMasterAccount !== nextProps.isMasterAccount ||
-      this.props.match.url !== nextProps.match.url
-    );
-  }
-
-  componentWillUnmount () {
-    const { socket } = this.state;
-
-    if (socket) {
-      socket.removeAllListeners();
+    if (shouldFetchInstitutions) {
+      fetchInstitutions();
     }
   }
 
   render () {
-    const { isConnecting, isMasterAccount, match : { url } } = this.props;
+    const {
+      fetchInstitutions,
+      hasFetchingError,
+      isFetching,
+      institutions,
+    } = this.props;
 
-    if (isConnecting) {
-      return (
-        <div className="container mt-3">
-          <LoadingMessage message="Mă conectez..." />
-        </div>
-      );
+    if (isFetching || typeof institutions === "undefined" || institutions.size === 0) {
+      return <LoadingMessage message="Preiau datele..." />;
     }
 
-    if (isMasterAccount && url !== "/institutions") {
+    if (hasFetchingError) {
       return (
-        <Redirect to="/institutions" />
+        <LargeErrorMessage
+          message="Nu am putut prelua instituțiile"
+          onRetry={fetchInstitutions}
+        />
       );
     }
 
     return (
-      <InstitutionsContainer emit={this.emit} />
+      <Wall />
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WallContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(List));

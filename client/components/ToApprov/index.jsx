@@ -151,15 +151,10 @@ class ItemList extends React.Component {
       items,
       isFetching,
       loadData,
-      institutions,
     } = this.props;
 
     if (items.size === 0 && isFetching) {
       return <LoadingMessage message="Preiau actele pentru avizat..." />;
-    }
-
-    if (institutions.size === 0) {
-      return <LoadingMessage message="Încă puțin..." />;
     }
 
     if (items.size === 0 && hasFetchingError) {
