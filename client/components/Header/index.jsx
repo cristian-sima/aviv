@@ -90,11 +90,19 @@ class Header extends React.Component {
                       {"Inițiate"}
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink
+                      activeClassName="selected"
+                      className="nav-link text-success"
+                      to="/add-item">
+                      <i className="fa fa-plus mr-1" />
+                      {"Inițiază act"}
+                    </NavLink>
+                  </NavItem>
                 </Nav>
-                <div className="mr-auto" />
-                <div className="clearfix">
+                <Nav className="ml-auto" navbar>
                   <DisconnectBox />
-                </div>
+                </Nav>
               </Collapse>
             ) : null
           }

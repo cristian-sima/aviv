@@ -75,7 +75,7 @@ class DisconnectBox extends React.Component {
     const name = account.get("name");
 
     return (
-      <div className="float-right">
+      <div>
         {
           isSigningOff ? (
             <span className="text-muted">
@@ -107,8 +107,8 @@ class DisconnectBox extends React.Component {
                 }
               </div>
             ) : (
-              <div className="float-right">
-                <span className="mr-2">
+              <div>
+                <span className="navbar-text">
                   {name}
                 </span>
                 {" "}
@@ -116,8 +116,6 @@ class DisconnectBox extends React.Component {
                   className="btn btn-sm btn-outline-secondary"
                   onClick={confirmSignOff}>
                   <i className="fa fa-sign-out" />
-                  {" "}
-                  <span className="d-none d-lg-inline">{"Deconectează-mă"}</span>
                 </button>
               </div>
             )
