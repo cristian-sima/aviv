@@ -16,6 +16,8 @@ type ItemPagePropTypes = {
   isFetching: boolean;
   shouldFetch: boolean;
 
+  institutions: any;
+
   fetchItemDetails: () => void;
 }
 
@@ -36,6 +38,8 @@ import {
   getIsFetchingItemDetails,
   getIsFetchingItemDetailsError,
   getShouldFetchItemDetails,
+
+  getInstitutionsData,
 } from "reducers";
 
 import {
@@ -48,6 +52,8 @@ const
     hasFetchingError : getIsFetchingItemDetailsError(state, item),
     isFetching       : getIsFetchingItemDetails(state, item),
     shouldFetch      : getShouldFetchItemDetails(state, item),
+
+    institutions: getInstitutionsData(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { match: { params } } : OwnProps) => ({
     fetchItemDetails () {

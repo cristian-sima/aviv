@@ -50,31 +50,29 @@ export const normalizeArrayOfItems = (items : any) => (
   })
 );
 
-const normalizeItemDetails = ({ Item, Versions }) => ({
-  Item     : normalizeItem(Item),
-  Versions : normalizeArray(Versions),
-});
+const normalizeItemDetails = ({ Item, Versions }) => (
+  normalizeItem(Item).set({
+    version: normalizeArray(Versions),
+  })
+);
 
 export const checkForErrorsThenNormalizeItemDetails = (resolve : any, reject : any) => (
   (error : any, response : any) => {
-
-    console.log("error", error);
-
     if (error) {
-      reject({ error });
-    } else {
-      const { body } = response,
-        { Error : ServerError } = body;
-
-      if (typeof ServerError !== "undefined" && ServerError !== "") {
-        reject({
-          error: ServerError,
-        });
-      } else {
-        resolve(
-          normalizeItemDetails(body)
-        );
-      }
+      return reject({ error });
     }
+
+    const { body } = response,
+      { Error : ServerError } = body;
+
+    if (typeof ServerError !== "undefined" && ServerError !== "") {
+      return reject({
+        error: ServerError,
+      });
+    }
+
+    return resolve(
+      normalizeItemDetails(body)
+    );
   }
 );
