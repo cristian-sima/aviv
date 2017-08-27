@@ -10,9 +10,12 @@ type ChangePasswordTypes = { password: string; confirmation : string };
 
 import agent from "superagent";
 
-import { withPromiseCallback, normalizeArray } from "utility";
-
-import { normalizeArrayOfItems } from "./normalize";
+import {
+  withPromiseCallback,
+  normalizeArrayOfItems,
+  normalizeArray,
+  checkForErrorsThenNormalizeItemDetails,
+} from "./normalize";
 
 export const performLogin = (data : PerformLoginTypes) => new Promise((resolve, reject) => (
   agent.
@@ -21,7 +24,6 @@ export const performLogin = (data : PerformLoginTypes) => new Promise((resolve, 
     type("form").
     end(withPromiseCallback(resolve, reject))
 ));
-
 
 export const changePassword = (data : ChangePasswordTypes) => new Promise((resolve, reject) => (
   agent.
@@ -160,6 +162,19 @@ export const fetchItemsToAdviceFrom = (lastID: string) => (
             }),
             reject
           )
+        )
+    )
+  )
+);
+
+export const fetchItemDetails = (id : string) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        get(`/api/items/item/${id}`).
+        set("Accept", "application/json").
+        end(
+          checkForErrorsThenNormalizeItemDetails(resolve, reject)
         )
     )
   )

@@ -62,3 +62,45 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
         });
     });
 };
+
+export const getItemDetails = (req : Request, res : Response) => {
+  const
+    { db, params } = req,
+    // { institutionID } = user,
+    { itemID } = params;
+
+  const
+    id = ObjectId(itemID),
+    whereClause = {
+      "_id": id,
+    },
+    whereVersionClause = {
+      itemID,
+    },
+    canNotGetData = () => res.json({
+      Error: "Nu am putut datele",
+    });
+
+  db.
+    collection("items").
+    findOne(whereClause, (errFindItem, Item) => {
+      if (errFindItem) {
+        return canNotGetData();
+      }
+
+      return db.
+        collection("versions").
+        find(whereVersionClause).
+        toArray((errFindVersions, Versions) => {
+          if (errFindVersions) {
+            return canNotGetData();
+          }
+
+          return res.json({
+            Item,
+            Versions,
+            Error: "",
+          });
+        });
+    });
+};

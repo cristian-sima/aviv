@@ -33,6 +33,7 @@ import { LoadingMessage } from "../Messages";
 import Institutions from "../Institutions";
 import ToApprov from "../ToApprov";
 import AddItem from "../Item/AddContainer";
+import ItemDetails from "../ItemDetails";
 
 import { hostname } from "../../../config-client.json";
 
@@ -183,6 +184,7 @@ class WallContainer extends React.Component {
             </div>
           ) : (
             <div>
+              <Route component={() => (<ItemDetails emit={this.emit} />)} exact path="/items/:item" />
               <Route component={() => (<AddItem emit={this.emit} />)} exact path="/add-item" />
               <Route component={() => (<ToApprov emit={this.emit} />)} exact path="/to-approv" />
             </div>

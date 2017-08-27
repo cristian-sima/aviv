@@ -3,7 +3,6 @@
 declare var Intl:any
 
 export * from "./forms";
-export * from "./request";
 export * from "./strings";
 export * from "./validation";
 

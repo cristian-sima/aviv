@@ -2,6 +2,7 @@
 
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 type RowPropTypes = {
   data: any;
@@ -22,6 +23,7 @@ class Row extends React.Component {
     const { data, institutions } = this.props;
 
     const
+      id = data.get("_id"),
       date = data.get("date"),
       name = data.get("name"),
       authors = data.get("authors");
@@ -31,7 +33,12 @@ class Row extends React.Component {
         <td className="no-wrap item-date">
           { moment(date).format("lll") }
         </td>
-        <td className="item-name">{name}</td>
+        <td className="item-name">
+          <Link
+            to={`/items/${id}`}>
+            {name}
+          </Link>
+        </td>
         <td className="small no-wrap item-authors">
           {
             authors.map((author) => (

@@ -5,7 +5,7 @@ import type { Action } from "types";
 import {
   signOff as signOffRequest,
   performReconnect as performReconnectRequest,
-} from "request";
+} from "../request";
 
 export const showCaptcha = (payload : { id: string ; name : string }) : Action => ({
   type: "SHOW_CAPTCHA",
