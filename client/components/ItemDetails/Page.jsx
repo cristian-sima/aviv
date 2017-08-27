@@ -3,6 +3,8 @@
 import React from "react";
 import moment from "moment";
 
+import AdviceForm from "./AdviceForm";
+
 type PagePropTypes = {
   data: any;
   institutions: any;
@@ -31,28 +33,34 @@ class Page extends React.Component {
       <div className="mt-3">
         <div className="container">
           <div className="row">
-            <div className="col-xl-9">
+            <div className="col-xl-8">
               <div>
-                <h5>{name}</h5>
-                <hr />
-                <span className="fancy-text">
-                  {"Avizele curente"}
+                <span style={{
+                  fontSize: 19,
+                }}>{name}
                 </span>
+                <div className="card my-4">
+                  <div className="card-body">
+                    <h4 className="card-title">{"Te rugăm să avizezi acest act normativ"}</h4>
+                    <div className="card-text">
+                      <AdviceForm />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="col-xl-3">
+            <div className="col-xl-4">
               <span className="text-muted">
-                {"Data publicării:"}
+                {"Data publicării: "}
               </span>
-              <br />
-              {moment(date).format("lll") }
+              { moment(date).format("lll") }
               <hr />
-              {"Versiunea:"}
-              <span className="badge badge-pill badge-primary ml-1">
+              {"Versiunea"}
+              <span className="badge badge-pill badge-info ml-1">
                 {version}
               </span>
               <hr />
-              {"Inițiatori:"}
+              <strong>{"Inițiatori"}</strong>
               <div className="small">
                 {
                   authors.map((author) => (
