@@ -2,8 +2,6 @@
 
 import type { Action, ItemsToAdviceState, State } from "types";
 
-type SimpleSelector = (state : State, itemID : string) => any
-
 import { createSelector } from "reselect";
 import * as Immutable from "immutable";
 
@@ -15,8 +13,8 @@ const newInitialState = () : ItemsToAdviceState => ({
   fetched  : false,
   fetching : false,
 
-  lastFetchedID : noID,
-  total         : nothingFetched,
+  lastID : noID,
+  total  : nothingFetched,
 });
 
 const
@@ -32,18 +30,18 @@ const
   }),
   fetchItemsFulfilled = (state : ItemsToAdviceState, { payload }) => ({
     ...state,
-    error         : noError,
-    fetched       : true,
-    lastFetchedID : payload.LastID,
-    fetching      : false,
-    total         : payload.Total,
+    error    : noError,
+    fetched  : true,
+    lastID   : payload.LastID,
+    fetching : false,
+    total    : payload.Total,
 
     IDs: state.IDs.concat(payload.Items.result),
   }),
   addItem = (state : ItemsToAdviceState, { payload }) => {
-    const { lastFetchedID, total } = state;
+    const { lastID, total } = state;
 
-    if (lastFetchedID === noID) {
+    if (lastID === noID) {
       return state;
     }
 
@@ -112,12 +110,8 @@ const
 export const
   getTotalItemsToAdviceSelector = (state : State) => state.items.toAdvice.total,
   lastFetchedItemsToAdviceIDSelector = (state : State) => (
-    state.items.toAdvice.lastFetchedID
+    state.items.toAdvice.lastID
   );
-
-export const getItem = (state : State, id : string) => (
-  byIDsMapSelector(state).get(id)
-);
 
 const getItems = createSelector(
   IDsListSelector,
@@ -174,77 +168,6 @@ export const getItemsToAdviceUpToSelector = createSelector(
   (sortedItems, requestedUpTo: number) => (
     sortedItems.slice(0, requestedUpTo)
   )
-);
-
-export const getIsFetchingItemDetailsError : SimpleSelector = createSelector(
-  byIDsMapSelector,
-  (state, id : string) => id,
-  (byIDsMap, itemID) => {
-    const ok = byIDsMap.has(itemID);
-
-    if (!ok) {
-      return false;
-    }
-
-    const item = byIDsMap.get(itemID),
-      error = item.get("detailsFetchingError");
-
-    return typeof error !== "undefined" && error !== noError;
-  }
-);
-
-export const getIsFetchingItemDetails : SimpleSelector = createSelector(
-  byIDsMapSelector,
-  (state, itemID : string) => itemID,
-  (byIDsMap, itemID) => {
-
-    const ok = byIDsMap.has(itemID);
-
-    if (!ok) {
-      return true;
-    }
-
-    const item = byIDsMap.get(itemID);
-
-    return item.get("detailsFetching") === true;
-  }
-);
-
-export const getShouldFetchItemDetails : SimpleSelector = createSelector(
-  byIDsMapSelector,
-  (state, itemID : string) => itemID,
-  (byIDsMap, itemID) => {
-    const hasItem = byIDsMap.has(itemID);
-
-    if (!hasItem) {
-      return true;
-    }
-
-    const item = byIDsMap.get(itemID);
-
-    return (
-      !item.get("detailsFetching") &&
-      !item.get("detailsFetched")
-    );
-  }
-);
-
-export const getAreFetchedItemDetails : SimpleSelector = createSelector(
-  byIDsMapSelector,
-  (state, itemID : string) => itemID,
-  (byIDsMap, itemID) => {
-    const hasItem = byIDsMap.has(itemID);
-
-    if (!hasItem) {
-      return false;
-    }
-
-    const item = byIDsMap.get(itemID);
-
-    return (
-      item.get("detailsFetched")
-    );
-  }
 );
 
 export const shouldFetchItemsToAdviceFrom = createSelector(

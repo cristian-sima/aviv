@@ -20,7 +20,7 @@ const newInitialState = () => ({
   isReconnecting : false,
   reconnectError : noError,
 
-  connectingLive: false,
+  connectingLive: true,
 
   showButtons: false,
 });
