@@ -43,9 +43,10 @@ const
   });
 
 const AddForm = reduxForm({
-  buttonLabel : "Adaugă",
-  form        : ITEM_FORM,
-  title       : "Inițiază act normativ",
+  buttonLabel      : "Adaugă",
+  form             : ITEM_FORM,
+  destroyOnUnmount : false,
+  title            : "Inițiază act normativ",
   validate,
 })(Form);
 

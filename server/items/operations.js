@@ -11,34 +11,33 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
     { institutionID } = user,
     { lastID } = query;
 
-  const whereGeneral = {
-    advicers: {
-      "$in": [institutionID],
+  const
+    whereGeneral = {
+      advicers: {
+        "$in": [institutionID],
+      },
     },
-  };
-
-  const searchGeneral = (
-    typeof lastID === "undefined" ||
+    canNotGetTheList = () => res.json({
+      Error: "Nu am putut prelua lista",
+    }),
+    searchGeneral = (
+      typeof lastID === "undefined" ||
     lastID === ""
-  );
-
-  const whereClause = searchGeneral ? whereGeneral : {
-    ...whereGeneral,
-    _id: { $lt: ObjectId(lastID) },
-  };
-
-  console.log("whereClause", whereClause);
+    ),
+    whereClause = searchGeneral ? whereGeneral : {
+      ...whereGeneral,
+      _id: { $lt: ObjectId(lastID) },
+    },
+    sortType = { _id: -1 };
 
   db.
     collection("items").
     find(whereClause).
     limit(rowsPerLoad).
-    sort({ _id: -1 }).
+    sort(sortType).
     toArray((errFind, data) => {
       if (errFind) {
-        return res.json({
-          Error: "Nu am putut prelua lista",
-        });
+        return canNotGetTheList();
       }
 
       return db.
@@ -46,17 +45,17 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
         find(whereGeneral).
         count((errCount, Total) => {
           if (errFind) {
-            return res.json({
-              Error: "Nu am putut prelua lista",
-            });
+            return canNotGetTheList();
           }
 
-          const LastFetchedID = (data.length > 0) ? data[data.length - 1]._id : "";
+          const LastID = (data.length > 0) ? (
+            data[data.length - 1]._id
+          ) : "";
 
           return res.json({
             Items: data,
-            LastFetchedID,
 
+            LastID,
             Total,
             Error: "",
           });

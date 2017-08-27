@@ -34,7 +34,7 @@ const
     ...state,
     error         : noError,
     fetched       : true,
-    lastFetchedID : payload.LastFetchedID,
+    lastFetchedID : payload.LastID,
     fetching      : false,
     total         : payload.Total,
 
