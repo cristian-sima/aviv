@@ -91,12 +91,12 @@ class Page extends React.Component {
               </div>
             </div>
           </div>
-
+          <br />
           <div className="table-responsive">
             <table className="table table-sm">
               <thead>
                 <tr>
-                  <th>{"Instituția"}</th>
+                  <th>{"Instituție avizatoare"}</th>
                   <th>{"Răspuns"}</th>
                 </tr>
               </thead>
