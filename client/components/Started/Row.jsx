@@ -6,27 +6,29 @@ import { Link } from "react-router-dom";
 
 type RowPropTypes = {
   data: any;
-  institutions: any;
 };
+
+const oneHundred = 100;
 
 class Row extends React.Component {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {
     return (
-      this.props.data !== nextProps.data ||
-      this.props.institutions !== nextProps.institutions
+      this.props.data !== nextProps.data
     );
   }
 
   render () {
-    const { data, institutions } = this.props;
+    const { data } = this.props;
 
     const
       id = data.get("_id"),
       date = data.get("date"),
       name = data.get("name"),
-      authors = data.get("authors");
+      responses = data.get("responses"),
+      advicers = data.get("advicers"),
+      progress = Math.round(responses.size / advicers.size * oneHundred);
 
     return (
       <tr>
@@ -39,19 +41,26 @@ class Row extends React.Component {
             {name}
           </Link>
         </td>
-        <td className="small no-wrap item-authors">
+        <td className="small no-wrap item-authors text-center">
           {
-            authors.map((author) => (
-              <div key={author}>
-                <span>{"- "}</span>
-                {
-                  institutions.getIn([
-                    author,
-                    "name",
-                  ])
-                }
+            progress === oneHundred ? (
+              <i className="fa fa-check text-success fa-2x" />
+            ) : (
+              <div className="progress">
+                <div
+                  className="progress-bar"
+                  role="progressbar"
+                  style={{
+                    width: `${progress}%`,
+                  }}>
+                  {
+                    progress === 0 ? null : (
+                      `${progress}%`
+                    )
+                  }
+                </div>
               </div>
-            ))
+            )
           }
         </td>
       </tr>

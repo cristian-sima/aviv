@@ -7,7 +7,6 @@ type ListPropTypes = {
   currentFrom: number;
   showLoadMoreButton: boolean;
   total: number;
-  institutions: any;
 
   loadNextPage: () => void;
 }
@@ -51,7 +50,6 @@ const List = (props : ListPropTypes) => {
     hasFetchingError,
     loadNextPage,
     showLoadMoreButton,
-    institutions,
   } = props;
 
   return (
@@ -74,7 +72,7 @@ const List = (props : ListPropTypes) => {
                 {"Titlu"}
               </th>
               <th className="text-center">
-                {"Inițiatori"}
+                {"Statut avizare"}
               </th>
             </tr>
           </thead>
@@ -87,7 +85,6 @@ const List = (props : ListPropTypes) => {
               items.map((item) => (
                 <Row
                   data={item}
-                  institutions={institutions}
                   key={item.get("_id")}
                 />
               )

@@ -39,9 +39,9 @@ const
     IDs: state.IDs.concat(payload.Items.result),
   }),
   addItem = (state : ItemsStartedState, { payload }) => {
-    const { lastID, total } = state;
+    const { total } = state;
 
-    if (lastID === noID) {
+    if (total === nothingFetched) {
       return state;
     }
 

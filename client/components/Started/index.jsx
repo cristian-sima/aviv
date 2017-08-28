@@ -10,7 +10,6 @@ type ItemListPropTypes = {
   currentFrom: number;
   showLoadMoreButton: boolean;
   total: number;
-  institutions: any;
 
   loadData: () => void;
   loadNextPage: () => void;
@@ -43,7 +42,7 @@ type DispatchProps = {
 };
 
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import React from "react";
 import ui from "redux-ui";
 
@@ -59,7 +58,6 @@ import {
   lastFetchedItemsStartedIDSelector,
   shouldFetchItemsStartedFrom,
 
-  getInstitutionsData,
 } from "reducers";
 
 import { rowsPerLoad } from "utility";
@@ -78,8 +76,6 @@ const
 
     shouldFetchLastItemNumber : shouldFetchItemsStartedFrom(state, currentFrom),
     shouldFetchItemsStarted   : shouldFetchItemsStartedFrom(state, currentFrom + rowsPerLoad),
-
-    institutions: getInstitutionsData(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch) => ({
     fetchItemsStartedFrom: (lastID: string) => dispatch(
@@ -135,7 +131,6 @@ class ItemList extends React.Component {
 
   shouldComponentUpdate (nextProps : ItemListPropTypes) {
     return (
-      this.props.institutions !== nextProps.institutions ||
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.items !== nextProps.items ||
       this.props.isFetching !== nextProps.isFetching ||
@@ -169,7 +164,16 @@ class ItemList extends React.Component {
     if (items.size === 0) {
       return (
         <div className="text-center fancy-text" style={{ marginTop: "8rem" }}>
-          {"Nu există acte inițiate"}
+          {"Nu ai inițiat acte normative"}
+          <div className="mt-2">
+            <NavLink
+              activeClassName="selected"
+              className="btn btn-success"
+              to="/add-item">
+              <i className="fa fa-plus mr-1" />
+              {"Inițiază primul act normativ"}
+            </NavLink>
+          </div>
         </div>
       );
     }

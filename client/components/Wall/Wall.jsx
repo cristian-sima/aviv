@@ -25,7 +25,7 @@ type WallContainerStateTypes = {
 import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Link } from "react-router-dom";
 import { stopSubmit, reset } from "redux-form/immutable";
 
 import { LoadingMessage } from "../Messages";
@@ -160,7 +160,7 @@ class WallContainer extends React.Component {
   }
 
   render () {
-    const { isConnecting, isMasterAccount } = this.props;
+    const { isConnecting, isMasterAccount, match : { url } } = this.props;
 
     if (isConnecting) {
       return (
@@ -178,7 +178,20 @@ class WallContainer extends React.Component {
               <Institutions emit={this.emit} />
             </div>
           ) : (
-            <div>
+            <div className="container">
+              {
+                url === "/add-item" ? null : (
+                  <div className="text-right">
+                    <Link
+                      activeClassName="selected"
+                      className="btn btn-success"
+                      to="/add-item">
+                      <i className="fa fa-plus mr-1" />
+                      {"Inițiază act"}
+                    </Link>
+                  </div>
+                )
+              }
               <Route component={() => (<ItemDetails emit={this.emit} />)} exact path="/items/:item" />
               <Route component={() => (<AddItem emit={this.emit} />)} exact path="/add-item" />
               <Route component={() => (<ToApprov emit={this.emit} />)} exact path="/" />
