@@ -186,7 +186,7 @@ class WallContainer extends React.Component {
             <div>
               <Route component={() => (<ItemDetails emit={this.emit} />)} exact path="/items/:item" />
               <Route component={() => (<AddItem emit={this.emit} />)} exact path="/add-item" />
-              <Route component={() => (<ToApprov emit={this.emit} />)} exact path="/to-approv" />
+              <Route component={() => (<ToApprov emit={this.emit} />)} exact path="/" />
             </div>
           )
         }

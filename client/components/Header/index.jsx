@@ -62,8 +62,14 @@ class Header extends React.Component {
       <div>
         <nav className="navbar navbar-expand-sm navbar-light bg-light">
           <span className="navbar-brand">
-            <img alt="logo" className="d-inline-block align-top mr-1" src="/media/small.png" />
-            {"aviz.gov.ro"}
+            <NavLink
+              to="/">
+              <img
+                alt="logo"
+                className="d-inline-block align-top mr-1 text-muted"
+                src="/media/small.png" />
+              {"aviz.gov.ro"}
+            </NavLink>
           </span>
           {
             isConnected ? (
@@ -78,7 +84,7 @@ class Header extends React.Component {
                     <NavLink
                       activeClassName="selected"
                       className="nav-link"
-                      to="/to-approv">
+                      to="/">
                       {"Pentru avizat"}
                     </NavLink>
                   </NavItem>
