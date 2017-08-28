@@ -30,7 +30,6 @@ class Page extends React.Component {
       data,
       institutions,
       isAdvicer,
-      showDeleteItemModal,
     } = this.props;
 
     const
@@ -145,18 +144,6 @@ class Page extends React.Component {
               </tbody>
             </table>
           </div>
-          {
-            isAdvicer ? (
-              <div>
-                <h4>{"Opțiuni avansate"}</h4>
-                <button
-                  className="btn-danger btn"
-                  onClick={showDeleteItemModal}>
-                  {"Retrage actul normativ"}
-                </button>
-              </div>
-            ) : null
-          }
         </div>
       </div>
     );

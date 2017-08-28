@@ -7,7 +7,6 @@ type ListPropTypes = {
   hasFetchingError: boolean;
   isFetching: boolean;
   shouldFetchInstitutions: boolean;
-  isMasterAccount: boolean;
   institutions: any;
   areFetched: boolean;
 

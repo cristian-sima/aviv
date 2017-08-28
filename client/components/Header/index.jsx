@@ -5,6 +5,7 @@ import type { State } from "types";
 type HeaderPropTypes = {
   account: any;
   isConnected: bool;
+  isNormalAccount: bool;
 };
 
 type HeaderStateTypes = {
@@ -18,13 +19,15 @@ import { Collapse, NavbarToggler, Nav, NavItem } from "reactstrap";
 
 import {
   getIsAccountConnected,
+  getIsMasterAccount,
 } from "reducers";
 
 import DisconnectBox from "./DisconnectBox";
 
 const
   mapStateToProps = (state : State) => ({
-    isConnected: getIsAccountConnected(state),
+    isConnected     : getIsAccountConnected(state),
+    isNormalAccount : !getIsMasterAccount(state),
   });
 
 class Header extends React.Component {
@@ -48,6 +51,7 @@ class Header extends React.Component {
 
   shouldComponentUpdate (nextProps : HeaderPropTypes, nextState : HeaderStateTypes) {
     return (
+      this.props.isNormalAccount !== nextProps.isNormalAccount ||
       this.props.isConnected !== nextProps.isConnected ||
       this.state.isOpen !== nextState.isOpen
     );
@@ -56,20 +60,18 @@ class Header extends React.Component {
   render () {
     const {
       isConnected,
+      isNormalAccount,
     } = this.props;
 
     return (
       <div>
         <nav className="navbar navbar-expand-sm navbar-light bg-light">
           <span className="navbar-brand">
-            <NavLink
-              to="/">
-              <img
-                alt="logo"
-                className="d-inline-block align-top mr-1 text-muted"
-                src="/media/small.png" />
-              {"aviz.gov.ro"}
-            </NavLink>
+            <img
+              alt="logo"
+              className="d-inline-block align-top mr-1 text-muted"
+              src="/media/small.png" />
+            {"aviz.gov.ro"}
           </span>
           {
             isConnected ? (
@@ -79,33 +81,37 @@ class Header extends React.Component {
           {
             isConnected ? (
               <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="mr-auto" navbar>
-                  <NavItem>
-                    <NavLink
-                      activeClassName="selected"
-                      className="nav-link"
-                      to="/">
-                      {"Pentru avizat"}
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      activeClassName="selected"
-                      className="nav-link"
-                      to="/started">
-                      {"Inițiate"}
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      activeClassName="selected"
-                      className="nav-link text-success"
-                      to="/add-item">
-                      <i className="fa fa-plus mr-1" />
-                      {"Inițiază act"}
-                    </NavLink>
-                  </NavItem>
-                </Nav>
+                {
+                  isNormalAccount ? (
+                    <Nav className="mr-auto" navbar>
+                      <NavItem>
+                        <NavLink
+                          activeClassName="selected"
+                          className="nav-link"
+                          to="/">
+                          {"Pentru avizat"}
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          activeClassName="selected"
+                          className="nav-link"
+                          to="/started">
+                          {"Inițiate"}
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          activeClassName="selected"
+                          className="nav-link text-success"
+                          to="/add-item">
+                          <i className="fa fa-plus mr-1" />
+                          {"Inițiază act"}
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
+                  ) : null
+                }
                 <Nav className="ml-auto" navbar>
                   <DisconnectBox />
                 </Nav>
