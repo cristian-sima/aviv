@@ -12,7 +12,7 @@ import React from "react";
 import Delete from "../../Modal/Delete";
 
 import { deleteUser as deleteUserRequest } from "request";
-import { getUser } from "reducers";
+import { getItem } from "reducers";
 import {
   deleteUser as deleteUserAction,
   notify,
@@ -20,27 +20,25 @@ import {
 
 const
   mapStateToProps = (state : State, { id } : OwnProps) => ({
-    data: getUser(state, String(id)),
+    data: getItem(state, String(id)),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { id } : OwnProps) => ({
     onSuccess () {
       dispatch(deleteUserAction(id));
-      dispatch(notify("Cont șters"));
+      dispatch(notify("Actul normatv a fost retras"));
     },
   }),
-  mergeProps = ({ data }, { onSuccess }, { id } : OwnProps) => ({
+  mergeProps = ({ onSuccess }, { id } : OwnProps) => ({
 
     onSuccess,
 
-    errMessage: "Nu am putut să șterg contul",
+    errMessage: "Nu am putut să retrag actul normativ",
 
     request: () => deleteUserRequest(id),
 
     message: (
       <span>
-        {"Vrei să ștergi contul de utilizator "}
-        <strong>{data.get("username")}</strong>
-        {" ?"}
+        {"Vrei retragi actul normativ? Această operațiune este ireversibilă."}
       </span>
     ),
   });

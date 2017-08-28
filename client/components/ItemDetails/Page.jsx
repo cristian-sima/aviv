@@ -11,6 +11,7 @@ type PagePropTypes = {
   data: any;
   institutions: any;
   isAdvicer: bool;
+  showDeleteItemModal: () => void;
 };
 
 class Page extends React.Component {
@@ -25,7 +26,12 @@ class Page extends React.Component {
   }
 
   render () {
-    const { data, institutions, isAdvicer } = this.props;
+    const {
+      data,
+      institutions,
+      isAdvicer,
+      showDeleteItemModal,
+    } = this.props;
 
     const
       name = data.get("name"),
@@ -139,6 +145,18 @@ class Page extends React.Component {
               </tbody>
             </table>
           </div>
+          {
+            isAdvicer ? (
+              <div>
+                <h4>{"Opțiuni avansate"}</h4>
+                <button
+                  className="btn-danger btn"
+                  onClick={showDeleteItemModal}>
+                  {"Retrage actul normativ"}
+                </button>
+              </div>
+            ) : null
+          }
         </div>
       </div>
     );

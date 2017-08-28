@@ -19,6 +19,7 @@ type ItemPagePropTypes = {
   institutions: any;
   isAdvicer: bool;
 
+  showDeleteItemModal: () => void;
   fetchItemDetails: () => void;
 }
 
@@ -42,6 +43,7 @@ import {
 
 import {
   fetchItemDetails as fetchItemDetailsAction,
+  showDeleteItemModal as showDeleteItemModalAction,
 } from "actions";
 
 const
@@ -54,9 +56,12 @@ const
     institutions : getInstitutionsData(state),
     isAdvicer    : getIsCurrentAccountAdvicer(state, item),
   }),
-  mapDispatchToProps = (dispatch : Dispatch, { match: { params } } : OwnProps) => ({
+  mapDispatchToProps = (dispatch : Dispatch, { match: { params : { item } } } : OwnProps) => ({
     fetchItemDetails () {
-      dispatch(fetchItemDetailsAction(params.item));
+      dispatch(fetchItemDetailsAction(item));
+    },
+    showDeleteItemModal () {
+      dispatch(showDeleteItemModalAction(item));
     },
   });
 
