@@ -28,6 +28,7 @@ export type Action =
 | { type: 'DELETE_USER'; payload: string; }
 
 | { type: 'FETCH_ITEMS_TO_ADVICE', payload: any; }
+| { type: 'FETCH_ITEMS_STARTED', payload: any; }
 | { type: 'FETCH_ITEM_DETAILS', payload: any; meta : { id : string } }
 
 | { type: 'DELETE_NOTIFICATION', payload: number }

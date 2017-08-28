@@ -53,9 +53,20 @@ export type ItemsToAdviceState = {
   +total: number;
 };
 
+export type ItemsStartedState = {
+  +IDs: any;
+  +error: string;
+  +fetched: bool;
+  +fetching: bool;
+
+  +lastID: string;
+  +total: number;
+};
+
 type ItemsState = {
   +byID: ItemsByIDState;
   +toAdvice: ItemsToAdviceState;
+  +started: ItemsStartedState;
 }
 
 export type State = {

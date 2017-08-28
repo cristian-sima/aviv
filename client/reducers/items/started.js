@@ -1,13 +1,13 @@
 // @flow
 
-import type { Action, ItemsToAdviceState, State } from "types";
+import type { Action, ItemsStartedState, State } from "types";
 
 import { createSelector } from "reselect";
 import * as Immutable from "immutable";
 
 import { noError, noID, nothingFetched, rowsPerLoad } from "utility";
 
-const newInitialState = () : ItemsToAdviceState => ({
+const newInitialState = () : ItemsStartedState => ({
   IDs      : Immutable.List(),
   error    : noError,
   fetched  : false,
@@ -18,17 +18,17 @@ const newInitialState = () : ItemsToAdviceState => ({
 });
 
 const
-  fetchItemsPending = (state : ItemsToAdviceState) => ({
+  fetchItemsPending = (state : ItemsStartedState) => ({
     ...state,
     error    : noError,
     fetching : true,
   }),
-  fetchItemsRejected = (state : ItemsToAdviceState, { payload : { error } }) => ({
+  fetchItemsRejected = (state : ItemsStartedState, { payload : { error } }) => ({
     ...state,
     error,
     fetching: false,
   }),
-  fetchItemsFulfilled = (state : ItemsToAdviceState, { payload }) => ({
+  fetchItemsFulfilled = (state : ItemsStartedState, { payload }) => ({
     ...state,
     error    : noError,
     fetched  : true,
@@ -38,7 +38,7 @@ const
 
     IDs: state.IDs.concat(payload.Items.result),
   }),
-  addItem = (state : ItemsToAdviceState, { payload }) => {
+  addItem = (state : ItemsStartedState, { payload }) => {
     const { lastID, total } = state;
 
     if (lastID === noID) {
@@ -52,19 +52,19 @@ const
     };
   };
 
-export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action : Action) => {
+export const started = (state : ItemsStartedState = newInitialState(), action : Action) => {
 
   switch (action.type) {
-    case "FETCH_ITEMS_TO_ADVICE_PENDING":
+    case "FETCH_ITEMS_STARTED_PENDING":
       return fetchItemsPending(state);
 
-    case "FETCH_ITEMS_TO_ADVICE_REJECTED":
+    case "FETCH_ITEMS_STARTED_REJECTED":
       return fetchItemsRejected(state, action);
 
-    case "FETCH_ITEMS_TO_ADVICE_FULFILLED":
+    case "FETCH_ITEMS_STARTED_FULFILLED":
       return fetchItemsFulfilled(state, action);
 
-    case "ADD_ITEM_TO_ADVICE":
+    case "ADD_ITEM_STARTED":
       return addItem(state, action);
 
     case "RECONNECTING_LIVE":
@@ -77,15 +77,15 @@ export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action 
 };
 
 const
-  fetchingSelector = (state : State) => state.items.toAdvice.fetching,
-  errorSelector = (state : State) => state.items.toAdvice.error,
-  IDsListSelector = (state : State) => state.items.toAdvice.IDs,
+  fetchingSelector = (state : State) => state.items.started.fetching,
+  errorSelector = (state : State) => state.items.started.error,
+  IDsListSelector = (state : State) => state.items.started.IDs,
   byIDsMapSelector = (state : State) => state.items.byID;
 
 export const
-  getTotalItemsToAdviceSelector = (state : State) => state.items.toAdvice.total,
-  lastFetchedItemsToAdviceIDSelector = (state : State) => (
-    state.items.toAdvice.lastID
+  getTotalItemsStartedSelector = (state : State) => state.items.started.total,
+  lastFetchedItemsStartedIDSelector = (state : State) => (
+    state.items.started.lastID
   );
 
 const getItems = createSelector(
@@ -96,7 +96,7 @@ const getItems = createSelector(
   )
 );
 
-export const getIsFetchingItemsToAdvice = createSelector(
+export const getIsFetchingItemsStarted = createSelector(
   fetchingSelector,
   errorSelector,
   (isFetching, error) => (
@@ -104,10 +104,10 @@ export const getIsFetchingItemsToAdvice = createSelector(
   )
 );
 
-export const getShouldFetchItemsToAdvice = createSelector(
-  getIsFetchingItemsToAdvice,
+export const getShouldFetchItemsStarted = createSelector(
+  getIsFetchingItemsStarted,
   IDsListSelector,
-  getTotalItemsToAdviceSelector,
+  getTotalItemsStartedSelector,
   (isFetching, list, total) => (
     !isFetching &&
     (
@@ -117,12 +117,12 @@ export const getShouldFetchItemsToAdvice = createSelector(
   )
 );
 
-export const getIsFetchingItemsToAdviceError = createSelector(
+export const getIsFetchingItemsStartedError = createSelector(
   errorSelector,
   (error) => error !== noError
 );
 
-export const getCanLoadItemsToAdviceLocally = createSelector(
+export const getCanLoadItemsStartedLocally = createSelector(
   IDsListSelector,
   (state, from) => from,
   (list, from) => (
@@ -130,24 +130,24 @@ export const getCanLoadItemsToAdviceLocally = createSelector(
   )
 );
 
-export const getSortedItemsToAdvice = createSelector(
+export const getSortedItemsStarted = createSelector(
   getItems,
   (list) => (
     list.sortBy((item) => -new Date(item.get("date")).getTime())
   )
 );
 
-export const getItemsToAdviceUpToSelector = createSelector(
-  getSortedItemsToAdvice,
+export const getItemsStartedUpToSelector = createSelector(
+  getSortedItemsStarted,
   (state, requestedUpTo : number) => requestedUpTo,
   (sortedItems, requestedUpTo: number) => (
     sortedItems.slice(0, requestedUpTo)
   )
 );
 
-export const shouldFetchItemsToAdviceFrom = createSelector(
-  getCanLoadItemsToAdviceLocally,
-  getShouldFetchItemsToAdvice,
+export const shouldFetchItemsStartedFrom = createSelector(
+  getCanLoadItemsStartedLocally,
+  getShouldFetchItemsStarted,
   (canLoadLocally, shouldFetch) => (
     !canLoadLocally && shouldFetch
   )

@@ -35,6 +35,7 @@ router.all("/login", render);
 router.all("/institutions", render);
 router.all("/add-item", render);
 router.all("/items/:user", render);
+router.all("/started", render);
 router.all("/to-approv", render);
 router.all("/users", render);
 

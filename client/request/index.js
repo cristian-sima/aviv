@@ -167,6 +167,29 @@ export const fetchItemsToAdviceFrom = (lastID: string) => (
   )
 );
 
+export const fetchItemsStartedFrom = (lastID: string) => (
+  new Promise(
+    (resolve, reject) => (
+      agent.
+        get("/api/items/items-started").
+        query({
+          lastID,
+        }).
+        set("Accept", "application/json").
+        end(
+          withPromiseCallback(
+            ({ Items, Total, LastID }) => resolve({
+              Items: normalizeArrayOfItems(Items),
+              LastID,
+              Total,
+            }),
+            reject
+          )
+        )
+    )
+  )
+);
+
 export const fetchItemDetails = (id : string) => (
   new Promise(
     (resolve, reject) => (

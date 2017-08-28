@@ -71,6 +71,7 @@ const
 export const byIDItems = (state : ItemsByIDState = initialState, action : any) => {
   switch (action.type) {
     case "FETCH_ITEMS_TO_ADVICE_FULFILLED":
+    case "FETCH_ITEMS_STARTED_FULFILLED":
       return mergeWith(state, action);
 
     case "FETCH_ITEM_DETAILS_PENDING": {
