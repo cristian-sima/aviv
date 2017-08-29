@@ -12,6 +12,7 @@ type PagePropTypes = {
   institutions: any;
   isAdvicer: bool;
 
+  confirmDeleteItem: () => void;
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
 };
@@ -33,9 +34,11 @@ class Page extends React.Component {
       institutions,
       isAdvicer,
       showContactsForInstitution,
+      confirmDeleteItem,
     } = this.props;
 
     const
+      // id = data.get("_id"),
       name = data.get("name"),
       authors = data.get("authors"),
       version = data.get("version"),
@@ -74,6 +77,12 @@ class Page extends React.Component {
               </div>
             </div>
             <div className="col-xl-4">
+              <button
+                className="btn-link text-danger"
+                onClick={confirmDeleteItem}>
+                {"Retrage actul normativ"}
+              </button>
+              <hr />
               { moment(date).format("lll") }
               <hr />
               {"Versiunea"}

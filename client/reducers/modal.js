@@ -25,6 +25,9 @@ const reducer = (state : ModalState = initialState, action : Action) => {
     case "HIDE_MODAL":
       return hideModal(state);
 
+    case "@@router/LOCATION_CHANGE":
+      return state.clear();
+
     default:
       return state;
   }

@@ -21,6 +21,7 @@ type ItemPagePropTypes = {
 
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
+  confirmDeleteItem: () => void;
   fetchItemDetails: () => void;
 }
 
@@ -44,8 +45,8 @@ import {
 
 import {
   fetchItemDetails as fetchItemDetailsAction,
-  showDeleteItemModal as showDeleteItemModalAction,
   showContactsForInstitutionModal as showContactsForInstitutionModalAction,
+  deleteItemModal as deleteItemModalAction,
 } from "actions";
 
 const
@@ -62,11 +63,11 @@ const
     fetchItemDetails () {
       dispatch(fetchItemDetailsAction(item));
     },
-    showDeleteItemModal () {
-      dispatch(showDeleteItemModalAction(item));
-    },
     showContactsForInstitution: (id) => () => {
       dispatch(showContactsForInstitutionModalAction(id));
+    },
+    confirmDeleteItem () {
+      dispatch(deleteItemModalAction(item));
     },
   });
 

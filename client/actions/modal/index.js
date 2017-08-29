@@ -83,7 +83,7 @@ export const confirmResetPasswordModal = (id : string) : Action => (
 );
 
 
-export const showDeleteItemModal = (id : string) : Action => (
+export const deleteItemModal = (id : string) : Action => (
   createModal("DELETE_ITEM", {
     id,
   })

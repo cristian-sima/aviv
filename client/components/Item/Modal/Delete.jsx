@@ -32,6 +32,9 @@ const
 
     onSuccess,
 
+    cancelButtonLabel  : "Înapoi",
+    confirmButtonLabel : "Retrage actul normativ",
+
     errMessage: "Nu am putut să retrag actul normativ",
 
     request: () => deleteUserRequest(id),
