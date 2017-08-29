@@ -183,7 +183,6 @@ class WallContainer extends React.Component {
                 url === "/add-item" ? null : (
                   <div className="text-right">
                     <Link
-                      activeClassName="selected"
                       className="btn btn-success"
                       to="/add-item">
                       <i className="fa fa-plus mr-1" />

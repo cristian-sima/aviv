@@ -11,6 +11,8 @@ type PagePropTypes = {
   data: any;
   institutions: any;
   isAdvicer: bool;
+
+  showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
 };
 
@@ -30,6 +32,7 @@ class Page extends React.Component {
       data,
       institutions,
       isAdvicer,
+      showContactsForInstitution,
     } = this.props;
 
     const
@@ -115,10 +118,17 @@ class Page extends React.Component {
                     if (response.size === 0) {
                       return (
                         <tr key={advicer}>
-                          <td className="no-wrap small">{institutions.getIn([
-                            advicer,
-                            "name",
-                          ])}
+                          <td className="no-wrap small">
+                            <span
+                              className="cursor-pointer"
+                              onClick={showContactsForInstitution(advicer)}>
+                              {
+                                institutions.getIn([
+                                  advicer,
+                                  "name",
+                                ])
+                              }
+                            </span>
                           </td>
                           <td className="no-wrap">
                             <span className="text-muted">

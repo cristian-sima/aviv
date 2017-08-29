@@ -129,6 +129,7 @@
     "react-router-redux": "^5.0.0-alpha.4",
     "react-sidebar": "^2.3.2",
     "reactstrap": "^4.8.0",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.7.2",
     "redux-form": "^7.0.3",
     "redux-promise-middleware": "^4.3.0",

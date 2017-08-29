@@ -43,7 +43,11 @@ class Row extends React.Component {
           {
             authors.map((author) => (
               <div key={author}>
-                <span>{"- "}</span>
+                {
+                  authors.size === 1 ? null : (
+                    <span>{"- "}</span>
+                  )
+                }
                 {
                   institutions.getIn([
                     author,

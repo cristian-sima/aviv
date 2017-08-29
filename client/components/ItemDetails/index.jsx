@@ -19,6 +19,7 @@ type ItemPagePropTypes = {
   institutions: any;
   isAdvicer: bool;
 
+  showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
   fetchItemDetails: () => void;
 }
@@ -44,6 +45,7 @@ import {
 import {
   fetchItemDetails as fetchItemDetailsAction,
   showDeleteItemModal as showDeleteItemModalAction,
+  showContactsForInstitutionModal as showContactsForInstitutionModalAction,
 } from "actions";
 
 const
@@ -62,6 +64,9 @@ const
     },
     showDeleteItemModal () {
       dispatch(showDeleteItemModalAction(item));
+    },
+    showContactsForInstitution: (id) => () => {
+      dispatch(showContactsForInstitutionModalAction(id));
     },
   });
 

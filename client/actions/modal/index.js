@@ -88,3 +88,9 @@ export const showDeleteItemModal = (id : string) : Action => (
     id,
   })
 );
+
+export const showContactsForInstitutionModal = (id : string) : Action => (
+  createModal("CONTACTS_FOR_INSTITUTIONS", {
+    id,
+  })
+);

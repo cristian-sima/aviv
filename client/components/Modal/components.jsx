@@ -9,6 +9,7 @@ import LostPassword from "../Login/Modal/LostPassword";
 import AddInstitution from "../Institutions/Modal/Add";
 import ModifyInstitution from "../Institutions/Modal/Modify";
 import DeleteInstitution from "../Institutions/Modal/Delete";
+import InstitutionsContacts from "../Institutions/Modal/Contacts";
 
 import ShowAccountsForInstitution from "../User/Modal/List";
 import AddUser from "../User/Modal/Add";
@@ -30,6 +31,9 @@ const getComponent = (type : ModalActionType) : any => {
 
     case "DELETE_INSTITUTION":
       return DeleteInstitution;
+
+    case "CONTACTS_FOR_INSTITUTIONS":
+      return InstitutionsContacts;
 
     case "SHOW_USERS_FOR_INSTITUTION":
       return ShowAccountsForInstitution;
