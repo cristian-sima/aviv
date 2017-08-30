@@ -26,7 +26,11 @@ const deleteItem = (state, data, { payload : item }) => {
 
   const
     id = item.get("_id"),
-    findIndex = () => IDs.findIndex((current) => current === id);
+    findAndRemoveCurrent = () => (
+      IDs.remove(
+        IDs.findIndex((current) => current === id)
+      )
+    );
 
   if (lastID === id) {
     // there are more on the server
@@ -48,7 +52,7 @@ const deleteItem = (state, data, { payload : item }) => {
     return {
       ...state,
       lastID : getTheLastItem(IDs, data).get("_id"),
-      IDs    : IDs.remove(findIndex()),
+      IDs    : findAndRemoveCurrent(),
       total  : total - 1,
     };
   }
@@ -56,7 +60,7 @@ const deleteItem = (state, data, { payload : item }) => {
   if (IDs.includes(id)) {
     return {
       ...state,
-      IDs   : IDs.remove(findIndex()),
+      IDs   : findAndRemoveCurrent(),
       total : total - 1,
     };
   }
