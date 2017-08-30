@@ -51,6 +51,8 @@ export type ItemsToAdviceState = {
 
   +lastID: string;
   +total: number;
+  +from: number;
+  +negativeOffset: number;
 };
 
 export type ItemsStartedState = {

@@ -7,28 +7,23 @@ type ItemListPropTypes = {
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
-  currentFrom: number;
+  offsetFrom: number;
   showLoadMoreButton: boolean;
   total: number;
+  currentFrom: number;
+  shouldFetchLastItemNumber: boolean;
+  shouldFetchItemsToAdvice: boolean;
   institutions: any;
+  lastID: string;
 
   loadData: () => void;
   loadNextPage: () => void;
-};
-
-type OwnProps = {
-  ui: {
-    currentFrom: number;
-  };
-  match: {
-    params: {
-      company: string;
-    };
-  };
-  updateUI: (newState: any) => void;
+  updateFrom: (from : number) => void;
+  fetchItemsToAdviceFrom: (lastID : string) => void;
 };
 
 type StateProps = {
+  offsetFrom: number;
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
@@ -39,13 +34,13 @@ type StateProps = {
 };
 
 type DispatchProps = {
+  updateFrom: (from : number) => void;
   fetchItemsToAdviceFrom: (lastID : string) => void;
 };
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import React from "react";
-import ui from "redux-ui";
 
 import List from "./List";
 
@@ -58,6 +53,8 @@ import {
   getTotalItemsToAdviceSelector,
   lastFetchedItemsToAdviceIDSelector,
   shouldFetchItemsToAdviceFrom,
+  getOffsetFromToAdviceItems,
+  getFromToAdviceItems,
 
   getInstitutionsData,
 } from "reducers";
@@ -66,31 +63,43 @@ import { rowsPerLoad } from "utility";
 
 import {
   fetchItemsToAdviceFrom as fetchItemsToAdviceFromAction,
+  modifyFromToAdviceItems as modifyFromToAdviceItemsAction,
 } from "actions";
 
 const
-  mapStateToProps = (state : State, { ui : { currentFrom } } : OwnProps) => ({
-    hasFetchingError : getIsFetchingItemsToAdviceError(state),
-    items            : getItemsToAdviceUpTo(state, currentFrom + rowsPerLoad),
-    isFetching       : getIsFetchingItemsToAdvice(state),
-    total            : getTotalItemsToAdviceSelector(state),
-    lastID           : lastFetchedItemsToAdviceIDSelector(state),
+  mapStateToProps = (state : State) => {
 
-    shouldFetchLastItemNumber : shouldFetchItemsToAdviceFrom(state, currentFrom),
-    shouldFetchItemsToAdvice  : shouldFetchItemsToAdviceFrom(state, currentFrom + rowsPerLoad),
+    const
+      offsetFrom = getOffsetFromToAdviceItems(state),
+      currentFrom = getFromToAdviceItems(state);
 
-    institutions: getInstitutionsData(state),
-  }),
+    return {
+      offsetFrom,
+      hasFetchingError : getIsFetchingItemsToAdviceError(state),
+      items            : getItemsToAdviceUpTo(state, currentFrom + rowsPerLoad),
+      isFetching       : getIsFetchingItemsToAdvice(state),
+      total            : getTotalItemsToAdviceSelector(state),
+      lastID           : lastFetchedItemsToAdviceIDSelector(state),
+
+      shouldFetchLastItemNumber : shouldFetchItemsToAdviceFrom(state, offsetFrom),
+      shouldFetchItemsToAdvice  : shouldFetchItemsToAdviceFrom(state, offsetFrom + rowsPerLoad),
+
+      institutions: getInstitutionsData(state),
+    };
+  },
   mapDispatchToProps = (dispatch : Dispatch) => ({
     fetchItemsToAdviceFrom: (lastID: string) => dispatch(
       fetchItemsToAdviceFromAction(lastID)
     ),
+    updateFrom (from) {
+      dispatch(modifyFromToAdviceItemsAction(from));
+    },
   }),
-  mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps, ownProps : OwnProps) => ({
+  mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps) => ({
     ...stateProps,
     ...dispatchProps,
     ...{
-      currentFrom        : ownProps.ui.currentFrom,
+      offsetFrom         : stateProps.offsetFrom,
       showLoadMoreButton : (
       // if the number of visible is not equal to the nr of total
         stateProps.items.size !== stateProps.total
@@ -106,20 +115,15 @@ const
       },
 
       loadNextPage: () => {
-        const { updateUI, ui : { currentFrom } } = ownProps;
-        const { shouldFetchItemsToAdvice, lastID } = stateProps;
-        const { fetchItemsToAdviceFrom } = dispatchProps;
-
-        const updateUIValue = (newCurrentFrom : number) => updateUI({
-          currentFrom: newCurrentFrom,
-        });
+        const { shouldFetchItemsToAdvice, lastID, offsetFrom } = stateProps;
+        const { fetchItemsToAdviceFrom, updateFrom } = dispatchProps;
 
         if (shouldFetchItemsToAdvice) {
-          updateUIValue(stateProps.items.size);
+          updateFrom(stateProps.items.size);
           fetchItemsToAdviceFrom(lastID);
         } else {
-        // just update it, because it gets the items locally
-          updateUIValue(currentFrom + rowsPerLoad);
+          // just update it, because it gets the items locally
+          updateFrom(offsetFrom + rowsPerLoad);
         }
       },
     },
@@ -133,16 +137,32 @@ class ItemList extends React.Component {
     this.props.loadData();
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { shouldFetchLastItemNumber, fetchItemsToAdviceFrom, lastID } = nextProps;
+
+    if (shouldFetchLastItemNumber) {
+      fetchItemsToAdviceFrom(lastID);
+    }
+  }
+
   shouldComponentUpdate (nextProps : ItemListPropTypes) {
     return (
-      this.props.institutions !== nextProps.institutions ||
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.items !== nextProps.items ||
       this.props.isFetching !== nextProps.isFetching ||
-      this.props.currentFrom !== nextProps.currentFrom ||
+      this.props.offsetFrom !== nextProps.offsetFrom ||
       this.props.showLoadMoreButton !== nextProps.showLoadMoreButton ||
+      this.props.shouldFetchLastItemNumber !== nextProps.shouldFetchLastItemNumber ||
+      this.props.shouldFetchItemsToAdvice !== nextProps.shouldFetchItemsToAdvice ||
+      this.props.lastID !== nextProps.lastID ||
       this.props.total !== nextProps.total
     );
+  }
+
+  componentWillUnmount () {
+    const { updateFrom } = this.props;
+
+    updateFrom(0);
   }
 
   render () {
@@ -169,7 +189,7 @@ class ItemList extends React.Component {
     if (items.size === 0) {
       return (
         <div className="text-center fancy-text" style={{ marginTop: "8rem" }}>
-          {"Nu există acte de avizat"}
+          {"Nu există acte pentru avizat"}
         </div>
       );
     }
@@ -182,10 +202,4 @@ class ItemList extends React.Component {
   }
 }
 
-export default ui({
-  state: {
-    currentFrom: 0,
-  },
-})(
-  connect(mapStateToProps, mapDispatchToProps, mergeProps)(withRouter(ItemList))
-);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(withRouter(ItemList));

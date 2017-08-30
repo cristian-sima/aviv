@@ -15,6 +15,9 @@ const newInitialState = () : ItemsToAdviceState => ({
 
   lastID : noID,
   total  : nothingFetched,
+
+  from           : 0,
+  negativeOffset : 0,
 });
 
 const
@@ -50,7 +53,11 @@ const
       IDs   : state.IDs.push(payload.get("_id")),
       total : total + 1,
     };
-  };
+  },
+  modifyFromToAdviceItems = (state : ItemsToAdviceState, { payload : from }) => ({
+    ...state,
+    from,
+  });
 
 export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action : Action) => {
 
@@ -71,6 +78,9 @@ export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action 
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 
+    case "MODIFY_FROM_TO_ADVICE_ITEMS":
+      return modifyFromToAdviceItems(state, action);
+
     default:
       return state;
   }
@@ -83,6 +93,12 @@ const
   byIDsMapSelector = (state : State) => state.items.byID;
 
 export const
+  getOffsetFromToAdviceItems = (state : State) => (
+    state.items.toAdvice.from + state.items.toAdvice.negativeOffset
+  ),
+  getFromToAdviceItems = (state : State) => (
+    state.items.toAdvice.from
+  ),
   getTotalItemsToAdviceSelector = (state : State) => state.items.toAdvice.total,
   lastFetchedItemsToAdviceIDSelector = (state : State) => (
     state.items.toAdvice.lastID

@@ -31,3 +31,8 @@ export const modifyFromStartedItems = (payload : number) : Action => ({
   type: "MODIFY_FROM_STARTED_ITEMS",
   payload,
 });
+
+export const modifyFromToAdviceItems = (payload : number) : Action => ({
+  type: "MODIFY_FROM_TO_ADVICE_ITEMS",
+  payload,
+});
