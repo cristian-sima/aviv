@@ -35,6 +35,7 @@ export type Action =
 | { type: 'FETCH_ITEMS_TO_ADVICE', payload: any; }
 | { type: 'FETCH_ITEMS_STARTED', payload: any; }
 | { type: 'FETCH_ITEM_DETAILS', payload: any; meta : { id : string } }
+| { type: 'MODIFY_FROM_STARTED_ITEMS', payload: number; }
 
 | { type: 'DELETE_NOTIFICATION', payload: number }
 | ModalActions

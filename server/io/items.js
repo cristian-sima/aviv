@@ -105,8 +105,6 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
 
 export const deleteItem = (socket : Socket, db : Database, io : any) => (body : any) => {
 
-  console.log("_id", _id);
-
   const
     items = db.collection("items"),
     { id } = body,
@@ -147,9 +145,6 @@ export const deleteItem = (socket : Socket, db : Database, io : any) => (body : 
     };
 
   return items.findOne(whereClause, (errFindItem, data) => {
-    console.log("errFindItem", errFindItem);
-    console.log("data", data);
-    console.log("institutionID", institutionID);
     if (errFindItem || data === null) {
       return emitGenericError();
     }

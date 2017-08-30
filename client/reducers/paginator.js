@@ -16,7 +16,7 @@ const getTheLastItem = (ids, data) => {
 };
 
 const performDelete = (state, data, { payload : item }) => {
-  const { lastID, total, IDs } = state;
+  const { lastID, total, IDs, negativeOffset } = state;
 
   if (total === nothingFetched) {
     return state;
@@ -41,56 +41,34 @@ const performDelete = (state, data, { payload : item }) => {
         fetched  : false,
         fetching : false,
 
-        lastID : noID,
-        total  : nothingFetched,
+        lastID         : noID,
+        from           : 0,
+        negativeOffset : 0,
+        total          : nothingFetched,
       };
     }
 
     // get the last one before latest
     return {
       ...state,
-      lastID : getTheLastItem(IDs, data).get("_id"),
-      IDs    : findAndRemoveCurrent(),
-      total  : total - 1,
+      lastID         : getTheLastItem(IDs, data).get("_id"),
+      IDs            : findAndRemoveCurrent(),
+      total          : total - 1,
+      negativeOffset : negativeOffset - 1,
     };
   }
 
   if (IDs.includes(id)) {
     return {
       ...state,
-      IDs   : findAndRemoveCurrent(),
-      total : total - 1,
+      IDs            : findAndRemoveCurrent(),
+      total          : total - 1,
+      negativeOffset : negativeOffset - 1,
     };
   }
 
   return state;
 };
-
-// const addItemIfNeeded = (state, data, { payload : item }) => {
-//   const { lastID, total, IDs } = state;
-//
-//   if (total === nothingFetched) {
-//     return state;
-//   }
-//
-//   const
-//     id = item.get("_id"),
-//     currentDate = item.get("date"),
-//     lastDate = IDs.getIn([
-//       lastID,
-//       "date",
-//     ]);
-//
-//   if (currentDate > lastDate) {
-//     return {
-//       ...state,
-//       IDs   : IDs.push(id),
-//       total : total + 1,
-//     };
-//   }
-//
-//   return state;
-// };
 
 const shouldStore = (lists : Array<any>, id) => {
   for (const list of lists) {

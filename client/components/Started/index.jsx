@@ -7,27 +7,22 @@ type ItemListPropTypes = {
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
-  currentFrom: number;
+  offsetFrom: number;
   showLoadMoreButton: boolean;
   total: number;
+  currentFrom: number;
+  shouldFetchLastItemNumber: boolean;
+  shouldFetchItemsStarted: boolean;
+  lastID: string;
 
   loadData: () => void;
   loadNextPage: () => void;
-};
-
-type OwnProps = {
-  ui: {
-    currentFrom: number;
-  };
-  match: {
-    params: {
-      company: string;
-    };
-  };
-  updateUI: (newState: any) => void;
+  updateFrom: (from : number) => void;
+  fetchItemsStartedFrom: (lastID : string) => void;
 };
 
 type StateProps = {
+  offsetFrom: number;
   hasFetchingError: boolean;
   items: any;
   isFetching: boolean;
@@ -38,13 +33,13 @@ type StateProps = {
 };
 
 type DispatchProps = {
+  updateFrom: (from : number) => void;
   fetchItemsStartedFrom: (lastID : string) => void;
 };
 
 import { connect } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
 import React from "react";
-import ui from "redux-ui";
 
 import List from "./List";
 
@@ -57,6 +52,8 @@ import {
   getTotalItemsStartedSelector,
   lastFetchedItemsStartedIDSelector,
   shouldFetchItemsStartedFrom,
+  getOffsetFromStartedItems,
+  getFromStartedItems,
 
 } from "reducers";
 
@@ -64,29 +61,41 @@ import { rowsPerLoad } from "utility";
 
 import {
   fetchItemsStartedFrom as fetchItemsStartedFromAction,
+  modifyFromStartedItems as modifyFromStartedItemsAction,
 } from "actions";
 
 const
-  mapStateToProps = (state : State, { ui : { currentFrom } } : OwnProps) => ({
-    hasFetchingError : getIsFetchingItemsStartedError(state),
-    items            : getItemsStartedUpTo(state, currentFrom + rowsPerLoad),
-    isFetching       : getIsFetchingItemsStarted(state),
-    total            : getTotalItemsStartedSelector(state),
-    lastID           : lastFetchedItemsStartedIDSelector(state),
+  mapStateToProps = (state : State) => {
 
-    shouldFetchLastItemNumber : shouldFetchItemsStartedFrom(state, currentFrom),
-    shouldFetchItemsStarted   : shouldFetchItemsStartedFrom(state, currentFrom + rowsPerLoad),
-  }),
+    const
+      offsetFrom = getOffsetFromStartedItems(state),
+      currentFrom = getFromStartedItems(state);
+
+    return {
+      offsetFrom,
+      hasFetchingError : getIsFetchingItemsStartedError(state),
+      items            : getItemsStartedUpTo(state, currentFrom + rowsPerLoad),
+      isFetching       : getIsFetchingItemsStarted(state),
+      total            : getTotalItemsStartedSelector(state),
+      lastID           : lastFetchedItemsStartedIDSelector(state),
+
+      shouldFetchLastItemNumber : shouldFetchItemsStartedFrom(state, offsetFrom),
+      shouldFetchItemsStarted   : shouldFetchItemsStartedFrom(state, offsetFrom + rowsPerLoad),
+    };
+  },
   mapDispatchToProps = (dispatch : Dispatch) => ({
     fetchItemsStartedFrom: (lastID: string) => dispatch(
       fetchItemsStartedFromAction(lastID)
     ),
+    updateFrom (from) {
+      dispatch(modifyFromStartedItemsAction(from));
+    },
   }),
-  mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps, ownProps : OwnProps) => ({
+  mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps) => ({
     ...stateProps,
     ...dispatchProps,
     ...{
-      currentFrom        : ownProps.ui.currentFrom,
+      offsetFrom         : stateProps.offsetFrom,
       showLoadMoreButton : (
       // if the number of visible is not equal to the nr of total
         stateProps.items.size !== stateProps.total
@@ -102,20 +111,15 @@ const
       },
 
       loadNextPage: () => {
-        const { updateUI, ui : { currentFrom } } = ownProps;
-        const { shouldFetchItemsStarted, lastID } = stateProps;
-        const { fetchItemsStartedFrom } = dispatchProps;
-
-        const updateUIValue = (newCurrentFrom : number) => updateUI({
-          currentFrom: newCurrentFrom,
-        });
+        const { shouldFetchItemsStarted, lastID, offsetFrom } = stateProps;
+        const { fetchItemsStartedFrom, updateFrom } = dispatchProps;
 
         if (shouldFetchItemsStarted) {
-          updateUIValue(stateProps.items.size);
+          updateFrom(stateProps.items.size);
           fetchItemsStartedFrom(lastID);
         } else {
-        // just update it, because it gets the items locally
-          updateUIValue(currentFrom + rowsPerLoad);
+          // just update it, because it gets the items locally
+          updateFrom(offsetFrom + rowsPerLoad);
         }
       },
     },
@@ -129,15 +133,32 @@ class ItemList extends React.Component {
     this.props.loadData();
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { shouldFetchLastItemNumber, fetchItemsStartedFrom, lastID } = nextProps;
+
+    if (shouldFetchLastItemNumber) {
+      fetchItemsStartedFrom(lastID);
+    }
+  }
+
   shouldComponentUpdate (nextProps : ItemListPropTypes) {
     return (
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.items !== nextProps.items ||
       this.props.isFetching !== nextProps.isFetching ||
-      this.props.currentFrom !== nextProps.currentFrom ||
+      this.props.offsetFrom !== nextProps.offsetFrom ||
       this.props.showLoadMoreButton !== nextProps.showLoadMoreButton ||
+      this.props.shouldFetchLastItemNumber !== nextProps.shouldFetchLastItemNumber ||
+      this.props.shouldFetchItemsStarted !== nextProps.shouldFetchItemsStarted ||
+      this.props.lastID !== nextProps.lastID ||
       this.props.total !== nextProps.total
     );
+  }
+
+  componentWillUnmount () {
+    const { updateFrom } = this.props;
+
+    updateFrom(0);
   }
 
   render () {
@@ -186,10 +207,4 @@ class ItemList extends React.Component {
   }
 }
 
-export default ui({
-  state: {
-    currentFrom: 0,
-  },
-})(
-  connect(mapStateToProps, mapDispatchToProps, mergeProps)(withRouter(ItemList))
-);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(withRouter(ItemList));

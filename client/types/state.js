@@ -61,6 +61,8 @@ export type ItemsStartedState = {
 
   +lastID: string;
   +total: number;
+  +from: number;
+  +negativeOffset: number;
 };
 
 type ItemsState = {

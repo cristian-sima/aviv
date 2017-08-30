@@ -15,6 +15,9 @@ const newInitialState = () : ItemsStartedState => ({
 
   lastID : noID,
   total  : nothingFetched,
+
+  from           : 0,
+  negativeOffset : 0,
 });
 
 const
@@ -50,7 +53,11 @@ const
       IDs   : state.IDs.push(payload.get("_id")),
       total : total + 1,
     };
-  };
+  },
+  modifyFromStartedItems = (state : ItemsStartedState, { payload : from }) => ({
+    ...state,
+    from,
+  });
 
 export const started = (state : ItemsStartedState = newInitialState(), action : Action) => {
 
@@ -71,6 +78,9 @@ export const started = (state : ItemsStartedState = newInitialState(), action : 
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 
+    case "MODIFY_FROM_STARTED_ITEMS":
+      return modifyFromStartedItems(state, action);
+
     default:
       return state;
   }
@@ -83,6 +93,12 @@ const
   byIDsMapSelector = (state : State) => state.items.byID;
 
 export const
+  getOffsetFromStartedItems = (state : State) => (
+    state.items.started.from + state.items.started.negativeOffset
+  ),
+  getFromStartedItems = (state : State) => (
+    state.items.started.from
+  ),
   getTotalItemsStartedSelector = (state : State) => state.items.started.total,
   lastFetchedItemsStartedIDSelector = (state : State) => (
     state.items.started.lastID

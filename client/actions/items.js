@@ -26,3 +26,8 @@ export const fetchItemDetails = (id: string) : Action => ({
     id,
   },
 });
+
+export const modifyFromStartedItems = (payload : number) : Action => ({
+  type: "MODIFY_FROM_STARTED_ITEMS",
+  payload,
+});
