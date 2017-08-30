@@ -15,7 +15,7 @@ const getTheLastItem = (ids, data) => {
   return sortedByTime.get(sortedByTime.size - 2);
 };
 
-const deleteItem = (state, data, { payload : item }) => {
+const performDelete = (state, data, { payload : item }) => {
   const { lastID, total, IDs } = state;
 
   if (total === nothingFetched) {
@@ -66,18 +66,77 @@ const deleteItem = (state, data, { payload : item }) => {
   return state;
 };
 
+// const addItemIfNeeded = (state, data, { payload : item }) => {
+//   const { lastID, total, IDs } = state;
+//
+//   if (total === nothingFetched) {
+//     return state;
+//   }
+//
+//   const
+//     id = item.get("_id"),
+//     currentDate = item.get("date"),
+//     lastDate = IDs.getIn([
+//       lastID,
+//       "date",
+//     ]);
+//
+//   if (currentDate > lastDate) {
+//     return {
+//       ...state,
+//       IDs   : IDs.push(id),
+//       total : total + 1,
+//     };
+//   }
+//
+//   return state;
+// };
+
+const shouldStore = (lists : Array<any>, id) => {
+  for (const list of lists) {
+    if (list.includes(id)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+const deleteItem = (state : State, action : any) => ({
+  ...state,
+  items: {
+    ...state.items,
+    byID     : state.items.byID.remove(action.payload.get("_id")),
+    toAdvice : performDelete(state.items.toAdvice, state.items.byID, action),
+    started  : performDelete(state.items.started, state.items.byID, action),
+  },
+});
+
+const adviceItem = (state :State, action : any) => {
+
+  const
+    { items } = state,
+    { toAdvice, byID } = items;
+
+  const newToAdvice = performDelete(toAdvice, byID, action);
+
+  return {
+    ...state,
+    items: {
+      ...items,
+      byID     : shouldStore([newToAdvice], action.payload.get("_id")),
+      toAdvice : newToAdvice,
+    },
+  };
+};
+
 const paginator = (state : State, action : Action) => {
   switch (action.type) {
     case "DELETE_ITEM":
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          byID     : state.items.byID.remove(action.payload.get("_id")),
-          toAdvice : deleteItem(state.items.toAdvice, state.items.byID, action),
-          started  : deleteItem(state.items.started, state.items.byID, action),
-        },
-      };
+      return deleteItem(state, action);
+    case "ADVICE_ITEM":
+      return adviceItem(state, action);
+
     default:
       return state;
   }
