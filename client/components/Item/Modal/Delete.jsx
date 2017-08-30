@@ -34,6 +34,8 @@ const
 
     action: () => deleteItem(id),
 
+    focusButton: false,
+
     message: (
       <span>
         {"Vrei retragi actul normativ?"}
