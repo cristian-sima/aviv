@@ -1,7 +1,8 @@
 // @flow
 
 export * from "./auth";
-export * from "./institutions";
-export * from "./users";
-export * from "./items";
 export * from "./confirmations";
+export * from "./institutions";
+export * from "./items";
+export * from "./users";
+export * from "./versions";

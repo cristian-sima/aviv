@@ -1,11 +1,16 @@
 // @flow
 
-import type { Dispatch } from "types";
+import type { Dispatch, Emit } from "types";
 
 type AdviceItemFormContainerPropTypes = {
   emit: (name : string, msg : any) => void;
-  emitAddItem: (item : any) => void;
+  emitAdviceItem: (item : any) => void;
 };
+
+type DispatchPropTypes = {
+  id: string;
+  emit: Emit;
+}
 
 import { connect } from "react-redux";
 import { reduxForm, startSubmit } from "redux-form/immutable";
@@ -13,23 +18,23 @@ import React from "react";
 
 import Form from "./Form";
 
-import validate from "./validate";
-
 import { ADVICE_ITEM } from "utility/forms";
 
 const
-  mapDispatchToProps = (dispatch : Dispatch, { emit }) => ({
-    emitAddItem (data) {
+  mapDispatchToProps = (dispatch : Dispatch, { emit, id } : DispatchPropTypes) => ({
+    emitAdviceItem (data) {
       dispatch(startSubmit(ADVICE_ITEM));
       setTimeout(() => {
-        emit("ADD_ITEM", data);
+        emit("ADVICE_ITEM", {
+          ...data,
+          id,
+        });
       });
     },
   });
 
-const AddForm = reduxForm({
+const AdviceFormContainer = reduxForm({
   form: ADVICE_ITEM,
-  validate,
 })(Form);
 
 class AdviceItemFormContainer extends React.Component {
@@ -42,15 +47,15 @@ class AdviceItemFormContainer extends React.Component {
     super();
 
     this.handleSubmit = (formData : any) => {
-      const { emitAddItem } = this.props;
+      const { emitAdviceItem } = this.props;
 
-      emitAddItem(formData.toJS());
+      emitAdviceItem(formData.toJS());
     };
   }
 
   render () {
     return (
-      <AddForm
+      <AdviceFormContainer
         onSubmit={this.handleSubmit}
       />
     );

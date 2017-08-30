@@ -7,13 +7,16 @@ import { reducer as notifications } from "react-notification-system-redux";
 import { reducer as uiReducer } from "redux-ui";
 import reduceReducers from "reduce-reducers";
 
-import auth from "./auth";
-import institutions from "./institutions";
-import users from "./users";
 import modal from "./modal";
+import confirmations from "./confirmations";
+
+import auth from "./auth";
+
+import institutions from "./institutions";
 import items from "./items";
 import paginator from "./paginator";
-import confirmations from "./confirmations";
+import users from "./users";
+import versions from "./versions";
 
 // try to keep them in alphabetic order
 const rootReducer = reduceReducers(
@@ -23,6 +26,7 @@ const rootReducer = reduceReducers(
     users,
     modal,
     items,
+    versions,
     confirmations,
 
     notifications,

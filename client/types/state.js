@@ -75,6 +75,8 @@ type ItemsState = {
 
 export type ConfirmationsState = any;
 
+export type VersionsState = any;
+
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
@@ -83,4 +85,5 @@ export type State = {
   +institutions: InstitutionsState;
   +users: UsersState;
   +items: ItemsState;
+  +versions: VersionsState;
 };

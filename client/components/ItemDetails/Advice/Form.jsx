@@ -36,9 +36,9 @@ const Form = (props : FormPropTypes) => {
   return (
     <form autoComplete="off" onSubmit={handleSubmit}>
       <div className="container">
+        {error && errMessage}
         <div className="row">
           <div className="col-sm-8 col-md-6 col-lg-4 col-xl-6 offset-md-2">
-            {error && errMessage}
             <Field
               component={LabelTemplate}
               htmlFor="advice-form-response-1"

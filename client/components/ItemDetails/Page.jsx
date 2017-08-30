@@ -1,5 +1,7 @@
 // @flow
 
+import type { Emit } from "types";
+
 import React from "react";
 import moment from "moment";
 
@@ -12,6 +14,7 @@ type PagePropTypes = {
   institutions: any;
   isAdvicer: bool;
 
+  emit: Emit;
   confirmDeleteItem: () => void;
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
@@ -35,10 +38,11 @@ class Page extends React.Component {
       isAdvicer,
       showContactsForInstitution,
       confirmDeleteItem,
+      emit,
     } = this.props;
 
     const
-      // id = data.get("_id"),
+      id = data.get("_id"),
       name = data.get("name"),
       authors = data.get("authors"),
       version = data.get("version"),
@@ -46,11 +50,9 @@ class Page extends React.Component {
       versions = data.get("versions"),
       date = data.get("date");
 
-      // versions.filter((current) => (
-      //   current.get("version") === version
-      // ));
-
-    const currentVersion = Immutable.List();
+    const currentVersion = versions ? versions.filter((current) => (
+      current.get("version") === version
+    )) : Immutable.List();
 
     return (
       <div className="mt-3">
@@ -68,7 +70,10 @@ class Page extends React.Component {
                       <div className="card-body">
                         <h4 className="card-title">{"Te rugăm să avizezi acest act normativ"}</h4>
                         <div className="card-text">
-                          <FormContainer />
+                          <FormContainer
+                            emit={emit}
+                            id={id}
+                          />
                         </div>
                       </div>
                     </div>
@@ -161,7 +166,7 @@ class Page extends React.Component {
                         <td className="no-wrap small">
                           {currentInstitution.get("institutionName")}
                         </td>
-                        <td className="no-wrap">{currentInstitution.get("status")}</td>
+                        <td className="no-wrap">{currentInstitution.get("response")}</td>
                       </tr>
                     );
                   })

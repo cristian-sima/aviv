@@ -52,17 +52,10 @@ export const normalizeArrayOfItems = (items : any) => (
   })
 );
 
-const normalizeItemDetails = ({ Item, Versions }) => {
-  const item = normalizeItem(Item);
-
-  if (item) {
-    return item.set({
-      version: normalizeArray(Versions),
-    });
-  }
-
-  return item;
-};
+const normalizeItemDetails = ({ Item, Versions }) => ({
+  item     : normalizeItem(Item),
+  versions : normalizeArray(Versions),
+});
 
 export const checkForErrorsThenNormalizeItemDetails = (resolve : any, reject : any) => (
   (error : any, response : any) => {

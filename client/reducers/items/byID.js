@@ -46,7 +46,7 @@ const
       })
     );
   },
-  fetchItemFulFilled = (state : ItemsByIDState, { payload : item }) => {
+  fetchItemFulFilled = (state : ItemsByIDState, { payload : { item } }) => {
     const
       current = item.merge({
         detailsFetching      : false,

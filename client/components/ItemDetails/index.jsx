@@ -19,6 +19,7 @@ type ItemPagePropTypes = {
 
   institutions: any;
   isAdvicer: bool;
+  emit: Emit;
 
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;

@@ -16,6 +16,9 @@ export const getItemsToAdvice = (req : Request, res : Response) => {
       advicers: {
         "$in": [institutionID],
       },
+      responses: {
+        "$nin": [institutionID],
+      },
     },
     canNotGetTheList = () => res.json({
       Error: "Nu am putut prelua lista",
