@@ -84,13 +84,9 @@ class ItemPage extends React.Component {
   }
 
   shouldComponentUpdate (nextProps : ItemPagePropTypes) {
+    console.log("should render");
     return (
-      this.props.data !== nextProps.data ||
-      this.props.institutions !== nextProps.institutions ||
-      this.props.isAdvicer !== nextProps.isAdvicer ||
-      this.props.hasFetchingError !== nextProps.hasFetchingError ||
-      this.props.isFetching !== nextProps.isFetching ||
-      this.props.shouldFetch !== nextProps.shouldFetch
+      true
     );
   }
 
@@ -101,6 +97,8 @@ class ItemPage extends React.Component {
       hasFetchingError,
       fetchItemDetails,
     } = this.props;
+
+    console.log("isFetching", isFetching);
 
     if (isFetching) {
       return (

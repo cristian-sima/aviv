@@ -19,7 +19,11 @@ export const getItem = (state : State, id : string) => (
 export const getIsCurrentAccountAdvicer = createSelector(
   getItem,
   getCurrentAccount,
-  (item, account) => item && item.get("advicers").includes(account.get("institutionID"))
+  (item, account) => (
+    item &&
+    item.has("advicers") &&
+    item.get("advicers").includes(account.get("institutionID"))
+  )
 );
 
 export const getIsFetchingItemDetailsError : SimpleSelector = createSelector(
