@@ -5,14 +5,15 @@ import type { Emit } from "types";
 import React from "react";
 import moment from "moment";
 
-import * as Immutable from "immutable";
-
-import FormContainer from "./Advice/FormContainer";
+import AdviceResponse from "./AdviceResponse";
+import AdvicerSection from "./AdvicerSection";
 
 type PagePropTypes = {
   data: any;
+  isAdviced: any;
   institutions: any;
   isAdvicer: bool;
+  versions: any;
 
   emit: Emit;
   confirmDeleteItem: () => void;
@@ -25,6 +26,8 @@ class Page extends React.Component {
 
   shouldComponentUpdate (nextProps : PagePropTypes) {
     return (
+      this.props.isAdviced !== nextProps.isAdviced ||
+      this.props.versions !== nextProps.versions ||
       this.props.data !== nextProps.data ||
       this.props.isAdvicer !== nextProps.isAdvicer ||
       this.props.institutions !== nextProps.institutions
@@ -34,8 +37,10 @@ class Page extends React.Component {
   render () {
     const {
       data,
+      versions,
       institutions,
       isAdvicer,
+      isAdviced,
       showContactsForInstitution,
       confirmDeleteItem,
       emit,
@@ -46,13 +51,13 @@ class Page extends React.Component {
       name = data.get("name"),
       authors = data.get("authors"),
       version = data.get("version"),
+      responses = data.get("responses"),
       advicers = data.get("advicers"),
-      versions = data.get("versions"),
       date = data.get("date");
 
-    const currentVersion = versions ? versions.filter((current) => (
+    const currentVersion = versions.filter((current) => (
       current.get("version") === version
-    )) : Immutable.List();
+    ));
 
     return (
       <div className="mt-3">
@@ -66,17 +71,12 @@ class Page extends React.Component {
                 </span>
                 {
                   isAdvicer ? (
-                    <div className="card my-4">
-                      <div className="card-body">
-                        <h4 className="card-title">{"Te rugăm să avizezi acest act normativ"}</h4>
-                        <div className="card-text">
-                          <FormContainer
-                            emit={emit}
-                            id={id}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <AdvicerSection
+                      emit={emit}
+                      id={id}
+                      isAdviced={isAdviced}
+                      responses={responses}
+                    />
                   ) : null
                 }
               </div>
@@ -164,9 +164,17 @@ class Page extends React.Component {
                     return (
                       <tr key={advicer}>
                         <td className="no-wrap small">
-                          {currentInstitution.get("institutionName")}
+                          <span
+                            className="cursor-pointer"
+                            onClick={showContactsForInstitution(advicer)}>
+                            {currentInstitution.get("institutionName")}
+                          </span>
                         </td>
-                        <td className="no-wrap">{currentInstitution.get("response")}</td>
+                        <td className="no-wrap">
+                          <AdviceResponse
+                            value={currentInstitution.get("response")}
+                          />
+                        </td>
                       </tr>
                     );
                   })

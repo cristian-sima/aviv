@@ -14,8 +14,10 @@ type OwnProps = {
 type ItemPagePropTypes = {
   data: any;
   hasFetchingError: boolean;
+  isAdviced: boolean;
   isFetching: boolean;
   shouldFetch: boolean;
+  versions: any;
 
   institutions: any;
   isAdvicer: bool;
@@ -43,6 +45,8 @@ import {
 
   getInstitutionsData,
   getIsCurrentAccountAdvicer,
+  getVersionsOfItem,
+  getIsItemAdviced,
 } from "reducers";
 
 import {
@@ -60,6 +64,10 @@ const
 
     institutions : getInstitutionsData(state),
     isAdvicer    : getIsCurrentAccountAdvicer(state, item),
+
+    versions: getVersionsOfItem(state, item),
+
+    isAdviced: getIsItemAdviced(state, item),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit, match: { params : { item } } } : OwnProps) => ({
     fetchItemDetails () {

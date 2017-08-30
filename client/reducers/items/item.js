@@ -96,3 +96,14 @@ export const getAreFetchedItemDetails : SimpleSelector = createSelector(
     );
   }
 );
+
+
+export const getIsItemAdviced = createSelector(
+  getItem,
+  getCurrentAccount,
+  (item, account) => (
+    item &&
+    item.has("responses") &&
+    item.get("responses").includes(account.get("institutionID"))
+  )
+);

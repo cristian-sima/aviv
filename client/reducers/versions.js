@@ -28,7 +28,7 @@ const getData = (state : State) => state.versions;
 export const getVersionsOfItem = createSelector(
   getData,
   (state, id) => id,
-  (data, id) => data.get(id)
+  (data, id) => (data.has(id) && data.get(id).toList()) || Immutable.List()
 );
 
 export default reducer;
