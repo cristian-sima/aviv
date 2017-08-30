@@ -1,49 +1,47 @@
 // @flow
 
-import type { State, Dispatch } from "types";
+import type { State, Emit, Dispatch } from "types";
 
 type OwnProps = {
   id: string;
+  emit: Emit;
 };
 
 import { connect } from "react-redux";
 import React from "react";
 
-import Delete from "../../Modal/Delete";
+import ConfirmEmit from "../../Modal/ConfirmEmit";
 
-import { deleteUser as deleteUserRequest } from "request";
 import { getItem } from "reducers";
-import {
-  deleteUser as deleteUserAction,
-  notify,
-} from "actions";
 
 const
   mapStateToProps = (state : State, { id } : OwnProps) => ({
     data: getItem(state, String(id)),
   }),
-  mapDispatchToProps = (dispatch : Dispatch, { id } : OwnProps) => ({
-    onSuccess () {
-      dispatch(deleteUserAction(id));
-      dispatch(notify("Actul normatv a fost retras"));
+  mapDispatchToProps = (dispatch : Dispatch, { id, emit } : OwnProps) => ({
+    deleteItem () {
+      emit("DELETE_ITEM", id);
     },
   }),
-  mergeProps = ({ onSuccess }, { id } : OwnProps) => ({
+  mergeProps = (state, { deleteItem }, { id } : OwnProps) => ({
 
-    onSuccess,
+    id: "CONFIRM_DELETE_ITEM",
 
     cancelButtonLabel  : "Înapoi",
     confirmButtonLabel : "Retrage actul normativ",
 
     errMessage: "Nu am putut să retrag actul normativ",
 
-    request: () => deleteUserRequest(id),
+    action: () => deleteItem(id),
 
     message: (
       <span>
-        {"Vrei retragi actul normativ? Această operațiune este ireversibilă."}
+        {"Vrei retragi actul normativ?"}
+        <div className="mt-2 text-warning">
+          <i className="fa fa-triangle" />{"Această operațiune este ireversibilă."}
+        </div>
       </span>
     ),
   });
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Delete);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ConfirmEmit);

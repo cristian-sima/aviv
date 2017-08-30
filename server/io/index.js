@@ -63,6 +63,7 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
     socket.join(user.institutionID);
 
     socket.on("ADD_ITEM", items.addItem(socket, db, io));
+    socket.on("DELETE_ITEM", items.deleteItem(socket, db, io));
     // socket.on("SELECT_ITEM", items.selectItem(socket, db));
     // socket.on("EXPRESS_SUGGESTION", items.expressSuggestion(socket, db));
     // socket.on("UPDATE_COMMENT", items.updateComment(socket, db));

@@ -1,6 +1,6 @@
 // @flow
 
-import type { Action } from "types";
+import type { Action, Emit } from "types";
 
 export const createModal = (modalType : string, modalProps? : any) : Action => ({
   type    : "SHOW_MODAL",
@@ -83,9 +83,10 @@ export const confirmResetPasswordModal = (id : string) : Action => (
 );
 
 
-export const deleteItemModal = (id : string) : Action => (
+export const deleteItemModal = (id : string, emit : Emit) : Action => (
   createModal("DELETE_ITEM", {
     id,
+    emit,
   })
 );
 

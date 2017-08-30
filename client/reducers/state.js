@@ -13,6 +13,7 @@ import users from "./users";
 import modal from "./modal";
 import items from "./items";
 import paginator from "./paginator";
+import confirmations from "./confirmations";
 
 // try to keep them in alphabetic order
 const rootReducer = reduceReducers(
@@ -22,6 +23,7 @@ const rootReducer = reduceReducers(
     users,
     modal,
     items,
+    confirmations,
 
     notifications,
     form   : formReducer,

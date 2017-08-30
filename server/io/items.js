@@ -102,3 +102,9 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     });
   });
 };
+
+export const deleteItem = (socket : Socket, db : Database, io : any) => (body : any) => {
+  // const { user } = socket.request.session;
+
+  console.log("trimit");
+};

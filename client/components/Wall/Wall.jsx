@@ -7,6 +7,7 @@ type WallContainerPropTypes = {
   connectingLive: () => void;
   reConnectingLive: () => void;
   connectedLive: () => void;
+  processIncommingConfirmation: (msg : any) => void;
   processForm: (msg : any) => void;
   processIncommingMessage: (msg : any) => void;
 
@@ -51,6 +52,7 @@ import {
 } from "reducers";
 
 import processMesssages from "./processMesssages";
+import processConfirmation from "./processConfirmation";
 
 const
   mapStateToProps = (state : State) => ({
@@ -86,6 +88,9 @@ const
         default:
       }
     },
+    processIncommingConfirmation (msg) {
+      processConfirmation(dispatch, msg);
+    },
     processIncommingMessage (msg) {
       processMesssages(dispatch, msg);
     },
@@ -119,6 +124,7 @@ class WallContainer extends React.Component {
       reConnectingLive,
       processIncommingMessage,
       processForm,
+      processIncommingConfirmation,
     } = this.props;
 
     connectingLive();
@@ -131,6 +137,7 @@ class WallContainer extends React.Component {
 
     socket.on("msg", processIncommingMessage);
     socket.on("FORM", processForm);
+    socket.on("CONFIRMATION", processIncommingConfirmation);
 
     socket.on("disconnect", () => {
       reConnectingLive();

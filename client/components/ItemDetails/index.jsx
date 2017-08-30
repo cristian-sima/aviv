@@ -1,6 +1,6 @@
 // @flow
 
-import type { Dispatch, State } from "types";
+import type { Dispatch, State, Emit } from "types";
 
 type OwnProps = {
   match: {
@@ -8,6 +8,7 @@ type OwnProps = {
       item: string;
     };
   };
+  emit: Emit;
 }
 
 type ItemPagePropTypes = {
@@ -59,7 +60,7 @@ const
     institutions : getInstitutionsData(state),
     isAdvicer    : getIsCurrentAccountAdvicer(state, item),
   }),
-  mapDispatchToProps = (dispatch : Dispatch, { match: { params : { item } } } : OwnProps) => ({
+  mapDispatchToProps = (dispatch : Dispatch, { emit, match: { params : { item } } } : OwnProps) => ({
     fetchItemDetails () {
       dispatch(fetchItemDetailsAction(item));
     },
@@ -67,7 +68,7 @@ const
       dispatch(showContactsForInstitutionModalAction(id));
     },
     confirmDeleteItem () {
-      dispatch(deleteItemModalAction(item));
+      dispatch(deleteItemModalAction(item, emit));
     },
   });
 

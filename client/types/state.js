@@ -69,9 +69,12 @@ type ItemsState = {
   +started: ItemsStartedState;
 }
 
+export type ConfirmationsState = any;
+
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
+  +confirmations: ConfirmationsState;
   +notifications: any;
   +institutions: InstitutionsState;
   +users: UsersState;

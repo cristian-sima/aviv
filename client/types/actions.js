@@ -17,6 +17,11 @@ export type Action =
 | { type: 'RECONNECTING_LIVE'; }
 | { type: 'CONNECTED_LIVE'; }
 
+| { type: "END_CONFIRMATION_FAILED"; payload: string }
+| { type: "END_SUCCESS_FAILED" }
+| { type: "REGISTER_CONFIRMATION"; payload: string }
+| { type: "UNREGISTER_CONFIRMATION"; payload: string }
+
 
 | { type: 'FETCH_INSTITUTIONS'; payload: any; }
 | { type: 'ADD_INSTITUTION'; payload: any; }
