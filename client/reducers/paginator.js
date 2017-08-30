@@ -11,7 +11,7 @@ const getTheLastItem = (ids, data) => {
     sortedByTime = ids.map((current) => (
       data.get(current)
     )).sortBy((current) => (
-      -(new Date(current.get("date"))).getTime()
+      -(new Date(current.get("date")).getTime())
     ));
 
   return sortedByTime.get(sortedByTime.size - 2);
@@ -21,7 +21,6 @@ const deleteItem = (state, data, { payload : item }) => {
   const { lastID, total, IDs } = state;
 
   if (total === nothingFetched) {
-    console.log("not fetched");
     return state;
   }
 
@@ -48,7 +47,7 @@ const deleteItem = (state, data, { payload : item }) => {
     // get the last one before latest
     return {
       ...state,
-      lastID : getTheLastItem(IDs, data).get("id"),
+      lastID : getTheLastItem(IDs, data).get("_id"),
       IDs    : IDs.remove(findIndex()),
       total  : total - 1,
     };
@@ -62,6 +61,7 @@ const deleteItem = (state, data, { payload : item }) => {
     };
   }
 
+  console.log("nothing");
   return state;
 };
 
