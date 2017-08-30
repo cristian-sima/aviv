@@ -133,7 +133,7 @@ export const getCanLoadItemsStartedLocally = createSelector(
 export const getSortedItemsStarted = createSelector(
   getItems,
   (list) => (
-    list.sortBy((item) => -new Date(item.get("date")).getTime())
+    list.sortBy((item) => -item.get("date"))
   )
 );
 

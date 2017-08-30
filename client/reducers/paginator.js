@@ -8,11 +8,9 @@ import { noError, noID, nothingFetched } from "utility";
 
 const getTheLastItem = (ids, data) => {
   const
-    sortedByTime = ids.map((current) => (
-      data.get(current)
-    )).sortBy((current) => (
-      -(new Date(current.get("date")).getTime())
-    ));
+    sortedByTime = ids.
+      map((current) => data.get(current)).
+      sortBy((current) => -current.get("date"));
 
   return sortedByTime.get(sortedByTime.size - 2);
 };
@@ -65,7 +63,6 @@ const deleteItem = (state, data, { payload : item }) => {
     };
   }
 
-  console.log("nothing");
   return state;
 };
 
