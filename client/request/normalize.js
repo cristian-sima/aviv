@@ -30,11 +30,11 @@ export const withPromiseCallback = (resolve : Resolve, reject : Reject) => (
   }
 );
 
-export const normalizeItem = (raw : any) => Immutable.Map(raw).merge({
+export const normalizeItem = (raw : any) => raw ? Immutable.Map(raw).merge({
   authors   : Immutable.List(raw.authors),
   advicers  : Immutable.List(raw.advicers),
   responses : Immutable.List(raw.responses),
-});
+}) : Immutable.Map();
 
 export const normalizeArrayOfItems = (items : any) => (
   items.reduce((previous, current) => {
@@ -51,11 +51,17 @@ export const normalizeArrayOfItems = (items : any) => (
   })
 );
 
-const normalizeItemDetails = ({ Item, Versions }) => (
-  normalizeItem(Item).set({
-    version: normalizeArray(Versions),
-  })
-);
+const normalizeItemDetails = ({ Item, Versions }) => {
+  const item = normalizeItem(Item);
+
+  if (item) {
+    return item.set({
+      version: normalizeArray(Versions),
+    });
+  }
+
+  return item;
+};
 
 export const checkForErrorsThenNormalizeItemDetails = (resolve : any, reject : any) => (
   (error : any, response : any) => {

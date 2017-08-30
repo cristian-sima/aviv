@@ -20,7 +20,14 @@ const getTheLastItem = (ids, data) => {
 const deleteItem = (state, data, { payload : item }) => {
   const { lastID, total, IDs } = state;
 
-  const id = item.get("_id");
+  if (total === nothingFetched) {
+    console.log("not fetched");
+    return state;
+  }
+
+  const
+    id = item.get("_id"),
+    findIndex = () => IDs.findIndex((current) => current === id);
 
   if (lastID === id) {
     // there are more on the server
@@ -42,16 +49,20 @@ const deleteItem = (state, data, { payload : item }) => {
     return {
       ...state,
       lastID : getTheLastItem(IDs, data).get("id"),
-      IDs    : IDs.remove(id),
+      IDs    : IDs.remove(findIndex()),
       total  : total - 1,
     };
   }
 
-  return {
-    ...state,
-    IDs   : IDs.remove(id),
-    total : total - 1,
-  };
+  if (IDs.includes(id)) {
+    return {
+      ...state,
+      IDs   : IDs.remove(findIndex()),
+      total : total - 1,
+    };
+  }
+
+  return state;
 };
 
 const paginator = (state : State, action : Action) => {
@@ -60,7 +71,10 @@ const paginator = (state : State, action : Action) => {
       return {
         ...state,
         items: {
-          toAdvice: deleteItem(state.items.toAdvice, state.items.byID, action),
+          ...state.items,
+          byID     : state.items.byID.remove(action.payload.get("_id")),
+          toAdvice : deleteItem(state.items.toAdvice, state.items.byID, action),
+          started  : deleteItem(state.items.started, state.items.byID, action),
         },
       };
     default:

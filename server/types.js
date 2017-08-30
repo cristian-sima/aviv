@@ -28,7 +28,7 @@ type Collection = {
   updateMany: (where : any, set : any, callback : (error?: Error) => any) => void;
   insert: (list : any, callback : (error?: Error, result : { ops : any }) => any) => void;
   insertMany: (list : Array<*>, callback : (error?: Error, result : { ops : any }) => any) => void;
-  remove: (callback : (error?: Error) => any) => void;
+  remove: (where : any, callback : (error?: Error) => any) => void;
   update: (where : any, set : any, callback : (error?: Error) => any) => void;
 }
 

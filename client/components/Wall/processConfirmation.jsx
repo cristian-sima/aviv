@@ -13,6 +13,7 @@ import {
   unregisterConfirmation as unregisterConfirmationAction,
 } from "actions";
 
+import { history } from "../../store/store";
 
 const processConfirmation = (dispatch : any, { status, id, error, message } : Msg) => {
   switch (status) {
@@ -23,16 +24,19 @@ const processConfirmation = (dispatch : any, { status, id, error, message } : Ms
       });
       break;
     case "SUCCESS":
-      setTimeout(() => {
-        dispatch(notify(message));
-      });
       switch (id) {
-        case "DELETE_ITEM":
-          document.location.replace("/started");
+        case "CONFIRM_DELETE_ITEM":
+          history.push("/started");
           break;
         default:
 
       }
+      setTimeout(() => {
+        dispatch(notify(message));
+        setTimeout(() => {
+          dispatch(unregisterConfirmationAction(id));
+        });
+      });
       break;
     default:
   }

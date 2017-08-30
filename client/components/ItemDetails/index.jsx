@@ -86,6 +86,8 @@ class ItemPage extends React.Component {
   shouldComponentUpdate (nextProps : ItemPagePropTypes) {
     return (
       this.props.data !== nextProps.data ||
+      this.props.institutions !== nextProps.institutions ||
+      this.props.isAdvicer !== nextProps.isAdvicer ||
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.isFetching !== nextProps.isFetching ||
       this.props.shouldFetch !== nextProps.shouldFetch
@@ -106,7 +108,7 @@ class ItemPage extends React.Component {
       );
     }
 
-    if (typeof data === "undefined") {
+    if (typeof data === "undefined" || !data) {
       return (
         <LargeErrorMessage
           itemNotFound

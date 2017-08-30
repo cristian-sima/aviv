@@ -77,12 +77,18 @@ class Page extends React.Component {
               </div>
             </div>
             <div className="col-xl-4">
-              <button
-                className="btn-link text-danger"
-                onClick={confirmDeleteItem}>
-                {"Retrage actul normativ"}
-              </button>
-              <hr />
+              {
+                isAdvicer ? null : (
+                  <div>
+                    <button
+                      className="btn-link text-danger"
+                      onClick={confirmDeleteItem}>
+                      {"Retrage actul normativ"}
+                    </button>
+                    <hr />
+                  </div>
+                )
+              }
               { moment(date).format("lll") }
               <hr />
               {"Versiunea"}

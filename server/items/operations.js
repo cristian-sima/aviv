@@ -142,7 +142,7 @@ export const getItemDetails = (req : Request, res : Response) => {
   db.
     collection("items").
     findOne(whereClause, (errFindItem, Item) => {
-      if (errFindItem) {
+      if (errFindItem || Item === null) {
         return canNotGetData();
       }
 

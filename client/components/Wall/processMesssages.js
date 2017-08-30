@@ -13,6 +13,7 @@ const processMesssages = (dispatch : any, msg : Message) => {
   switch (msg.type) {
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
+    case "DELETE_ITEM":
       dispatch({
         type,
         payload: normalizeItem(payload),
