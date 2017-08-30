@@ -5,7 +5,7 @@ import moment from "moment";
 
 import * as Immutable from "immutable";
 
-import AdviceForm from "./AdviceForm";
+import FormContainer from "./Advice/FormContainer";
 
 type PagePropTypes = {
   data: any;
@@ -68,7 +68,7 @@ class Page extends React.Component {
                       <div className="card-body">
                         <h4 className="card-title">{"Te rugăm să avizezi acest act normativ"}</h4>
                         <div className="card-text">
-                          <AdviceForm />
+                          <FormContainer />
                         </div>
                       </div>
                     </div>

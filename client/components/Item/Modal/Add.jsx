@@ -2,7 +2,6 @@
 
 type ModalWrapPropTypes = {
   institutionID: string;
-  cbAfter?: (user: any) => void;
 };
 
 import React from "react";
@@ -10,9 +9,9 @@ import SimpleModal from "../../Modal/SimpleModal";
 
 import Form from "../AddContainer";
 
-const ModalWrap = ({ cbAfter, institutionID } : ModalWrapPropTypes) => (
+const ModalWrap = ({ institutionID } : ModalWrapPropTypes) => (
   <SimpleModal title={"Cont nou"}>
-    <Form cbAfter={cbAfter} institutionID={institutionID} />
+    <Form institutionID={institutionID} />
   </SimpleModal>
 );
 

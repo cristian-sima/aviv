@@ -2,23 +2,18 @@
 
 import type { Dispatch, State } from "types";
 
-type AddUserPropTypes = {
+type AddItemContainerPropTypes = {
   institutionID: string;
   emit: (name : string, msg : any) => void;
   emitAddItem: (item : any) => void;
 };
 
 import { connect } from "react-redux";
-import { reduxForm, startSubmit, reset } from "redux-form/immutable";
+import { reduxForm, startSubmit } from "redux-form/immutable";
 import * as Immutable from "immutable";
 import React from "react";
 
 import Form, { validate } from "./Form";
-
-import {
-  notify,
-  addUser as addUserAction,
-} from "actions";
 
 import { getCurrentInstitutionID } from "reducers";
 
@@ -29,11 +24,6 @@ const
     institutionID: getCurrentInstitutionID(state),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit }) => ({
-    addUserLocally (item : any) {
-      dispatch(addUserAction(item));
-      dispatch(notify("Contul a fost adăugat"));
-      dispatch(reset(ITEM_FORM));
-    },
     emitAddItem (data) {
       dispatch(startSubmit(ITEM_FORM));
       setTimeout(() => {
@@ -50,9 +40,9 @@ const AddForm = reduxForm({
   validate,
 })(Form);
 
-class AddUser extends React.Component {
+class AddItemContainer extends React.Component {
 
-  props: AddUserPropTypes;
+  props: AddItemContainerPropTypes;
 
   handleSubmit: (formData : any) => any;
 
@@ -85,4 +75,4 @@ class AddUser extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
+export default connect(mapStateToProps, mapDispatchToProps)(AddItemContainer);
