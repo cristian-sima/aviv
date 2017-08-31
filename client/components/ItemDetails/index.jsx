@@ -94,7 +94,9 @@ class ItemPage extends React.Component {
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.isFetching !== nextProps.isFetching ||
       this.props.shouldFetch !== nextProps.shouldFetch ||
-      this.props.institutions !== nextProps.institutions
+      this.props.institutions !== nextProps.institutions ||
+      this.props.isAdvicer !== nextProps.isAdvicer ||
+      this.props.versions !== nextProps.versions
     );
   }
 

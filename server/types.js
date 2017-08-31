@@ -21,6 +21,13 @@ export type ExpressServer = any;
 
 type Collection = {
   findOne: (query : any, callback : (error?: Error, data : any) => any) => void;
+  findAndModify: (
+    where : any,
+    array: Array<*>,
+    set: any,
+    options: any,
+    callback : (error?: Error, result : any) => any
+  ) => void;
   insertOne: (data : any, callback : (error?: Error, data : any) => any) => void;
   find: (query: any) => {
     toArray: (callback : (error?: Error, data : any) => void) => void;

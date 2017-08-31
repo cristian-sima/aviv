@@ -15,8 +15,9 @@ type AdvicerSectionStateTypes = {
 type AdvicerSectionPropTypes = {
   isAdviced: boolean;
   advice: any;
-  emit: Emit;
   id: string;
+
+  emit: Emit;
 };
 
 import FormContainer from "./Advice/FormContainer";
@@ -76,7 +77,7 @@ class AdvicerSection extends React.Component {
                 <AdviceResponse
                   value={advice.get("response")}
                 />
-                {" acest act normativ la "}
+                {" la "}
                 { moment(advice.get("date")).format("lll") }
               </span>
               <button

@@ -32,9 +32,9 @@ const processConfirmation = (dispatch : any, { status, id, error, message } : Ms
 
       }
       setTimeout(() => {
-        dispatch(notify(message));
+        dispatch(unregisterConfirmationAction(id));
         setTimeout(() => {
-          dispatch(unregisterConfirmationAction(id));
+          dispatch(notify(message));
         });
       });
       break;

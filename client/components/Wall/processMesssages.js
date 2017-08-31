@@ -20,7 +20,6 @@ const processMesssages = (dispatch : any, msg : Message) => {
       });
       break;
     case "ADVICE_ITEM":
-      console.log("payload", payload);
       dispatch({
         type,
         payload: normalizeItemDetails(payload),

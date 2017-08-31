@@ -124,7 +124,13 @@ const adviceItem = (state :State, action : any) => {
         return current;
       }
 
-      const newResponses = current.get("responses").push(currentInstitutionID);
+      const responses = current.get("responses");
+
+      if (responses.includes(currentInstitutionID)) {
+        return current;
+      }
+
+      const newResponses = responses.push(currentInstitutionID);
 
       return current.set("responses", newResponses);
     })

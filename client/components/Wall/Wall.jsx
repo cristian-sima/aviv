@@ -8,7 +8,7 @@ type WallContainerPropTypes = {
   reConnectingLive: () => void;
   connectedLive: () => void;
   processIncommingConfirmation: (msg : any) => void;
-  processForm: (msg : any) => void;
+  processIncommingForm: (msg : any) => void;
   processIncommingMessage: (msg : any) => void;
 
   match: {
@@ -27,7 +27,6 @@ import React from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
 import { Route, withRouter, Link } from "react-router-dom";
-import { stopSubmit, reset } from "redux-form/immutable";
 
 import { LoadingMessage } from "../Messages";
 
@@ -40,7 +39,6 @@ import Started from "../Started";
 import { hostname } from "../../../config-client.json";
 
 import {
-  notify,
   connectingLive as connectingLiveAction,
   reConnectingLive as reConnectingLiveAction,
   connectedLive as connectedLiveAction,
@@ -53,6 +51,7 @@ import {
 
 import processMesssages from "./processMesssages";
 import processConfirmation from "./processConfirmation";
+import processForm from "./processForm";
 
 const
   mapStateToProps = (state : State) => ({
@@ -69,24 +68,8 @@ const
     connectedLive () {
       dispatch(connectedLiveAction());
     },
-    processForm ({ status, form, error, message }) {
-      switch (status) {
-        case "FAILED":
-          dispatch(
-            stopSubmit(form, {
-              "_error": error,
-            })
-          );
-          break;
-        case "SUCCESS":
-          dispatch(reset(form));
-          dispatch(stopSubmit(form));
-          setTimeout(() => {
-            dispatch(notify(message));
-          });
-          break;
-        default:
-      }
+    processIncommingForm (msg) {
+      processForm(dispatch, msg);
     },
     processIncommingConfirmation (msg) {
       processConfirmation(dispatch, msg);
@@ -123,7 +106,7 @@ class WallContainer extends React.Component {
       connectedLive,
       reConnectingLive,
       processIncommingMessage,
-      processForm,
+      processIncommingForm,
       processIncommingConfirmation,
     } = this.props;
 
@@ -136,7 +119,7 @@ class WallContainer extends React.Component {
     });
 
     socket.on("msg", processIncommingMessage);
-    socket.on("FORM", processForm);
+    socket.on("FORM", processIncommingForm);
     socket.on("CONFIRMATION", processIncommingConfirmation);
 
     socket.on("disconnect", () => {

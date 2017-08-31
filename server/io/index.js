@@ -4,7 +4,9 @@ import type { ExpressServer, Database, Socket, Next } from "../types";
 
 import createIO from "socket.io";
 
-import * as items from "./items";
+import addItem from "../items/add";
+import adviceItem from "../items/advice";
+import deleteItem from "../items/delete";
 
 import { error, sessionMiddleware } from "../utility";
 
@@ -62,9 +64,9 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
 
     socket.join(user.institutionID);
 
-    socket.on("ADD_ITEM", items.addItem(socket, db, io));
-    socket.on("DELETE_ITEM", items.deleteItem(socket, db, io));
-    socket.on("ADVICE_ITEM", items.adviceItem(socket, db, io));
+    socket.on("ADD_ITEM", addItem(socket, db, io));
+    socket.on("DELETE_ITEM", deleteItem(socket, db, io));
+    socket.on("ADVICE_ITEM", adviceItem(socket, db, io));
     // socket.on("SELECT_ITEM", items.selectItem(socket, db));
     // socket.on("EXPRESS_SUGGESTION", items.expressSuggestion(socket, db));
     // socket.on("UPDATE_COMMENT", items.updateComment(socket, db));
