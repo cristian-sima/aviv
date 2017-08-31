@@ -92,7 +92,9 @@ const deleteItem = (state : State, action : any) => {
           return current;
         }
 
-        return current.set("data", null);
+        return current.merge({
+          detailsFetchingError: "Removed",
+        });
       }),
       toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
       started  : performDelete(state.items.started, state.items.byID, action.payload),
