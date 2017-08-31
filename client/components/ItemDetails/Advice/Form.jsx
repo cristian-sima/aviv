@@ -50,7 +50,7 @@ const Form = (props : FormPropTypes) => {
             <Field
               component={LabelTemplate}
               htmlFor="advice-form-response-2"
-              label="Favorabil, cu observații"
+              label="Favorabil, cu observații și propuneri"
               name="response"
               type="radio"
               value="1"
@@ -58,7 +58,7 @@ const Form = (props : FormPropTypes) => {
             <Field
               component={LabelTemplate}
               htmlFor="advice-form-response-3"
-              label="Negativ, cu observații"
+              label="Negativ"
               name="response"
               type="radio"
               value="2"

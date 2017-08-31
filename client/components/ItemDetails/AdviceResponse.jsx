@@ -18,14 +18,14 @@ const AdviceResponse = ({ value } : AdviceResponsePropTypes) => {
   if (value === 1) {
     return (
       <span className="text-warning">
-        {"Favorabil, cu observații"}
+        {"Favorabil, cu observații și propuneri"}
       </span>
     );
   }
 
   return (
     <span className="text-danger">
-      {"Negativ, cu observații"}
+      {"Negativ"}
     </span>
   );
 };
