@@ -208,6 +208,24 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
         message : "Actul normativ a fost avizat",
         form    : "ADVICE_ITEM",
       });
+
+      const
+        { advicers, authors } = data,
+        interested = authors.concat(advicers);
+
+      for (const key in interested) {
+        if (Object.prototype.hasOwnProperty.call(interested, key)) {
+          const current = interested[key];
+
+          io.to(current).emit("msg", {
+            type    : "ADVICE_ITEM",
+            payload : {
+              Item     : data,
+              Versions : [version],
+            },
+          });
+        }
+      }
     },
     changeAdvice = () => emitFormError("Proiectul a mai fost avizat"),
     createAdvice = (data, institution) => {
@@ -241,12 +259,12 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
             userName,
           };
 
-        return versions.insert(versionToInsert, (errInsertVersion) => {
+        return versions.insertOne(versionToInsert, (errInsertVersion, { ops }) => {
           if (errInsertVersion) {
             return emitGenericError();
           }
 
-          return broadcast(data);
+          return broadcast(data, ops[0]);
         });
       });
     };

@@ -5,7 +5,7 @@ type Message = {
   payload: any;
 }
 
-import { normalizeItem } from "../../request/normalize";
+import { normalizeItem, normalizeItemDetails } from "../../request/normalize";
 
 const processMesssages = (dispatch : any, msg : Message) => {
   const { type, payload } = msg;
@@ -17,6 +17,13 @@ const processMesssages = (dispatch : any, msg : Message) => {
       dispatch({
         type,
         payload: normalizeItem(payload),
+      });
+      break;
+    case "ADVICE_ITEM":
+      console.log("payload", payload);
+      dispatch({
+        type,
+        payload: normalizeItemDetails(payload),
       });
       break;
     default:

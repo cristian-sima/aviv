@@ -52,7 +52,7 @@ export const normalizeArrayOfItems = (items : any) => (
   })
 );
 
-const normalizeItemDetails = ({ Item, Versions }) => ({
+export const normalizeItemDetails = ({ Item, Versions } : { Item : any ; Versions : any }) => ({
   item     : normalizeItem(Item),
   versions : normalizeArray(Versions),
 });

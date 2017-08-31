@@ -55,9 +55,13 @@ class Page extends React.Component {
       advicers = data.get("advicers"),
       date = data.get("date");
 
-    const currentVersion = versions.filter((current) => (
-      current.get("version") === version
-    ));
+    const currentVersion = versions.filter((current) => {
+      if (typeof current === "undefined") {
+        return current;
+      }
+
+      return current.get("version") === version;
+    });
 
     return (
       <div className="mt-3">
@@ -121,7 +125,7 @@ class Page extends React.Component {
           </div>
           <br />
           <div className="table-responsive">
-            <table className="table table-sm">
+            <table className="table table-sm table-hover">
               <thead>
                 <tr>
                   <th>{"Instituție avizatoare"}</th>

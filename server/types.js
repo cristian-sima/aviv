@@ -1,7 +1,7 @@
 // @flow
 
 export type User = {
-  _id?: any;
+  _id: any;
   username: string;
   name: string;
   phone: string;
@@ -21,6 +21,7 @@ export type ExpressServer = any;
 
 type Collection = {
   findOne: (query : any, callback : (error?: Error, data : any) => any) => void;
+  insertOne: (data : any, callback : (error?: Error, data : any) => any) => void;
   find: (query: any) => {
     toArray: (callback : (error?: Error, data : any) => void) => void;
   };

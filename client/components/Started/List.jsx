@@ -72,7 +72,7 @@ const List = (props : ListPropTypes) => {
                 {"Titlu"}
               </th>
               <th className="text-center">
-                {"Statut avizare"}
+                {"Status"}
               </th>
             </tr>
           </thead>

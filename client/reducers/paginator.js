@@ -15,7 +15,7 @@ const getTheLastItem = (ids, data) => {
   return sortedByTime.get(sortedByTime.size - 2);
 };
 
-const performDelete = (state, data, { payload : item }) => {
+const performDelete = (state, data, item) => {
   const { lastID, total, IDs, negativeOffset } = state;
 
   if (total === nothingFetched) {
@@ -70,7 +70,7 @@ const performDelete = (state, data, { payload : item }) => {
   return state;
 };
 
-const shouldStore = (lists : Array<any>, id) => {
+const getShouldStore = (lists : Array<any>, id) => {
   for (const list of lists) {
     if (list.includes(id)) {
       return true;
@@ -85,26 +85,76 @@ const deleteItem = (state : State, action : any) => ({
   items: {
     ...state.items,
     byID     : state.items.byID.remove(action.payload.get("_id")),
-    toAdvice : performDelete(state.items.toAdvice, state.items.byID, action),
-    started  : performDelete(state.items.started, state.items.byID, action),
+    toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
+    started  : performDelete(state.items.started, state.items.byID, action.payload),
   },
 });
 
 const adviceItem = (state :State, action : any) => {
 
-  const
-    { items } = state,
-    { toAdvice, byID } = items;
+  // console.log("action", action);
 
-  const newToAdvice = performDelete(toAdvice, byID, action);
+  const
+    { items, versions : versionsState } = state,
+    { toAdvice, byID } = items,
+    { payload : { item, versions : rawVersions } } = action,
+    _id = item.get("_id"),
+    versions = rawVersions.entities,
+    version = versions.first(),
+    currentVersion = item.get("version"),
+    currentInstitutionID = version.get("institutionID");
+
+  // console.log("item", item);
+
+  const
+    newToAdvice = performDelete(toAdvice, byID, item),
+    shouldStore = (
+      byID.has(_id) &&
+      byID.get(_id).has("detailsFetched")
+    ) || getShouldStore([newToAdvice], _id);
+
+  // console.log("shouldStore", shouldStore);
+  // console.log("_id", _id);
+  // console.log("versions", versions);
+  // console.log("versionsState.has(_id) ", versionsState.has(_id));
+
+  const newByID = shouldStore ? (
+    byID.update(_id, (current) => {
+      if (typeof current === "undefined") {
+        return current;
+      }
+
+      const newResponses = current.get("responses").push(currentInstitutionID);
+
+      return current.set("responses", newResponses);
+    })
+  ) : byID;
+
+  const newVersions = shouldStore ? (
+    versionsState.has(_id) ? (
+      versionsState.update(_id, (currentState) => {
+        if (typeof currentState === "undefined") {
+          return versions;
+        }
+
+        return currentState.filter((current) => (
+          !(
+            current.get("version") === currentVersion &&
+            current.get("institutionID") === currentInstitutionID
+          )
+        )).set(version.get("_id"), version);
+      })
+    ) : versionsState.set(_id, versions)
+  ) : versionsState;
 
   return {
     ...state,
     items: {
       ...items,
-      byID     : shouldStore([newToAdvice], action.payload.get("_id")),
+      byID     : newByID,
       toAdvice : newToAdvice,
     },
+    versions: newVersions,
   };
 };
 
