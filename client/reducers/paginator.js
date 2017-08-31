@@ -80,15 +80,26 @@ const getShouldStore = (lists : Array<any>, id) => {
   return false;
 };
 
-const deleteItem = (state : State, action : any) => ({
-  ...state,
-  items: {
-    ...state.items,
-    byID     : state.items.byID.remove(action.payload.get("_id")),
-    toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
-    started  : performDelete(state.items.started, state.items.byID, action.payload),
-  },
-});
+const deleteItem = (state : State, action : any) => {
+  const _id = action.payload.get("_id");
+
+  return {
+    ...state,
+    items: {
+      ...state.items,
+      byID: state.items.byID.update(_id, (current) => {
+        if (typeof current === "undefined") {
+          return current;
+        }
+
+        return current.set("data", null);
+      }),
+      toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
+      started  : performDelete(state.items.started, state.items.byID, action.payload),
+    },
+    versions: state.versions.remove(_id),
+  };
+};
 
 const adviceItem = (state :State, action : any) => {
 
