@@ -70,8 +70,6 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
         version,
       };
 
-      console.log("whereVersionClause", whereVersionClause);
-
       const setVersionClause = {
         "$set": {
           date: new Date(),
@@ -93,8 +91,6 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
           if (errUpdateCurrentVersion) {
             return emitGenericError();
           }
-
-          console.log("result", value);
 
           return broadcast(data, value);
         }
