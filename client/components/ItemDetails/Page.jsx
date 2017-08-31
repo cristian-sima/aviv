@@ -99,7 +99,11 @@ class Page extends React.Component {
                 {version}
               </span>
               <hr />
-              <strong>{"Inițiatori"}</strong>
+              <strong>
+                {
+                  authors.size === 1 ? "Inițiator" : "Inițiatori"
+                }
+              </strong>
               <div className="small">
                 {
                   authors.map((author) => (
