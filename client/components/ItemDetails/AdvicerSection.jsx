@@ -35,6 +35,16 @@ class AdvicerSection extends React.Component {
     });
   }
 
+
+  componentWillReceiveProps (nextProps : AdvicerSectionPropTypes) {
+    const shouldClose = this.state.isOpen && nextProps.isAdviced;
+    if (shouldClose) {
+      this.setState({
+        isOpen: false,
+      });
+    }
+  }
+
   shouldComponentUpdate (
     nextProps : AdvicerSectionPropTypes,
     nextState : AdvicerSectionStateTypes
