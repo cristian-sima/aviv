@@ -6,11 +6,10 @@ import React from "react";
 import moment from "moment";
 
 import AdviceResponse from "./AdviceResponse";
-import AdvicerSection from "./AdvicerSection";
+import AdvicerSectionContainer from "./AdvicerSectionContainer";
 
 type PagePropTypes = {
   data: any;
-  isAdviced: any;
   institutions: any;
   isAdvicer: bool;
   versions: any;
@@ -26,7 +25,6 @@ class Page extends React.Component {
 
   shouldComponentUpdate (nextProps : PagePropTypes) {
     return (
-      this.props.isAdviced !== nextProps.isAdviced ||
       this.props.versions !== nextProps.versions ||
       this.props.data !== nextProps.data ||
       this.props.isAdvicer !== nextProps.isAdvicer ||
@@ -40,7 +38,6 @@ class Page extends React.Component {
       versions,
       institutions,
       isAdvicer,
-      isAdviced,
       showContactsForInstitution,
       confirmDeleteItem,
       emit,
@@ -51,7 +48,6 @@ class Page extends React.Component {
       name = data.get("name"),
       authors = data.get("authors"),
       version = data.get("version"),
-      responses = data.get("responses"),
       advicers = data.get("advicers"),
       date = data.get("date");
 
@@ -75,11 +71,9 @@ class Page extends React.Component {
                 </span>
                 {
                   isAdvicer ? (
-                    <AdvicerSection
+                    <AdvicerSectionContainer
                       emit={emit}
                       id={id}
-                      isAdviced={isAdviced}
-                      responses={responses}
                     />
                   ) : null
                 }

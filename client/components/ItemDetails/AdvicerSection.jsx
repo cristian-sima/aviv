@@ -3,7 +3,10 @@
 import type { Emit } from "types";
 
 import React from "react";
+import moment from "moment";
 import { Collapse } from "reactstrap";
+
+import AdviceResponse from "./AdviceResponse";
 
 type AdvicerSectionStateTypes = {
   isOpen: boolean;
@@ -11,6 +14,7 @@ type AdvicerSectionStateTypes = {
 
 type AdvicerSectionPropTypes = {
   isAdviced: boolean;
+  advice: any;
   emit: Emit;
   id: string;
 };
@@ -50,29 +54,38 @@ class AdvicerSection extends React.Component {
     nextState : AdvicerSectionStateTypes
   ) {
     return (
+      this.props.advice !== nextProps.advice ||
       this.props.id !== nextProps.id ||
       this.props.isAdviced !== nextProps.isAdviced ||
+
       this.state.isOpen !== nextState.isOpen
     );
   }
 
   render () {
-    const { emit, id, isAdviced } = this.props;
+    const { emit, id, isAdviced, advice } = this.props;
 
     return (
       <div className="my-4">
         {
           isAdviced ? (
-            <span className="fancy-text-sm">
-              <i className="fa fa-check mr-1" />
-              {"Ai avizat acest act normativ" }
+            <div>
+              <span className="fancy-text-sm">
+                <i className="fa fa-check mr-1" />
+                {"Ai avizat "}
+                <AdviceResponse
+                  value={advice.get("response")}
+                />
+                {" acest act normativ la "}
+                { moment(advice.get("date")).format("lll") }
+              </span>
               <button
                 className="btn-link ml-1"
                 onClick={this.toggle}
                 type="button">
                 {"Modifică avizul"}
               </button>
-            </span>
+            </div>
           ) : (
             <h4 className="card-title">
               {"Te rugăm să avizezi acest act normativ"}

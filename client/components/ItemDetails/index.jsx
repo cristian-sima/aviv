@@ -14,7 +14,6 @@ type OwnProps = {
 type ItemPagePropTypes = {
   data: any;
   hasFetchingError: boolean;
-  isAdviced: boolean;
   isFetching: boolean;
   shouldFetch: boolean;
   versions: any;
@@ -46,7 +45,6 @@ import {
   getInstitutionsData,
   getIsCurrentAccountAdvicer,
   getVersionsOfItem,
-  getIsItemAdviced,
 } from "reducers";
 
 import {
@@ -66,8 +64,6 @@ const
     isAdvicer    : getIsCurrentAccountAdvicer(state, item),
 
     versions: getVersionsOfItem(state, item),
-
-    isAdviced: getIsItemAdviced(state, item),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit, match: { params : { item } } } : OwnProps) => ({
     fetchItemDetails () {
@@ -98,8 +94,7 @@ class ItemPage extends React.Component {
       this.props.hasFetchingError !== nextProps.hasFetchingError ||
       this.props.isFetching !== nextProps.isFetching ||
       this.props.shouldFetch !== nextProps.shouldFetch ||
-      this.props.institutions !== nextProps.institutions ||
-      this.props.isAdvicer !== nextProps.isAdvicer
+      this.props.institutions !== nextProps.institutions
     );
   }
 
