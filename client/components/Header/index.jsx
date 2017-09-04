@@ -23,6 +23,7 @@ import {
 } from "reducers";
 
 import DisconnectBox from "./DisconnectBox";
+import SearchContainer from "./SearchContainer";
 
 const
   mapStateToProps = (state : State) => ({
@@ -103,6 +104,13 @@ class Header extends React.Component {
                     </Nav>
                   ) : null
                 }
+                <Nav className="ml-auto" navbar>
+                  <div className="form-inline">
+                    <div className="d-inline mr0 mr-lg-1">
+                      <SearchContainer />
+                    </div>
+                  </div>
+                </Nav>
                 <Nav className="ml-auto" navbar>
                   <DisconnectBox />
                 </Nav>

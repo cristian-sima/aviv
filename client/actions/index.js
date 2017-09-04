@@ -1,9 +1,10 @@
 // @flow
 
 export * from "./auth";
-export * from "./modal";
-export * from "./users";
-export * from "./notifications";
+export * from "./confirmations";
 export * from "./institutions";
 export * from "./items";
-export * from "./confirmations";
+export * from "./modal";
+export * from "./notifications";
+export * from "./suggestions";
+export * from "./users";

@@ -11,6 +11,8 @@ import {
   getItemsAdviced,
 } from "./get";
 
+import { getSuggestions } from "./suggestions";
+
 const router = express.Router();
 
 router.get("/items-to-advice", [
@@ -31,6 +33,11 @@ router.get("/items-adviced", [
 router.get("/item/:itemID", [
   requireLogin,
   getItemDetails,
+]);
+
+router.get("/items-suggestions", [
+  requireLogin,
+  getSuggestions,
 ]);
 
 export default router;

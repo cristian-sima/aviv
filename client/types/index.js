@@ -15,6 +15,11 @@ export type Response = {
   body: any;
 };
 
+export type Suggestion = {
+  _id: number;
+  name: string;
+};
+
 export type Notification = {
   key: number;
 };

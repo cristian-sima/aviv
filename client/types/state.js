@@ -71,6 +71,15 @@ export type ConfirmationsState = any;
 
 export type VersionsState = any;
 
+export type SuggestionsState = {
+  error : ErrorType;
+  fetching : bool;
+
+  term: string;
+
+  map: any;
+}
+
 export type State = {
   +auth: AuthState;
   +modal : ModalState;
@@ -79,5 +88,6 @@ export type State = {
   +institutions: InstitutionsState;
   +users: UsersState;
   +items: ItemsState;
+  +suggestions: SuggestionsState;
   +versions: VersionsState;
 };

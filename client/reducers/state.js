@@ -12,6 +12,7 @@ import confirmations from "./confirmations";
 
 import auth from "./auth";
 
+import suggestions from "./suggestions";
 import institutions from "./institutions";
 import items from "./items";
 import paginator from "./paginator";
@@ -21,13 +22,15 @@ import versions from "./versions";
 // try to keep them in alphabetic order
 const rootReducer = reduceReducers(
   combineReducers({
-    auth,
     institutions,
     users,
-    modal,
     items,
     versions,
+
+    auth,
     confirmations,
+    suggestions,
+    modal,
 
     notifications,
     form   : formReducer,

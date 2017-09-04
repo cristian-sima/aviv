@@ -44,4 +44,8 @@ export type Action =
 | { type: 'MODIFY_FROM_ADVICED_ITEMS', payload: number; }
 
 | { type: 'DELETE_NOTIFICATION', payload: number }
+
+| { type: 'FETCH_SUGGESTIONS', payload: any; }
+| { type: 'CHANGE_SUGGESTIONS_CURRENT_TERM', payload: string; }
+
 | ModalActions

@@ -189,3 +189,14 @@ export const fetchItemDetails = (id : string) => (
       end(checkForErrorsThenNormalizeItemDetails(resolve, reject))
   ))
 );
+
+export const fetchSuggestions = (search : string) => (
+  new Promise((resolve, reject) => (
+    agent.
+      get("/api/items/items-suggestions").
+      type("form").
+      set("Accept", "application/json").
+      query({ search }).
+      end(withPromiseCallback(resolve, reject))
+  ))
+);
