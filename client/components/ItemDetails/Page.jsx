@@ -128,6 +128,7 @@ class Page extends React.Component {
                 <tr>
                   <th>{"Instituție avizatoare"}</th>
                   <th>{"Răspuns"}</th>
+                  <th>{"Avizat la"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,11 +158,17 @@ class Page extends React.Component {
                               {"În așteptare"}
                             </span>
                           </td>
+                          <td />
                         </tr>
                       );
                     }
 
                     const currentInstitution = response.first();
+
+                    const
+                      adviceResponse = currentInstitution.get("response"),
+                      institutionName = currentInstitution.get("institutionName"),
+                      adviceDate = currentInstitution.get("date");
 
                     return (
                       <tr key={advicer}>
@@ -169,13 +176,16 @@ class Page extends React.Component {
                           <span
                             className="cursor-pointer"
                             onClick={showContactsForInstitution(advicer)}>
-                            {currentInstitution.get("institutionName")}
+                            {institutionName}
                           </span>
                         </td>
                         <td className="no-wrap">
                           <AdviceResponse
-                            value={currentInstitution.get("response")}
+                            value={adviceResponse}
                           />
+                        </td>
+                        <td>
+                          { moment(adviceDate).format("lll") }
                         </td>
                       </tr>
                     );
