@@ -92,7 +92,8 @@ export const getAreFetchedItemDetails : SimpleSelector = createSelector(
     const item = byIDsMap.get(itemID);
 
     return (
-      item.get("detailsFetched")
+      item.has("detailsFetched") &&
+      item.get("detailsFetched") === true
     );
   }
 );

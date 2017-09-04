@@ -66,10 +66,16 @@ class AdvicerSection extends React.Component {
   render () {
     const { emit, id, isAdviced, advice } = this.props;
 
+    const showForm = !isAdviced || typeof advice === "undefined" || advice === null;
+
     return (
       <div className="my-4">
         {
-          isAdviced ? (
+          showForm ? (
+            <h4 className="card-title">
+              {"Te rugăm să avizezi acest act normativ"}
+            </h4>
+          ) : (
             <div>
               <span className="fancy-text-sm">
                 <i className="fa fa-check mr-1" />
@@ -87,10 +93,6 @@ class AdvicerSection extends React.Component {
                 {"Modifică avizul"}
               </button>
             </div>
-          ) : (
-            <h4 className="card-title">
-              {"Te rugăm să avizezi acest act normativ"}
-            </h4>
           )
         }
         <Collapse isOpen={this.state.isOpen}>

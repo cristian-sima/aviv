@@ -7,6 +7,7 @@ type ListPropTypes = {
   currentFrom: number;
   showLoadMoreButton: boolean;
   total: number;
+  institutions: any;
 
   loadNextPage: () => void;
 }
@@ -19,26 +20,41 @@ type InfoPropTypes = {
 import React from "react";
 
 import { numberToLocaleForm } from "utility";
+import { Link } from "react-router-dom";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Row from "./Row";
 import { ErrorMessage, LoadingSmallMessage } from "../Messages";
 
-const getDocumentForm = (value : number) : string => {
-  if (value === 1) {
-    return "un act normativ";
-  }
-
-  return `${numberToLocaleForm(value)} acte normative`;
-};
+const getDocumentForm = (value : number) : string => (
+  value === 1 ? "un act normativ" : (
+    `${numberToLocaleForm(value)} acte normative`
+  )
+);
 
 const Info = ({ shown, total } : InfoPropTypes) => (
-  <div className="text-muted">
-    {
-      shown === total ? `Ai inițiat ${getDocumentForm(total)}` : (
-        `Afișez ${shown === total ? "toate actele - " : `${shown} din`} ${getDocumentForm(total)}`
-      )
-    }
+  <div className="container-fluid">
+    <div className="row">
+      <div
+        className="col-md-6"
+        style={{
+          paddingLeft: 0,
+        }}>
+        <div className="text-muted">
+          {
+            shown === total ? `Ai avizat ${getDocumentForm(total)}` : (
+              `Afișez ${shown === total ? "toate actele - " : `${shown} din`} ${getDocumentForm(total)}`
+            )
+          }
+        </div>
+      </div>
+      <div className="col-md-6 text-right">
+        <Link
+          to="/">
+          {"Vezi actele pentru avizat"}
+        </Link>
+      </div>
+    </div>
   </div>
 );
 
@@ -50,11 +66,12 @@ const List = (props : ListPropTypes) => {
     hasFetchingError,
     loadNextPage,
     showLoadMoreButton,
+    institutions,
   } = props;
 
   return (
     <div className="container">
-      <h2>{"Acte inițiate"}</h2>
+      <h2>{"Acte avizate"}</h2>
       <div className="mt-1">
         <Info
           shown={items.size}
@@ -72,7 +89,7 @@ const List = (props : ListPropTypes) => {
                 {"Titlu"}
               </th>
               <th className="text-center">
-                {"Status"}
+                {"Inițiatori"}
               </th>
             </tr>
           </thead>
@@ -85,6 +102,7 @@ const List = (props : ListPropTypes) => {
               items.map((item) => (
                 <Row
                   data={item}
+                  institutions={institutions}
                   key={item.get("_id")}
                 />
               )
@@ -102,7 +120,7 @@ const List = (props : ListPropTypes) => {
         {
           (hasFetchingError) ? (
             <ErrorMessage
-              message="Nu am putut prelua actele inițiate"
+              message="Nu am putut prelua actele avizate"
               onRetry={loadNextPage}
             />
           ) : null

@@ -56,7 +56,8 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
 
     authors,
     advicers,
-    responses: [],
+    allAdvices : [],
+    responses  : [],
   };
 
   return institutions.find(whereClauseFind, (errFind) => {

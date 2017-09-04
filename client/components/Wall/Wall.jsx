@@ -31,7 +31,8 @@ import { Route, withRouter, Link } from "react-router-dom";
 import { LoadingMessage } from "../Messages";
 
 import Institutions from "../Institutions";
-import ToApprov from "../ToApprov";
+import ToAdvice from "../ToAdvice";
+import Adviced from "../Adviced";
 import AddItem from "../Item/AddContainer";
 import ItemDetails from "../ItemDetails";
 import Started from "../Started";
@@ -183,8 +184,9 @@ class WallContainer extends React.Component {
               }
               <Route component={() => (<ItemDetails emit={this.emit} />)} exact path="/items/:item" />
               <Route component={() => (<AddItem emit={this.emit} />)} exact path="/add-item" />
-              <Route component={() => (<ToApprov emit={this.emit} />)} exact path="/" />
+              <Route component={() => (<ToAdvice emit={this.emit} />)} exact path="/" />
               <Route component={() => (<Started emit={this.emit} />)} exact path="/started" />
+              <Route component={() => (<Adviced emit={this.emit} />)} exact path="/adviced" />
             </div>
           )
         }

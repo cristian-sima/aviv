@@ -33,6 +33,7 @@ const
 router.all("/", render);
 router.all("/login", render);
 router.all("/institutions", render);
+router.all("/adviced", render);
 router.all("/add-item", render);
 router.all("/items/:user", render);
 router.all("/started", render);

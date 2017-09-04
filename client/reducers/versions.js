@@ -6,7 +6,7 @@ import * as Immutable from "immutable";
 import { createSelector } from "reselect";
 
 import { getCurrentAccount } from "./auth";
-import { getItem } from "./items";
+import { getItem, getAreFetchedItemDetails } from "./items";
 
 const initialState = Immutable.Map();
 
@@ -35,23 +35,28 @@ export const getVersionsOfItem = createSelector(
 );
 
 export const getCurrentItemAdvice = createSelector(
+  getAreFetchedItemDetails,
   getData,
   getCurrentAccount,
   getItem,
-  (versions, account, item) => {
+  (areDetailsFetched, versions, account, item) => {
 
-    if (typeof item === "undefined") {
-      return item;
+    if (!areDetailsFetched) {
+      return null;
     }
 
     const
       id = item.get("_id"),
       version = item.get("version"),
-      institutionID = account.get("institutionID");
+      institutionID = account.get("institutionID"),
+      versionsForItem = versions.get(id);
+
+    if (typeof versionsForItem === "undefined") {
+      return null;
+    }
 
     return (
-      versions.has(id) &&
-      versions.get(id).find((current) => {
+      versionsForItem.find((current) => {
         if (typeof current === "undefined") {
           return current;
         }

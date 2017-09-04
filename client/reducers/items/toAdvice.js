@@ -13,8 +13,9 @@ const newInitialState = () : ItemsToAdviceState => ({
   fetched  : false,
   fetching : false,
 
-  lastID : noID,
-  total  : nothingFetched,
+  lastID   : noID,
+  lastDate : nothingFetched,
+  total    : nothingFetched,
 
   from           : 0,
   negativeOffset : 0,
@@ -36,6 +37,7 @@ const
     error    : noError,
     fetched  : true,
     lastID   : payload.LastID,
+    lastDate : payload.LastDate,
     fetching : false,
     total    : payload.Total,
 

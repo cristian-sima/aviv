@@ -97,8 +97,15 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
       );
     },
     createAdvice = (data, institution) => {
+      const { allAdvices : oldAllAdvices } = data;
+
+      const setQueryAllAdvices = oldAllAdvices.includes(institutionID) ? {} : ({
+        allAdvices: institutionID,
+      });
+
       const setQuery = {
         "$push": {
+          ...setQueryAllAdvices,
           responses: institutionID,
         },
       };

@@ -42,6 +42,7 @@ const performDelete = (state, data, item) => {
         fetching : false,
 
         lastID         : noID,
+        lastDate       : nothingFetched,
         from           : 0,
         negativeOffset : 0,
         total          : nothingFetched,
@@ -49,9 +50,13 @@ const performDelete = (state, data, item) => {
     }
 
     // get the last one before latest
+
+    const lastItem = getTheLastItem(IDs, data);
+
     return {
       ...state,
-      lastID         : getTheLastItem(IDs, data).get("_id"),
+      lastID         : lastItem.get("_id"),
+      lastDate       : lastItem.get("date"),
       IDs            : findAndRemoveCurrent(),
       total          : total - 1,
       negativeOffset : negativeOffset - 1,
@@ -80,6 +85,28 @@ const getShouldStore = (lists : Array<any>, id) => {
   return false;
 };
 
+const performAddIfNewer = (state, data, item) => {
+  const { lastDate, total, IDs } = state;
+
+  if (total === nothingFetched) {
+    return state;
+  }
+
+  const
+    _id = item.get("_id"),
+    currentDate = item.get("date");
+
+  if (currentDate > lastDate) {
+    return {
+      ...state,
+      IDs   : IDs.push(_id),
+      total : total + 1,
+    };
+  }
+
+  return state;
+};
+
 const deleteItem = (state : State, action : any) => {
   const _id = action.payload.get("_id");
 
@@ -96,8 +123,9 @@ const deleteItem = (state : State, action : any) => {
           detailsFetchingError: "Removed",
         });
       }),
-      toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
+      adviced  : performDelete(state.items.adviced, state.items.byID, action.payload),
       started  : performDelete(state.items.started, state.items.byID, action.payload),
+      toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
     },
     versions: state.versions.remove(_id),
   };
@@ -109,27 +137,28 @@ const adviceItem = (state :State, action : any) => {
 
   const
     { items, versions : versionsState } = state,
-    { toAdvice, byID } = items,
-    { payload : { item, versions : rawVersions } } = action,
+    { toAdvice, adviced, byID } = items,
+    { payload : { item, versions : rawVersions } } = action;
+
+  const
     _id = item.get("_id"),
+    currentVersion = item.get("version");
+
+  const
     versions = rawVersions.entities,
     version = versions.first(),
-    currentVersion = item.get("version"),
     currentInstitutionID = version.get("institutionID");
-
-  // console.log("item", item);
 
   const
     newToAdvice = performDelete(toAdvice, byID, item),
+    newAdviced = performAddIfNewer(adviced, byID, item),
     shouldStore = (
       byID.has(_id) &&
       byID.get(_id).has("detailsFetched")
-    ) || getShouldStore([newToAdvice], _id);
-
-  // console.log("shouldStore", shouldStore);
-  // console.log("_id", _id);
-  // console.log("versions", versions);
-  // console.log("versionsState.has(_id) ", versionsState.has(_id));
+    ) || getShouldStore([
+        newToAdvice,
+        newAdviced,
+      ], _id);
 
   const newByID = shouldStore ? (
     byID.update(_id, (current) => {
@@ -137,15 +166,26 @@ const adviceItem = (state :State, action : any) => {
         return current;
       }
 
-      const responses = current.get("responses");
+      const
+        responses = current.get("responses"),
+        allAdvices = current.get("allAdvices");
 
-      if (responses.includes(currentInstitutionID)) {
-        return current;
-      }
+      const newResponses = responses.includes(currentInstitutionID) ? (
+        responses
+      ) : (
+        responses.push(currentInstitutionID)
+      );
 
-      const newResponses = responses.push(currentInstitutionID);
+      const newAllResponses = allAdvices.includes(currentInstitutionID) ? (
+        allAdvices
+      ) : (
+        allAdvices.push(currentInstitutionID)
+      );
 
-      return current.set("responses", newResponses);
+      return current.merge({
+        responses  : newResponses,
+        allAdvices : newAllResponses,
+      });
     })
   ) : byID;
 
@@ -170,6 +210,7 @@ const adviceItem = (state :State, action : any) => {
     ...state,
     items: {
       ...items,
+      adviced  : newAdviced,
       byID     : newByID,
       toAdvice : newToAdvice,
     },

@@ -43,34 +43,28 @@ export type InstitutionsState = {
 
 export type ItemsByIDState = any;
 
-export type ItemsToAdviceState = {
+type Paginator = {
   +IDs: any;
   +error: string;
   +fetched: bool;
   +fetching: bool;
 
   +lastID: string;
+  +lastDate: number;
   +total: number;
   +from: number;
   +negativeOffset: number;
-};
+}
 
-export type ItemsStartedState = {
-  +IDs: any;
-  +error: string;
-  +fetched: bool;
-  +fetching: bool;
-
-  +lastID: string;
-  +total: number;
-  +from: number;
-  +negativeOffset: number;
-};
+export type ItemsToAdviceState = Paginator;
+export type ItemsStartedState = Paginator;
+export type ItemsAdvicedState = Paginator;
 
 type ItemsState = {
   +byID: ItemsByIDState;
   +toAdvice: ItemsToAdviceState;
   +started: ItemsStartedState;
+  +adviced: ItemsAdvicedState;
 }
 
 export type ConfirmationsState = any;

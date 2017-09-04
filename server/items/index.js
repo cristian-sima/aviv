@@ -8,7 +8,8 @@ import {
   getItemsToAdvice,
   getItemsStarted,
   getItemDetails,
-} from "./operations";
+  getItemsAdviced,
+} from "./get";
 
 const router = express.Router();
 
@@ -20,6 +21,11 @@ router.get("/items-to-advice", [
 router.get("/items-started", [
   requireLogin,
   getItemsStarted,
+]);
+
+router.get("/items-adviced", [
+  requireLogin,
+  getItemsAdviced,
 ]);
 
 router.get("/item/:itemID", [
