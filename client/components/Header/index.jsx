@@ -66,7 +66,7 @@ class Header extends React.Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand-sm navbar-light bg-light">
+        <nav className="navbar navbar-expand-md navbar-light bg-light">
           <span className="navbar-brand">
             <img
               alt="logo"
@@ -110,8 +110,6 @@ class Header extends React.Component {
                       <SearchContainer />
                     </div>
                   </div>
-                </Nav>
-                <Nav className="ml-auto" navbar>
                   <DisconnectBox />
                 </Nav>
               </Collapse>

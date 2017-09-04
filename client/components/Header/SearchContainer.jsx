@@ -20,6 +20,7 @@ type SearchContainerPropTypes = {
 
 const
   maxSuggestions = 5,
+  minLength = 3,
   timeoutDelay = 400,
   iStyle = {
     position   : "absolute",
@@ -80,9 +81,9 @@ const AutosuggestStatus = ({ isError, isFetching } : AutosuggestStatusPropTypes)
   if (isError) {
     return (
       <i
-        aria-label="Nu am putut prelua firmele"
         className="fa fa-exclamation-triangle text-warning"
         style={iStyle}
+        title="Nu am putut prelua datele"
       />
     );
   }
@@ -153,7 +154,8 @@ class SearchContainer extends React.Component {
         newValueIsNotEmpty = (newValue !== ""),
         shouldFetchSuggestions = (
           theNewTermIsDifferent &&
-          newValueIsNotEmpty
+          newValueIsNotEmpty &&
+          newValue.length >= minLength
         );
 
       if (shouldFetchSuggestions) {
@@ -197,7 +199,7 @@ class SearchContainer extends React.Component {
       term,
     } = this.props;
 
-    const searchMessage = "Scrie denumirea firmei...",
+    const searchMessage = "Caută act normativ...",
       inputProps = {
         "aria-label"      : searchMessage,
         "aria-labelledby" : searchMessage,
@@ -213,8 +215,8 @@ class SearchContainer extends React.Component {
           focusInputOnSuggestionClick={false}
           getSuggestionValue={getSuggestionValue(term)}
           inputProps={inputProps}
-          onSuggestionsClearRequested={this.handleClearRequested}
           onSuggestionSelected={this.handleSuggestionSelected}
+          onSuggestionsClearRequested={this.handleClearRequested}
           onSuggestionsFetchRequested={this.handleFetchRequested}
           renderSuggestion={renderSuggestion}
           suggestions={suggestions.slice(0, maxSuggestions)}

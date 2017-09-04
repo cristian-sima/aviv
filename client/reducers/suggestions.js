@@ -61,7 +61,9 @@ const reducer = (state : SuggestionsState = newInitialState(), action : Action) 
         error    : noError,
         fetching : false,
 
-        map: state.map.clear(),
+        term: state.term,
+
+        map: Immutable.Map(),
       };
 
     default:
