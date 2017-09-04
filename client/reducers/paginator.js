@@ -73,7 +73,7 @@ const performDelete = (state, data, item) => {
   return state;
 };
 
-const getShouldStore = (lists : Array<any>, id) => {
+const getshouldModify = (lists : Array<any>, id) => {
   for (const list of lists) {
     if (list.includes(id)) {
       return true;
@@ -135,7 +135,7 @@ const adviceItem = (state :State, action : any) => {
 
   const
     { items, versions : versionsState } = state,
-    { toAdvice, adviced, byID } = items,
+    { toAdvice, adviced, byID, started } = items,
     { payload : { item, versions : rawVersions } } = action;
 
   const
@@ -149,16 +149,19 @@ const adviceItem = (state :State, action : any) => {
 
   const
     newToAdvice = performDelete(toAdvice, byID, item),
-    newAdviced = performAddIfNewer(adviced, byID, item),
-    shouldStore = (
+    newAdviced = performAddIfNewer(adviced, byID, item);
+
+  const
+    shouldModify = (
       byID.has(_id) &&
       byID.get(_id).has("detailsFetched")
-    ) || getShouldStore([
-        newToAdvice,
-        newAdviced,
+    ) || getshouldModify([
+        newToAdvice.IDs,
+        newAdviced.IDs,
+        started.IDs,
       ], _id);
 
-  const newByID = shouldStore ? (
+  const newByID = shouldModify ? (
     byID.update(_id, (current) => {
       if (typeof current === "undefined") {
         return current;
@@ -166,6 +169,7 @@ const adviceItem = (state :State, action : any) => {
 
       const
         responses = current.get("responses"),
+        needsExamination = item.get("needsExamination"),
         allAdvices = current.get("allAdvices");
 
       const newResponses = responses.includes(currentInstitutionID) ? (
@@ -183,11 +187,12 @@ const adviceItem = (state :State, action : any) => {
       return current.merge({
         responses  : newResponses,
         allAdvices : newAllResponses,
+        needsExamination,
       });
     })
   ) : byID;
 
-  const newVersions = shouldStore ? (
+  const newVersions = shouldModify ? (
     versionsState.has(_id) ? (
       versionsState.update(_id, (currentState) => {
         if (typeof currentState === "undefined") {

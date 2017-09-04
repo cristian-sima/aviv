@@ -28,6 +28,7 @@ class Row extends React.Component {
       name = data.get("name"),
       responses = data.get("responses"),
       advicers = data.get("advicers"),
+      needsExamination = data.get("needsExamination"),
       progress = Math.round(responses.size / advicers.size * oneHundred);
 
     return (
@@ -44,7 +45,9 @@ class Row extends React.Component {
         <td className="small no-wrap item-authors text-center">
           {
             progress === oneHundred ? (
-              <i className="fa fa-check text-success fa-2x" />
+              needsExamination ? "Necesită examinare" : (
+                <i className="fa fa-check text-success fa-2x" />
+              )
             ) : (
               <div className="progress">
                 <div

@@ -9,7 +9,7 @@ import rootReducer from "reducers/state";
 
 // create an object for the default data
 const defaultState = {},
-  enhancers = compose(applyMiddleware(promise(), thunk), ),
+  enhancers = compose(applyMiddleware(promise(), thunk)),
   store = createStore(rootReducer, defaultState, enhancers),
   history = syncHistoryWithStore(browserHistory, store);
 

@@ -1,12 +1,17 @@
 // @flow
 
-const
+export const
   PozitiveWithoutObservations = 0,
   PozitiveWithObservations = 1,
-  NegativeWithObservations = 2;
+  Negative = 2;
 
 export const isGoodAdviceResponse = (value : number) => (
   value === PozitiveWithoutObservations ||
   value === PozitiveWithObservations ||
-  value === NegativeWithObservations
+  value === Negative
+);
+
+export const shouldExaminate = (value : number) => (
+  value === PozitiveWithObservations ||
+  value === Negative
 );

@@ -4,7 +4,12 @@ import type { Socket, Database } from "../types";
 
 import { ObjectId } from "mongodb";
 
-import { isGoodAdviceResponse } from "./util";
+import {
+  isGoodAdviceResponse,
+  shouldExaminate,
+  PozitiveWithObservations,
+  Negative,
+} from "./util";
 
 export const adviceItem = (socket : Socket, db : Database, io : any) => (body : any) => {
 
@@ -92,7 +97,45 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
             return emitGenericError();
           }
 
-          return broadcast(data, value);
+          const countClause = {
+            "itemID" : id,
+            version,
+            "$or"    : [
+              {
+                "response": PozitiveWithObservations,
+              },
+              {
+                "response": Negative,
+              },
+            ],
+          };
+
+          return versions.count(countClause, (errCountVersions, count) => {
+            if (errCountVersions) {
+              return emitGenericError();
+            }
+
+            const needsExamination = count !== 0;
+
+            const setItemClause = {
+              "$set": {
+                needsExamination,
+              },
+            };
+
+            return items.update(whereClause, setItemClause, (errUpdateItem) => {
+              if (errUpdateItem) {
+                return emitGenericError();
+              }
+
+              const newItem = {
+                ...data,
+                needsExamination,
+              };
+
+              return broadcast(newItem, value);
+            });
+          });
         }
       );
     },
@@ -103,10 +146,15 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
         allAdvices: institutionID,
       });
 
+      const needsExamination = shouldExaminate(response);
+
       const setQuery = {
         "$push": {
           ...setQueryAllAdvices,
           responses: institutionID,
+        },
+        "$set": {
+          needsExamination,
         },
       };
 
@@ -134,12 +182,17 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
             userName,
           };
 
+        console.log("shouldExaminate(response)", shouldExaminate(response));
+
         return versions.insertOne(versionToInsert, (errInsertVersion, { ops }) => {
           if (errInsertVersion) {
             return emitGenericError();
           }
 
-          return broadcast(data, ops[0]);
+          return broadcast({
+            ...data,
+            needsExamination,
+          }, ops[0]);
         });
       });
     };

@@ -1,7 +1,5 @@
-// @flow
-/* eslint-disable global-require, no-console */
-
-declare var module:any
+/* eslint-disable no-unused-vars, global-require, no-console */
+/* globals module */
 declare var console:any
 
 import { AppContainer } from "react-hot-loader";

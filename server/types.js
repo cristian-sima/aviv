@@ -32,6 +32,7 @@ type Collection = {
   find: (query: any) => {
     toArray: (callback : (error?: Error, data : any) => void) => void;
   };
+  count: (query: any, callback : (error?: Error, counter : number) => void) => void;
   find: (query: any, callback : (error?: Error, data : any) => void) => void;
   updateMany: (where : any, set : any, callback : (error?: Error) => any) => void;
   insert: (list : any, callback : (error?: Error, result : { ops : any }) => any) => void;
