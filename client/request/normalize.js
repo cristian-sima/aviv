@@ -31,10 +31,11 @@ export const withPromiseCallback = (resolve : Resolve, reject : Reject) => (
 );
 
 export const normalizeItem = (raw : any) => raw ? Immutable.Map(raw).merge({
-  authors   : Immutable.List(raw.authors),
-  date      : new Date(raw.date).getTime(),
-  advicers  : Immutable.List(raw.advicers),
-  responses : Immutable.List(raw.responses),
+  authors    : Immutable.List(raw.authors),
+  date       : new Date(raw.date).getTime(),
+  advicers   : Immutable.List(raw.advicers),
+  responses  : Immutable.List(raw.responses),
+  addAdvices : Immutable.List(raw.allAdvices),
 }) : Immutable.Map();
 
 export const normalizeArrayOfItems = (items : any) => (

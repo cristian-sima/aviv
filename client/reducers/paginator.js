@@ -178,7 +178,7 @@ const adviceItem = (state :State, action : any) => {
         responses.push(currentInstitutionID)
       );
 
-      const newAllResponses = allAdvices.includes(currentInstitutionID) ? (
+      const newAllAdvices = allAdvices.includes(currentInstitutionID) ? (
         allAdvices
       ) : (
         allAdvices.push(currentInstitutionID)
@@ -186,7 +186,7 @@ const adviceItem = (state :State, action : any) => {
 
       return current.merge({
         responses  : newResponses,
-        allAdvices : newAllResponses,
+        allAdvices : newAllAdvices,
         needsExamination,
       });
     })
