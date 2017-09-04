@@ -25,9 +25,7 @@ const performDelete = (state, data, item) => {
   const
     id = item.get("_id"),
     findAndRemoveCurrent = () => (
-      IDs.remove(
-        IDs.findIndex((current) => current === id)
-      )
+      IDs.remove(IDs.findIndex((current) => current === id))
     );
 
   if (lastID === id) {

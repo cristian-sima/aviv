@@ -84,9 +84,7 @@ const
     };
   },
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchItemsStartedFrom: (lastID: string) => dispatch(
-      fetchItemsStartedFromAction(lastID)
-    ),
+    fetchItemsStartedFrom: (lastID: string) => dispatch(fetchItemsStartedFromAction(lastID)),
     updateFrom (from) {
       dispatch(modifyFromStartedItemsAction(from));
     },

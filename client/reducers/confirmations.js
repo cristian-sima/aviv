@@ -12,9 +12,7 @@ const
     state.push(payload)
   ),
   unregisterConfirmation = (state : ConfirmationsState, { payload }) => (
-    state.remove(
-      state.findIndex((current) => current === payload)
-    )
+    state.remove(state.findIndex((current) => current === payload))
   );
 
 const reducer = (state : ConfirmationsState = initialState, action : Action) => {

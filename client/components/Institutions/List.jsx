@@ -148,8 +148,7 @@ class List extends React.Component {
                     modifyRow={showModifyModal}
                     showUsers={showUsers}
                   />
-                )
-                )
+                ))
               }
             </tbody>
           </table>

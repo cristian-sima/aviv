@@ -72,8 +72,6 @@ export const checkForErrorsThenNormalizeItemDetails = (resolve : any, reject : a
       });
     }
 
-    return resolve(
-      normalizeItemDetails(body)
-    );
+    return resolve(normalizeItemDetails(body));
   }
 );

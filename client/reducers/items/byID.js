@@ -22,7 +22,8 @@ const
     const itemID = (meta) ? String(meta.id) : "";
 
     if (state.has(itemID)) {
-      return state.update(itemID,
+      return state.update(
+        itemID,
         (item) => item.set("detailsFetching", true)
       );
     }
@@ -38,7 +39,8 @@ const
   fetchItemRejected = (state : ItemsByIDState, { payload : { error }, meta }) => {
     const itemID = (meta) ? String(meta.id) : "";
 
-    return state.update(itemID,
+    return state.update(
+      itemID,
       (item) => item.merge({
         detailsFetching      : false,
         detailsFetchingError : error,

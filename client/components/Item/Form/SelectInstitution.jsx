@@ -38,8 +38,7 @@ const
         return (
           !authors.includes(id) && !advicers.includes(id)
         );
-      }
-      )
+      })
     )
   );
 

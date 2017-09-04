@@ -81,9 +81,7 @@ export const
   getInstitutionsData = (state : State) => state.institutions.data,
   getInstitutions = createSelector(
     getInstitutionsData,
-    (map) => map.toList().sortBy(
-      (institution) => institution.get("name")
-    )
+    (map) => map.toList().sortBy((institution) => institution.get("name"))
   ),
   getInstitution = (state : State, id : string) => state.institutions.data.get(id);
 

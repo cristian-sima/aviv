@@ -148,9 +148,7 @@ export const getIsUpdatingUserList = createSelector(
 export const
   getUsers = createSelector(
     getData,
-    (map) => map.toList().sortBy(
-      (user) => user.get("name")
-    )
+    (map) => map.toList().sortBy((user) => user.get("name"))
   );
 
 export const getUsersByInstitution = createSelector(

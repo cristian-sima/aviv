@@ -87,8 +87,7 @@ const List = (props : ListPropTypes) => {
                   data={item}
                   key={item.get("_id")}
                 />
-              )
-              )
+              ))
             }
           </ReactCSSTransitionGroup>
         </table>

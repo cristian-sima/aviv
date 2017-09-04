@@ -89,9 +89,7 @@ const
     };
   },
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchItemsAdvicedFrom: (lastID: string) => dispatch(
-      fetchItemsAdvicedFromAction(lastID)
-    ),
+    fetchItemsAdvicedFrom: (lastID: string) => dispatch(fetchItemsAdvicedFromAction(lastID)),
     updateFrom (from) {
       dispatch(modifyFromAdvicedItemsAction(from));
     },

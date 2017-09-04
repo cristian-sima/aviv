@@ -16,11 +16,9 @@ import {
 const processForm = (dispatch : any, { status, form, error, message } : Msg) => {
   switch (status) {
     case "FAILED":
-      dispatch(
-        stopSubmit(form, {
-          "_error": error,
-        })
-      );
+      dispatch(stopSubmit(form, {
+        "_error": error,
+      }));
       break;
     case "SUCCESS":
       setTimeout(() => {

@@ -79,8 +79,7 @@ class List extends React.Component {
                       showDeleteModal={showDeleteModal}
                       showModifyModal={showModifyModal}
                     />
-                  )
-                  )
+                  ))
                 }
               </tbody>
             </table>

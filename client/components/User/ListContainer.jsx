@@ -58,9 +58,7 @@ const
         },
       }));
     },
-    showCreateUserModal: () => dispatch(
-      showAddUserAction({ institutionID })
-    ),
+    showCreateUserModal: () => dispatch(showAddUserAction({ institutionID })),
   });
 
 class UserList extends React.Component {
