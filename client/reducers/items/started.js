@@ -44,16 +44,37 @@ const
     IDs: state.IDs.concat(payload.Items.result),
   }),
   addItem = (state : ItemsStartedState, { payload }) => {
-    const { total } = state;
+    const { total, IDs, negativeOffset } = state;
+
+    const
+      newIDs = IDs.push(payload.get("_id")),
+      newTotal = total + 1,
+      newNegativeOffset = negativeOffset + 1;
 
     if (total === nothingFetched) {
       return state;
     }
 
+    if (total === 0) {
+      const
+        lastID = payload.get("_id"),
+        lastDate = payload.get("date");
+
+      return {
+        ...state,
+        lastID,
+        lastDate,
+        negativeOffset : newNegativeOffset,
+        IDs            : newIDs,
+        total          : newTotal,
+      };
+    }
+
     return {
       ...state,
-      IDs   : state.IDs.push(payload.get("_id")),
-      total : total + 1,
+      negativeOffset : newNegativeOffset,
+      total          : newTotal,
+      IDs            : newIDs,
     };
   },
   modifyFromStartedItems = (state : ItemsStartedState, { payload : from }) => ({

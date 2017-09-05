@@ -35,7 +35,7 @@ export const normalizeItem = (raw : any) => raw ? Immutable.Map(raw).merge({
   date       : new Date(raw.date).getTime(),
   advicers   : Immutable.List(raw.advicers),
   responses  : Immutable.List(raw.responses),
-  addAdvices : Immutable.List(raw.allAdvices),
+  allAdvices : Immutable.List(raw.allAdvices),
 }) : Immutable.Map();
 
 export const normalizeArrayOfItems = (items : any) => (

@@ -31,6 +31,11 @@ const performDelete = (state, data, item) => {
   if (lastID === id) {
     // there are more on the server
     // but nothing here
+
+    if (IDs.size === 0) {
+      return state;
+    }
+
     if (IDs.size === 1 && total !== 1) {
       return {
         ...state,
@@ -48,6 +53,8 @@ const performDelete = (state, data, item) => {
     }
 
     // get the last one before latest
+
+    console.log("IDs", IDs);
 
     const lastItem = getTheLastItem(IDs, data);
 
@@ -177,6 +184,9 @@ const adviceItem = (state :State, action : any) => {
       ) : (
         responses.push(currentInstitutionID)
       );
+
+      console.log("allAdvices", allAdvices);
+      console.log("allAdvices.push(currentInstitutionID)", allAdvices.push(currentInstitutionID));
 
       const newAllAdvices = allAdvices.includes(currentInstitutionID) ? (
         allAdvices
