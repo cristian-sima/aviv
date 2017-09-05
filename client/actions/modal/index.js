@@ -90,6 +90,13 @@ export const deleteItemModal = (id : string, emit : Emit) : Action => (
   })
 );
 
+export const createVersionModal = (id : string, emit : Emit) : Action => (
+  createModal("CREATE_VERSION", {
+    id,
+    emit,
+  })
+);
+
 export const showContactsForInstitutionModal = (id : string) : Action => (
   createModal("CONTACTS_FOR_INSTITUTIONS", {
     id,

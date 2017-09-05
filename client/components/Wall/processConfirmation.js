@@ -11,6 +11,7 @@ import {
   notify,
   notifyError,
   unregisterConfirmation as unregisterConfirmationAction,
+  hideModal as hideModalAction,
 } from "actions";
 
 import { history } from "../../store/store";
@@ -27,6 +28,11 @@ const processConfirmation = (dispatch : any, { status, id, error, message } : Ms
       switch (id) {
         case "CONFIRM_DELETE_ITEM":
           history.push("/started");
+          break;
+        case "CONFIRM_CREATE_VERSION":
+          setTimeout(() => {
+            dispatch(hideModalAction());
+          });
           break;
         default:
 

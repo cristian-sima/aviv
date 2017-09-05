@@ -95,7 +95,7 @@ class AdvicerSection extends React.Component {
             </div>
           )
         }
-        <Collapse isOpen={this.state.isOpen}>
+        <Collapse isOpen={!isAdviced || this.state.isOpen}>
           <div className="card my-4">
             <div className="card-body">
               <div className="card-text">

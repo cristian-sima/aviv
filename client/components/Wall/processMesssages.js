@@ -14,6 +14,7 @@ const processMesssages = (dispatch : any, msg : Message) => {
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
     case "DELETE_ITEM":
+    case "CREATE_VERSION":
       dispatch({
         type,
         payload: normalizeItem(payload),

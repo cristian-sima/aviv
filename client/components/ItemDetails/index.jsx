@@ -25,6 +25,7 @@ type ItemPagePropTypes = {
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
   confirmDeleteItem: () => void;
+  confirmCreateVersion: () => void;
   fetchItemDetails: () => void;
 }
 
@@ -51,6 +52,7 @@ import {
   fetchItemDetails as fetchItemDetailsAction,
   showContactsForInstitutionModal as showContactsForInstitutionModalAction,
   deleteItemModal as deleteItemModalAction,
+  createVersionModal as createVersionModalAction,
 } from "actions";
 
 const
@@ -74,6 +76,9 @@ const
     },
     confirmDeleteItem () {
       dispatch(deleteItemModalAction(item, emit));
+    },
+    confirmCreateVersion () {
+      dispatch(createVersionModalAction(item, emit));
     },
   });
 

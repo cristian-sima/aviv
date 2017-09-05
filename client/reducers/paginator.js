@@ -226,12 +226,38 @@ const adviceItem = (state :State, action : any) => {
   };
 };
 
+
+const createVersion = (state :State, action : any) => {
+
+  const
+    { items } = state,
+    { toAdvice, adviced, byID } = items,
+    { payload : item } = action;
+
+  const
+    newToAdvice = performAddIfNewer(toAdvice, byID, item),
+    newAdviced = performDelete(adviced, byID, item);
+
+  return {
+    ...state,
+    items: {
+      ...items,
+      adviced  : newAdviced,
+      toAdvice : newToAdvice,
+    },
+  };
+};
+
 const paginator = (state : State, action : Action) => {
   switch (action.type) {
     case "DELETE_ITEM":
       return deleteItem(state, action);
+
     case "ADVICE_ITEM":
       return adviceItem(state, action);
+
+    case "CREATE_VERSION":
+      return createVersion(state, action);
 
     default:
       return state;

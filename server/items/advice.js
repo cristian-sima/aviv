@@ -182,8 +182,6 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
             userName,
           };
 
-        console.log("shouldExaminate(response)", shouldExaminate(response));
-
         return versions.insertOne(versionToInsert, (errInsertVersion, { ops }) => {
           if (errInsertVersion) {
             return emitGenericError();

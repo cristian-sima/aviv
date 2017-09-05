@@ -16,9 +16,12 @@ type PagePropTypes = {
 
   emit: Emit;
   confirmDeleteItem: () => void;
+  confirmCreateVersion: () => void;
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
 };
+
+const oneHundred = 100;
 
 class Page extends React.Component {
   props: PagePropTypes;
@@ -40,6 +43,7 @@ class Page extends React.Component {
       isAdvicer,
       showContactsForInstitution,
       confirmDeleteItem,
+      confirmCreateVersion,
       emit,
     } = this.props;
 
@@ -47,6 +51,7 @@ class Page extends React.Component {
       id = data.get("_id"),
       name = data.get("name"),
       authors = data.get("authors"),
+      responses = data.get("responses"),
       version = data.get("version"),
       advicers = data.get("advicers"),
       date = data.get("date");
@@ -58,6 +63,8 @@ class Page extends React.Component {
 
       return current.get("version") === version;
     });
+
+    const progress = Math.round(responses.size / advicers.size * oneHundred);
 
     return (
       <div className="mt-3">
@@ -75,7 +82,33 @@ class Page extends React.Component {
                       emit={emit}
                       id={id}
                     />
-                  ) : null
+                  ) : (
+                    responses.size === advicers.size ? (
+                      <div className="mt-5 mb-md-4 text-center">
+                        <button
+                          className="btn btn-primary"
+                          onClick={confirmCreateVersion}
+                          type="button">
+                          {"Trimite-l la o nouă sesiune de avizare"}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="mt-5 mb-md-4 progress">
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          style={{
+                            width: `${progress}%`,
+                          }}>
+                          {
+                            progress === 0 ? null : (
+                              `${progress}%`
+                            )
+                          }
+                        </div>
+                      </div>
+                    )
+                  )
                 }
               </div>
             </div>
@@ -128,7 +161,7 @@ class Page extends React.Component {
                 <tr>
                   <th>{"Instituție avizatoare"}</th>
                   <th>{"Răspuns"}</th>
-                  <th>{"Avizat la"}</th>
+                  <th className="no-wrap">{"Avizat la"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -184,7 +217,7 @@ class Page extends React.Component {
                             value={adviceResponse}
                           />
                         </td>
-                        <td>
+                        <td className="no-wrap item-date">
                           { moment(adviceDate).format("lll") }
                         </td>
                       </tr>

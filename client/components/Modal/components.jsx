@@ -18,6 +18,7 @@ import DeleteUser from "../User/Modal/Delete";
 import ConfirmResetUserPassword from "../User/Modal/ConfirmReset";
 
 import DeleteItem from "../Item/Modal/Delete";
+import CreateVersion from "../Item/Modal/CreateVersion";
 
 const getComponent = (type : ModalActionType) : any => {
   switch (type) {
@@ -54,6 +55,9 @@ const getComponent = (type : ModalActionType) : any => {
 
     case "DELETE_ITEM":
       return DeleteItem;
+
+    case "CREATE_VERSION":
+      return CreateVersion;
 
     default:
       return (

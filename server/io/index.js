@@ -7,6 +7,7 @@ import createIO from "socket.io";
 import addItem from "../items/add";
 import adviceItem from "../items/advice";
 import deleteItem from "../items/delete";
+import createVersion from "../items/createVersion";
 
 import { error, sessionMiddleware } from "../utility";
 
@@ -67,6 +68,7 @@ const performCreateIO = (server : ExpressServer, db : Database) => {
     socket.on("ADD_ITEM", addItem(socket, db, io));
     socket.on("DELETE_ITEM", deleteItem(socket, db, io));
     socket.on("ADVICE_ITEM", adviceItem(socket, db, io));
+    socket.on("CREATE_VERSION", createVersion(socket, db, io));
   });
 
   io.on("disconnect", (socket) => {
