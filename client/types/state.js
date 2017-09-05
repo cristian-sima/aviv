@@ -43,7 +43,7 @@ export type InstitutionsState = {
 
 export type ItemsByIDState = any;
 
-type Paginator = {
+export type PaginatorState = {
   +IDs: any;
   +error: string;
   +fetched: bool;
@@ -56,9 +56,9 @@ type Paginator = {
   +negativeOffset: number;
 }
 
-export type ItemsToAdviceState = Paginator;
-export type ItemsStartedState = Paginator;
-export type ItemsAdvicedState = Paginator;
+export type ItemsToAdviceState = PaginatorState;
+export type ItemsStartedState = PaginatorState;
+export type ItemsAdvicedState = PaginatorState;
 
 type ItemsState = {
   +byID: ItemsByIDState;

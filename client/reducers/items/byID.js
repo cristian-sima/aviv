@@ -68,18 +68,6 @@ const
         detailsFetchingError : noError,
       })
     )
-  ),
-  createVersion = (state : ItemsByIDState, { payload }) => (
-    state.update(payload.get("_id"), (current) => {
-      if (typeof current === "undefined") {
-        return current;
-      }
-
-      return current.merge({
-        version   : payload.get("version"),
-        responses : Immutable.List(),
-      });
-    })
   );
 
 export const byIDItems = (state : ItemsByIDState = initialState, action : any) => {
@@ -101,9 +89,6 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
       return addOrModifyItem(state, action);
-
-    case "CREATE_VERSION":
-      return createVersion(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":

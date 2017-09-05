@@ -36,8 +36,8 @@ const
     ...state,
     error    : noError,
     fetched  : true,
-    lastID   : payload.LastID,
-    lastDate : payload.LastDate,
+    lastID   : payload.LastID ? payload.LastID : noID,
+    lastDate : payload.LastDate ? payload.LastDate : nothingFetched,
     fetching : false,
     total    : payload.Total,
 
