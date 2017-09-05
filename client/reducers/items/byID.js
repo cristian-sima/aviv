@@ -76,7 +76,7 @@ const
       }
 
       return current.merge({
-        version   : payload.get("version") + 1,
+        version   : payload.get("version"),
         responses : Immutable.List(),
       });
     })
