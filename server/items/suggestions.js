@@ -14,10 +14,35 @@ export const getSuggestions = (req : Request, res : Response) => {
     { db, query } = req,
     { search } = query;
 
+  const { user : { institutionID } } = req;
+
   const whereClause = {
-    name: {
-      "$regex": new RegExp(`.*${search}.*`, "i"),
-    },
+    "$or": [
+      {
+        "authors": {
+          "$in": [institutionID],
+        },
+        "name": {
+          "$regex": new RegExp(`.*${search}.*`, "i"),
+        },
+      },
+      {
+        "advicers": {
+          "$in": [institutionID],
+        },
+        "name": {
+          "$regex": new RegExp(`.*${search}.*`, "i"),
+        },
+      },
+      {
+        "allAdvices": {
+          "$in": [institutionID],
+        },
+        "name": {
+          "$regex": new RegExp(`.*${search}.*`, "i"),
+        },
+      },
+    ],
   };
 
   const
