@@ -53,9 +53,6 @@ const performDelete = (state, data, item) => {
     }
 
     // get the last one before latest
-
-    console.log("IDs", IDs);
-
     const lastItem = getTheLastItem(IDs, data);
 
     return {
@@ -91,7 +88,7 @@ const getshouldModify = (lists : Array<any>, id) => {
 };
 
 const performAddIfNewer = (state, data, item) => {
-  const { lastDate, total, IDs } = state;
+  const { lastDate, total, IDs, negativeOffset } = state;
 
   if (total === nothingFetched) {
     return state;
@@ -104,8 +101,9 @@ const performAddIfNewer = (state, data, item) => {
   if (currentDate > lastDate) {
     return {
       ...state,
-      IDs   : IDs.push(_id),
-      total : total + 1,
+      negativeOffset : negativeOffset + 1,
+      IDs            : IDs.push(_id),
+      total          : total + 1,
     };
   }
 
@@ -184,9 +182,6 @@ const adviceItem = (state :State, action : any) => {
       ) : (
         responses.push(currentInstitutionID)
       );
-
-      console.log("allAdvices", allAdvices);
-      console.log("allAdvices.push(currentInstitutionID)", allAdvices.push(currentInstitutionID));
 
       const newAllAdvices = allAdvices.includes(currentInstitutionID) ? (
         allAdvices
