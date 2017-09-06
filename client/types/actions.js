@@ -40,6 +40,9 @@ export type Action =
 | { type: 'FETCH_ITEMS_STARTED', payload: any; }
 | { type: 'MODIFY_FROM_STARTED_ITEMS', payload: number; }
 
+| { type: 'FETCH_ITEMS_CLOSED', payload: any; }
+| { type: 'MODIFY_FROM_CLOSED_ITEMS', payload: number; }
+
 | { type: 'FETCH_ITEMS_ADVICED', payload: any; }
 | { type: 'MODIFY_FROM_ADVICED_ITEMS', payload: number; }
 

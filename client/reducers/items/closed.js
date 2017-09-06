@@ -43,29 +43,29 @@ const
 
     IDs: state.IDs.concat(payload.Items.result),
   }),
-  modifyFromAdvicedItems = (state : PaginatorState, { payload : from }) => ({
+  modifyFromClosedItems = (state : PaginatorState, { payload : from }) => ({
     ...state,
     from,
   });
 
-export const adviced = (state : PaginatorState = newInitialState(), action : Action) => {
+export const closed = (state : PaginatorState = newInitialState(), action : Action) => {
 
   switch (action.type) {
-    case "FETCH_ITEMS_ADVICED_PENDING":
+    case "FETCH_ITEMS_CLOSED_PENDING":
       return fetchItemsPending(state);
 
-    case "FETCH_ITEMS_ADVICED_REJECTED":
+    case "FETCH_ITEMS_CLOSED_REJECTED":
       return fetchItemsRejected(state, action);
 
-    case "FETCH_ITEMS_ADVICED_FULFILLED":
+    case "FETCH_ITEMS_CLOSED_FULFILLED":
       return fetchItemsFulfilled(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":
       return newInitialState();
 
-    case "MODIFY_FROM_ADVICED_ITEMS":
-      return modifyFromAdvicedItems(state, action);
+    case "MODIFY_FROM_CLOSED_ITEMS":
+      return modifyFromClosedItems(state, action);
 
     default:
       return state;
@@ -73,21 +73,21 @@ export const adviced = (state : PaginatorState = newInitialState(), action : Act
 };
 
 const
-  fetchingSelector = (state : State) => state.items.adviced.fetching,
-  errorSelector = (state : State) => state.items.adviced.error,
-  IDsListSelector = (state : State) => state.items.adviced.IDs,
+  fetchingSelector = (state : State) => state.items.closed.fetching,
+  errorSelector = (state : State) => state.items.closed.error,
+  IDsListSelector = (state : State) => state.items.closed.IDs,
   byIDsMapSelector = (state : State) => state.items.byID;
 
 export const
-  getOffsetFromAdvicedItems = (state : State) => (
-    state.items.adviced.from + state.items.adviced.negativeOffset
+  getOffsetFromClosedItems = (state : State) => (
+    state.items.closed.from + state.items.closed.negativeOffset
   ),
-  getFromAdvicedItems = (state : State) => (
-    state.items.adviced.from
+  getFromClosedItems = (state : State) => (
+    state.items.closed.from
   ),
-  getTotalItemsAdvicedSelector = (state : State) => state.items.adviced.total,
-  lastFetchedItemsAdvicedIDSelector = (state : State) => (
-    state.items.adviced.lastID
+  getTotalItemsClosedSelector = (state : State) => state.items.closed.total,
+  lastFetchedItemsClosedIDSelector = (state : State) => (
+    state.items.closed.lastID
   );
 
 const getItems = createSelector(
@@ -98,7 +98,7 @@ const getItems = createSelector(
   )
 );
 
-export const getIsFetchingItemsAdviced = createSelector(
+export const getIsFetchingItemsClosed = createSelector(
   fetchingSelector,
   errorSelector,
   (isFetching, error) => (
@@ -106,10 +106,10 @@ export const getIsFetchingItemsAdviced = createSelector(
   )
 );
 
-export const getShouldFetchItemsAdviced = createSelector(
-  getIsFetchingItemsAdviced,
+export const getShouldFetchItemsClosed = createSelector(
+  getIsFetchingItemsClosed,
   IDsListSelector,
-  getTotalItemsAdvicedSelector,
+  getTotalItemsClosedSelector,
   (isFetching, list, total) => (
     !isFetching &&
     (
@@ -119,12 +119,12 @@ export const getShouldFetchItemsAdviced = createSelector(
   )
 );
 
-export const getIsFetchingItemsAdvicedError = createSelector(
+export const getIsFetchingItemsClosedError = createSelector(
   errorSelector,
   (error) => error !== noError
 );
 
-export const getCanLoadItemsAdvicedLocally = createSelector(
+export const getCanLoadItemsClosedLocally = createSelector(
   IDsListSelector,
   (state, from) => from,
   (list, from) => (
@@ -132,24 +132,24 @@ export const getCanLoadItemsAdvicedLocally = createSelector(
   )
 );
 
-export const getSortedItemsAdviced = createSelector(
+export const getSortedItemsClosed = createSelector(
   getItems,
   (list) => (
     list.sortBy((item) => -item.get("date"))
   )
 );
 
-export const getItemsAdvicedUpToSelector = createSelector(
-  getSortedItemsAdviced,
+export const getItemsClosedUpToSelector = createSelector(
+  getSortedItemsClosed,
   (state, requestedUpTo : number) => requestedUpTo,
   (sortedItems, requestedUpTo: number) => (
     sortedItems.slice(0, requestedUpTo)
   )
 );
 
-export const shouldFetchItemsAdvicedFrom = createSelector(
-  getCanLoadItemsAdvicedLocally,
-  getShouldFetchItemsAdviced,
+export const shouldFetchItemsClosedFrom = createSelector(
+  getCanLoadItemsClosedLocally,
+  getShouldFetchItemsClosed,
   (canLoadLocally, shouldFetch) => (
     !canLoadLocally && shouldFetch
   )

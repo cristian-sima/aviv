@@ -7,6 +7,7 @@ import {
   fetchItemsToAdviceFrom as fetchItemsToAdviceFromRequest,
   fetchItemsAdvicedFrom as fetchItemsAdvicedFromRequest,
   fetchItemsStartedFrom as fetchItemsStartedFromRequest,
+  fetchItemsClosedFrom as fetchItemsClosedFromRequest,
   fetchItemDetails as fetchItemDetailsRequest,
 } from "../request";
 
@@ -37,6 +38,16 @@ export const fetchItemsStartedFrom = (lastID: string) : Action => ({
 
 export const modifyFromStartedItems = (payload : number) : Action => ({
   type: "MODIFY_FROM_STARTED_ITEMS",
+  payload,
+});
+
+export const fetchItemsClosedFrom = (lastID: string) : Action => ({
+  type    : "FETCH_ITEMS_CLOSED",
+  payload : fetchItemsClosedFromRequest(lastID),
+});
+
+export const modifyFromClosedItems = (payload : number) : Action => ({
+  type: "MODIFY_FROM_CLOSED_ITEMS",
   payload,
 });
 

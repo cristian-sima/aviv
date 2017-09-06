@@ -36,6 +36,7 @@ import Adviced from "../Adviced";
 import AddItem from "../Item/AddContainer";
 import ItemDetails from "../ItemDetails";
 import Started from "../Started";
+import Closed from "../Closed";
 
 import { hostname } from "../../../config-client.json";
 
@@ -186,6 +187,7 @@ class WallContainer extends React.Component {
               <Route component={() => (<AddItem emit={this.emit} />)} exact path="/add-item" />
               <Route component={() => (<ToAdvice emit={this.emit} />)} exact path="/" />
               <Route component={() => (<Started emit={this.emit} />)} exact path="/started" />
+              <Route component={() => (<Closed emit={this.emit} />)} exact path="/closed" />
               <Route component={() => (<Adviced emit={this.emit} />)} exact path="/adviced" />
             </div>
           )

@@ -1,13 +1,13 @@
 // @flow
 
-import type { Action, ItemsToAdviceState, State } from "types";
+import type { Action, PaginatorState, State } from "types";
 
 import { createSelector } from "reselect";
 import * as Immutable from "immutable";
 
 import { noError, noID, nothingFetched, rowsPerLoad } from "utility";
 
-const newInitialState = () : ItemsToAdviceState => ({
+const newInitialState = () : PaginatorState => ({
   IDs      : Immutable.List(),
   error    : noError,
   fetched  : false,
@@ -22,17 +22,17 @@ const newInitialState = () : ItemsToAdviceState => ({
 });
 
 const
-  fetchItemsPending = (state : ItemsToAdviceState) => ({
+  fetchItemsPending = (state : PaginatorState) => ({
     ...state,
     error    : noError,
     fetching : true,
   }),
-  fetchItemsRejected = (state : ItemsToAdviceState, { payload : { error } }) => ({
+  fetchItemsRejected = (state : PaginatorState, { payload : { error } }) => ({
     ...state,
     error,
     fetching: false,
   }),
-  fetchItemsFulfilled = (state : ItemsToAdviceState, { payload }) => ({
+  fetchItemsFulfilled = (state : PaginatorState, { payload }) => ({
     ...state,
     error    : noError,
     fetched  : true,
@@ -43,7 +43,7 @@ const
 
     IDs: state.IDs.concat(payload.Items.result),
   }),
-  addItem = (state : ItemsToAdviceState, { payload }) => {
+  addItem = (state : PaginatorState, { payload }) => {
     const { total, IDs, negativeOffset } = state;
 
     const
@@ -77,12 +77,12 @@ const
       IDs            : newIDs,
     };
   },
-  modifyFromToAdviceItems = (state : ItemsToAdviceState, { payload : from }) => ({
+  modifyFromToAdviceItems = (state : PaginatorState, { payload : from }) => ({
     ...state,
     from,
   });
 
-export const toAdvice = (state : ItemsToAdviceState = newInitialState(), action : Action) => {
+export const toAdvice = (state : PaginatorState = newInitialState(), action : Action) => {
 
   switch (action.type) {
     case "FETCH_ITEMS_TO_ADVICE_PENDING":

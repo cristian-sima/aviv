@@ -56,15 +56,12 @@ export type PaginatorState = {
   +negativeOffset: number;
 }
 
-export type ItemsToAdviceState = PaginatorState;
-export type ItemsStartedState = PaginatorState;
-export type ItemsAdvicedState = PaginatorState;
-
 type ItemsState = {
   +byID: ItemsByIDState;
-  +toAdvice: ItemsToAdviceState;
-  +started: ItemsStartedState;
-  +adviced: ItemsAdvicedState;
+  +toAdvice: PaginatorState;
+  +started: PaginatorState;
+  +adviced: PaginatorState;
+  +closed: PaginatorState;
 }
 
 export type ConfirmationsState = any;

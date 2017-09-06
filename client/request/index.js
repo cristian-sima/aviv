@@ -171,9 +171,30 @@ export const fetchItemsStartedFrom = (lastID: string) => (
       }).
       set("Accept", "application/json").
       end(withPromiseCallback(
-        ({ Items, Total, LastID }) => resolve({
-          Items: normalizeArrayOfItems(Items),
+        ({ Items, Total, LastID, LastDate }) => resolve({
+          Items    : normalizeArrayOfItems(Items),
           LastID,
+          LastDate : new Date(LastDate).getTime(),
+          Total,
+        }),
+        reject
+      ))
+  ))
+);
+
+export const fetchItemsClosedFrom = (lastID: string) => (
+  new Promise((resolve, reject) => (
+    agent.
+      get("/api/items/items-closed").
+      query({
+        lastID,
+      }).
+      set("Accept", "application/json").
+      end(withPromiseCallback(
+        ({ Items, Total, LastID, LastDate }) => resolve({
+          Items    : normalizeArrayOfItems(Items),
+          LastID,
+          LastDate : new Date(LastDate).getTime(),
           Total,
         }),
         reject

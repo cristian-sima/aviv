@@ -43,7 +43,7 @@ const Info = ({ shown, total } : InfoPropTypes) => (
         }}>
         <div className="text-muted">
           {
-            shown === total ? `Ai inițiat ${getDocumentForm(total)}` : (
+            shown === total ? `Ai trimis la SGG ${getDocumentForm(total)}` : (
               `Afișez ${shown === total ? "toate actele - " : `${shown} din`} ${getDocumentForm(total)}`
             )
           }
@@ -51,8 +51,8 @@ const Info = ({ shown, total } : InfoPropTypes) => (
       </div>
       <div className="col-md-6 text-right">
         <Link
-          to="/closed">
-          {"Vezi actele trimise la SGG"}
+          to="/started">
+          {"Vezi acte inițiate în curs de avizare"}
         </Link>
       </div>
     </div>

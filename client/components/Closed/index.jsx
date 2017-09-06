@@ -12,13 +12,13 @@ type ItemListPropTypes = {
   total: number;
   currentFrom: number;
   shouldFetchLastItemNumber: boolean;
-  shouldFetchItemsStarted: boolean;
+  shouldFetchItemsClosed: boolean;
   lastID: string;
 
   loadData: () => void;
   loadNextPage: () => void;
   updateFrom: (from : number) => void;
-  fetchItemsStartedFrom: (lastID : string) => void;
+  fetchItemsClosedFrom: (lastID : string) => void;
 };
 
 type StateProps = {
@@ -27,14 +27,14 @@ type StateProps = {
   items: any;
   isFetching: boolean;
   lastID: string;
-  shouldFetchItemsStarted: boolean;
+  shouldFetchItemsClosed: boolean;
   shouldFetchLastItemNumber: boolean;
   total: number;
 };
 
 type DispatchProps = {
   updateFrom: (from : number) => void;
-  fetchItemsStartedFrom: (lastID : string) => void;
+  fetchItemsClosedFrom: (lastID : string) => void;
 };
 
 import { connect } from "react-redux";
@@ -46,47 +46,47 @@ import List from "./List";
 import { LargeErrorMessage, LoadingMessage } from "../Messages";
 
 import {
-  getItemsStartedUpToSelector as getItemsStartedUpTo,
-  getIsFetchingItemsStarted,
-  getIsFetchingItemsStartedError,
-  getTotalItemsStartedSelector,
-  lastFetchedItemsStartedIDSelector,
-  shouldFetchItemsStartedFrom,
-  getOffsetFromStartedItems,
-  getFromStartedItems,
+  getItemsClosedUpToSelector as getItemsClosedUpTo,
+  getIsFetchingItemsClosed,
+  getIsFetchingItemsClosedError,
+  getTotalItemsClosedSelector,
+  lastFetchedItemsClosedIDSelector,
+  shouldFetchItemsClosedFrom,
+  getOffsetFromClosedItems,
+  getFromClosedItems,
 
 } from "reducers";
 
 import { rowsPerLoad } from "utility";
 
 import {
-  fetchItemsStartedFrom as fetchItemsStartedFromAction,
-  modifyFromStartedItems as modifyFromStartedItemsAction,
+  fetchItemsClosedFrom as fetchItemsClosedFromAction,
+  modifyFromClosedItems as modifyFromClosedItemsAction,
 } from "actions";
 
 const
   mapStateToProps = (state : State) => {
 
     const
-      offsetFrom = getOffsetFromStartedItems(state),
-      currentFrom = getFromStartedItems(state);
+      offsetFrom = getOffsetFromClosedItems(state),
+      currentFrom = getFromClosedItems(state);
 
     return {
       offsetFrom,
-      hasFetchingError : getIsFetchingItemsStartedError(state),
-      items            : getItemsStartedUpTo(state, currentFrom + rowsPerLoad),
-      isFetching       : getIsFetchingItemsStarted(state),
-      total            : getTotalItemsStartedSelector(state),
-      lastID           : lastFetchedItemsStartedIDSelector(state),
+      hasFetchingError : getIsFetchingItemsClosedError(state),
+      items            : getItemsClosedUpTo(state, currentFrom + rowsPerLoad),
+      isFetching       : getIsFetchingItemsClosed(state),
+      total            : getTotalItemsClosedSelector(state),
+      lastID           : lastFetchedItemsClosedIDSelector(state),
 
-      shouldFetchLastItemNumber : shouldFetchItemsStartedFrom(state, offsetFrom),
-      shouldFetchItemsStarted   : shouldFetchItemsStartedFrom(state, offsetFrom + rowsPerLoad),
+      shouldFetchLastItemNumber : shouldFetchItemsClosedFrom(state, offsetFrom),
+      shouldFetchItemsClosed    : shouldFetchItemsClosedFrom(state, offsetFrom + rowsPerLoad),
     };
   },
   mapDispatchToProps = (dispatch : Dispatch) => ({
-    fetchItemsStartedFrom: (lastID: string) => dispatch(fetchItemsStartedFromAction(lastID)),
+    fetchItemsClosedFrom: (lastID: string) => dispatch(fetchItemsClosedFromAction(lastID)),
     updateFrom (from) {
-      dispatch(modifyFromStartedItemsAction(from));
+      dispatch(modifyFromClosedItemsAction(from));
     },
   }),
   mergeProps = (stateProps : StateProps, dispatchProps : DispatchProps) => ({
@@ -101,20 +101,20 @@ const
 
       loadData () {
         const { shouldFetchLastItemNumber, lastID } = stateProps;
-        const { fetchItemsStartedFrom } = dispatchProps;
+        const { fetchItemsClosedFrom } = dispatchProps;
 
         if (shouldFetchLastItemNumber) {
-          fetchItemsStartedFrom(lastID);
+          fetchItemsClosedFrom(lastID);
         }
       },
 
       loadNextPage: () => {
-        const { shouldFetchItemsStarted, lastID, offsetFrom } = stateProps;
-        const { fetchItemsStartedFrom, updateFrom } = dispatchProps;
+        const { shouldFetchItemsClosed, lastID, offsetFrom } = stateProps;
+        const { fetchItemsClosedFrom, updateFrom } = dispatchProps;
 
-        if (shouldFetchItemsStarted) {
+        if (shouldFetchItemsClosed) {
           updateFrom(stateProps.items.size);
-          fetchItemsStartedFrom(lastID);
+          fetchItemsClosedFrom(lastID);
         } else {
           // just update it, because it gets the items locally
           updateFrom(offsetFrom + rowsPerLoad);
@@ -132,10 +132,10 @@ class ItemList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { shouldFetchLastItemNumber, fetchItemsStartedFrom, lastID } = nextProps;
+    const { shouldFetchLastItemNumber, fetchItemsClosedFrom, lastID } = nextProps;
 
     if (shouldFetchLastItemNumber) {
-      fetchItemsStartedFrom(lastID);
+      fetchItemsClosedFrom(lastID);
     }
   }
 
@@ -147,7 +147,7 @@ class ItemList extends React.Component {
       this.props.offsetFrom !== nextProps.offsetFrom ||
       this.props.showLoadMoreButton !== nextProps.showLoadMoreButton ||
       this.props.shouldFetchLastItemNumber !== nextProps.shouldFetchLastItemNumber ||
-      this.props.shouldFetchItemsStarted !== nextProps.shouldFetchItemsStarted ||
+      this.props.shouldFetchItemsClosed !== nextProps.shouldFetchItemsClosed ||
       this.props.lastID !== nextProps.lastID ||
       this.props.total !== nextProps.total
     );
@@ -168,13 +168,13 @@ class ItemList extends React.Component {
     } = this.props;
 
     if (items.size === 0 && isFetching) {
-      return <LoadingMessage message="Preiau actele inițiate..." />;
+      return <LoadingMessage message="Preiau actele trimise spre SGG..." />;
     }
 
     if (items.size === 0 && hasFetchingError) {
       return (
         <LargeErrorMessage
-          message="Nu am putut prelua actele inițiate"
+          message="Nu am putut prelua actele trimise spre SGG"
           onRetry={loadData}
         />
       );
@@ -183,11 +183,11 @@ class ItemList extends React.Component {
     if (items.size === 0) {
       return (
         <div className="text-center fancy-text" style={{ marginTop: "8rem" }}>
-          {"Nu ai acte inițiate în avizare"}
+          {"Nu există acte trimise la SGG"}
           <div className="fancy-text-sm">
             <Link
-              to="/closed">
-              {"Vezi actele trimise la SGG"}
+              to="/started">
+              {"Vezi actele inițiate în curs de avizare"}
             </Link>
           </div>
         </div>
