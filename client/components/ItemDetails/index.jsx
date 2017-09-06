@@ -25,6 +25,7 @@ type ItemPagePropTypes = {
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
   confirmDeleteItem: () => void;
+  showHistoryModal: () => void;
   confirmCreateVersion: () => void;
   fetchItemDetails: () => void;
 }
@@ -45,7 +46,7 @@ import {
 
   getInstitutionsData,
   getIsCurrentAccountAdvicer,
-  getVersionsOfItem,
+  getItemVersions,
 } from "reducers";
 
 import {
@@ -53,6 +54,7 @@ import {
   showContactsForInstitutionModal as showContactsForInstitutionModalAction,
   deleteItemModal as deleteItemModalAction,
   createVersionModal as createVersionModalAction,
+  showHistoryModal as showHistoryModalAction,
 } from "actions";
 
 const
@@ -65,7 +67,7 @@ const
     institutions : getInstitutionsData(state),
     isAdvicer    : getIsCurrentAccountAdvicer(state, item),
 
-    versions: getVersionsOfItem(state, item),
+    versions: getItemVersions(state, item),
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit, match: { params : { item } } } : OwnProps) => ({
     fetchItemDetails () {
@@ -76,6 +78,9 @@ const
     },
     confirmDeleteItem () {
       dispatch(deleteItemModalAction(item, emit));
+    },
+    showHistoryModal () {
+      dispatch(showHistoryModalAction(item));
     },
     confirmCreateVersion () {
       dispatch(createVersionModalAction(item, emit));

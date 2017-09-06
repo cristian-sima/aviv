@@ -5,8 +5,8 @@ import type { Emit } from "types";
 import React from "react";
 import moment from "moment";
 
-import AdviceResponse from "./AdviceResponse";
 import AdvicerSectionContainer from "./AdvicerSectionContainer";
+import AdviceRow from "./AdviceRow";
 
 type PagePropTypes = {
   data: any;
@@ -18,6 +18,7 @@ type PagePropTypes = {
   confirmDeleteItem: () => void;
   confirmCreateVersion: () => void;
   showContactsForInstitution: (id : string) => () => void;
+  showHistoryModal: () => void;
   showDeleteItemModal: () => void;
 };
 
@@ -42,6 +43,7 @@ class Page extends React.Component {
       institutions,
       isAdvicer,
       showContactsForInstitution,
+      showHistoryModal,
       confirmDeleteItem,
       confirmCreateVersion,
       emit,
@@ -131,6 +133,11 @@ class Page extends React.Component {
               <span className="badge badge-pill badge-info ml-1">
                 {version}
               </span>
+              <button
+                className="btn-link"
+                onClick={showHistoryModal}>
+                {"Vezi istoric"}
+              </button>
               <hr />
               <strong>
                 {
@@ -156,7 +163,7 @@ class Page extends React.Component {
           </div>
           <br />
           <div className="table-responsive">
-            <table className="table table-sm table-hover">
+            <table className="table table-sm table-hover items-to-advice-table">
               <thead>
                 <tr>
                   <th>{"Instituție avizatoare"}</th>
@@ -198,29 +205,12 @@ class Page extends React.Component {
 
                     const currentInstitution = response.first();
 
-                    const
-                      adviceResponse = currentInstitution.get("response"),
-                      institutionName = currentInstitution.get("institutionName"),
-                      adviceDate = currentInstitution.get("date");
-
                     return (
-                      <tr key={advicer}>
-                        <td className="no-wrap small">
-                          <span
-                            className="cursor-pointer"
-                            onClick={showContactsForInstitution(advicer)}>
-                            {institutionName}
-                          </span>
-                        </td>
-                        <td className="no-wrap">
-                          <AdviceResponse
-                            value={adviceResponse}
-                          />
-                        </td>
-                        <td className="no-wrap item-date">
-                          { moment(adviceDate).format("lll") }
-                        </td>
-                      </tr>
+                      <AdviceRow
+                        data={currentInstitution}
+                        key={advicer}
+                        showContactsForInstitution={showContactsForInstitution}
+                      />
                     );
                   })
                 }

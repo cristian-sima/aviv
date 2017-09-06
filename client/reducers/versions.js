@@ -28,10 +28,25 @@ const reducer = (state : ModalState = initialState, action : Action) => {
 
 const getData = (state : State) => state.versions;
 
-export const getVersionsOfItem = createSelector(
+export const getItemVersions = createSelector(
   getData,
   (state, id) => id,
   (data, id) => (data.has(id) && data.get(id).toList()) || Immutable.List()
+);
+
+export const getHistory = createSelector(
+  getItemVersions,
+  getItem,
+  (list, item) => {
+    const currentVersions = item.get("version");
+
+    return (
+      list.
+        filter((current) => current.get("version") !== currentVersions).
+        groupBy((current) => current.get("version")).
+        sortBy((current, key) => -key)
+    );
+  }
 );
 
 export const getCurrentItemAdvice = createSelector(

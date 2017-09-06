@@ -97,6 +97,12 @@ export const createVersionModal = (id : string, emit : Emit) : Action => (
   })
 );
 
+export const showHistoryModal = (id : string) : Action => (
+  createModal("SHOW_HISTORY", {
+    id,
+  })
+);
+
 export const showContactsForInstitutionModal = (id : string) : Action => (
   createModal("CONTACTS_FOR_INSTITUTIONS", {
     id,
