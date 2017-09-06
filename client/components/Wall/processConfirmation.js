@@ -30,6 +30,7 @@ const processConfirmation = (dispatch : any, { status, id, error, message } : Ms
           history.push("/started");
           break;
         case "CONFIRM_CREATE_VERSION":
+        case "CONFIRM_CLOSE_ITEM":
           setTimeout(() => {
             dispatch(hideModalAction());
           });

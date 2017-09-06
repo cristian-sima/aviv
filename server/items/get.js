@@ -73,6 +73,7 @@ export const getItemsStarted = (req : Request, res : Response) => {
       authors: {
         "$in": [institutionID],
       },
+      isClosed: false,
     };
 
   return getItems(req, res, where);
