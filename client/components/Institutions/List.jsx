@@ -123,36 +123,34 @@ class List extends React.Component {
 
     return (
       <div className="container">
-        <div className="table-responsive">
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>
-                  {"Denumire"}
-                </th>
-                <th className="text-center">
-                  {"Modifică"}
-                </th>
-                <th className="text-center">
-                  {"Șterge"}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                institutions.map((institution) => (
-                  <Row
-                    data={institution}
-                    deleteRow={showDeleteModal}
-                    key={institution.get("_id")}
-                    modifyRow={showModifyModal}
-                    showUsers={showUsers}
-                  />
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
+        <table className="table table-responsive table-striped table-hover">
+          <thead>
+            <tr>
+              <th>
+                {"Denumire"}
+              </th>
+              <th className="text-center">
+                {"Modifică"}
+              </th>
+              <th className="text-center">
+                {"Șterge"}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              institutions.map((institution) => (
+                <Row
+                  data={institution}
+                  deleteRow={showDeleteModal}
+                  key={institution.get("_id")}
+                  modifyRow={showModifyModal}
+                  showUsers={showUsers}
+                />
+              ))
+            }
+          </tbody>
+        </table>
       </div>
     );
   }

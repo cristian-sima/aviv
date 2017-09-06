@@ -78,38 +78,36 @@ const List = (props : ListPropTypes) => {
           total={total}
         />
       </div>
-      <div className="table-responsive">
-        <table className="table table-striped table-hover items-to-advice-table">
-          <thead>
-            <tr>
-              <th className="no-wrap">
-                {"Publicat la"}
-              </th>
-              <th className="text-center">
-                {"Titlu"}
-              </th>
-              <th className="text-center">
-                {"Inițiatori"}
-              </th>
-            </tr>
-          </thead>
-          <ReactCSSTransitionGroup
-            component="tbody"
-            transitionEnterTimeout={0}
-            transitionLeaveTimeout={10}
-            transitionName="item-row">
-            {
-              items.map((item) => (
-                <Row
-                  data={item}
-                  institutions={institutions}
-                  key={item.get("_id")}
-                />
-              ))
-            }
-          </ReactCSSTransitionGroup>
-        </table>
-      </div>
+      <table className="table table-responsive table-striped table-hover items-to-advice-table">
+        <thead>
+          <tr>
+            <th className="no-wrap">
+              {"Publicat la"}
+            </th>
+            <th className="text-center">
+              {"Titlu"}
+            </th>
+            <th className="text-center">
+              {"Inițiatori"}
+            </th>
+          </tr>
+        </thead>
+        <ReactCSSTransitionGroup
+          component="tbody"
+          transitionEnterTimeout={0}
+          transitionLeaveTimeout={10}
+          transitionName="item-row">
+          {
+            items.map((item) => (
+              <Row
+                data={item}
+                institutions={institutions}
+                key={item.get("_id")}
+              />
+            ))
+          }
+        </ReactCSSTransitionGroup>
+      </table>
       <div className="my-2">
         {
           (isFetching) ? (

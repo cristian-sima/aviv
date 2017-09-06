@@ -35,30 +35,33 @@ class History extends React.Component {
                 </span>
               </strong>
               <br />
-              <div className="table-responsive">
-                <table className="table table-sm table-hover items-to-advice-table">
-                  <thead>
-                    <tr>
-                      <th className="no-wrap">{"Instituție avizatoare"}</th>
-                      <th>{"Răspuns"}</th>
-                      <th className="no-wrap">{"Avizat la"}</th>
-                      <th className="no-wrap">{"Număr"}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      version.map((advice) => (
-                        <AdviceRow
-                          data={advice}
-                          item={item}
-                          key={advice.get("_id")}
-                          showContactsForInstitution={showContactsForInstitution}
-                        />
-                      ))
-                    }
-                  </tbody>
-                </table>
-              </div>
+              <table
+                className="table table-responsive table-sm table-hover items-to-advice-table"
+                style={{
+                  overflowX : "auto",
+                  display   : "block",
+                }}>
+                <thead>
+                  <tr>
+                    <th className="no-wrap">{"Instituție avizatoare"}</th>
+                    <th>{"Răspuns"}</th>
+                    <th className="no-wrap">{"Avizat la"}</th>
+                    <th className="no-wrap">{"Număr"}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    version.map((advice) => (
+                      <AdviceRow
+                        data={advice}
+                        item={item}
+                        key={advice.get("_id")}
+                        showContactsForInstitution={showContactsForInstitution}
+                      />
+                    ))
+                  }
+                </tbody>
+              </table>
             </div>
           ))
         }
