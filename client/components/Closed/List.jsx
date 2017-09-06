@@ -87,9 +87,6 @@ const List = (props : ListPropTypes) => {
             <th className="text-center">
               {"Titlu"}
             </th>
-            <th className="text-center">
-              {"Status"}
-            </th>
           </tr>
         </thead>
         <ReactCSSTransitionGroup

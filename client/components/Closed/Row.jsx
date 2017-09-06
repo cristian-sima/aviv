@@ -8,8 +8,6 @@ type RowPropTypes = {
   data: any;
 };
 
-const oneHundred = 100;
-
 class Row extends React.Component {
   props: RowPropTypes;
 
@@ -25,11 +23,7 @@ class Row extends React.Component {
     const
       id = data.get("_id"),
       date = data.get("date"),
-      name = data.get("name"),
-      responses = data.get("responses"),
-      advicers = data.get("advicers"),
-      needsExamination = data.get("needsExamination"),
-      progress = Math.round(responses.size / advicers.size * oneHundred);
+      name = data.get("name");
 
     return (
       <tr>
@@ -41,30 +35,6 @@ class Row extends React.Component {
             to={`/items/${id}`}>
             {name}
           </Link>
-        </td>
-        <td className="small no-wrap item-authors text-center">
-          {
-            progress === oneHundred ? (
-              needsExamination ? "Necesită examinare" : (
-                <i className="fa fa-check text-success fa-2x" />
-              )
-            ) : (
-              <div className="progress">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  style={{
-                    width: `${progress}%`,
-                  }}>
-                  {
-                    progress === 0 ? null : (
-                      `${progress}%`
-                    )
-                  }
-                </div>
-              </div>
-            )
-          }
         </td>
       </tr>
     );

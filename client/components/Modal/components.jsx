@@ -19,6 +19,7 @@ import ConfirmResetUserPassword from "../User/Modal/ConfirmReset";
 
 import DeleteItem from "../Item/Modal/Delete";
 import CreateVersion from "../Item/Modal/CreateVersion";
+import CloseItem from "../Item/Modal/Close";
 import ShowHistory from "../Item/Modal/ShowHistory";
 
 const getComponent = (type : ModalActionType) : any => {
@@ -59,6 +60,9 @@ const getComponent = (type : ModalActionType) : any => {
 
     case "CREATE_VERSION":
       return CreateVersion;
+
+    case "CLOSE_ITEM":
+      return CloseItem;
 
     case "SHOW_HISTORY":
       return ShowHistory;

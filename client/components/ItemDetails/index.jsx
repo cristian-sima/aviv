@@ -24,10 +24,12 @@ type ItemPagePropTypes = {
 
   showContactsForInstitution: (id : string) => () => void;
   showDeleteItemModal: () => void;
-  confirmDeleteItem: () => void;
   showHistoryModal: () => void;
-  confirmCreateVersion: () => void;
   fetchItemDetails: () => void;
+
+  confirmCloseItem: () => void;
+  confirmDeleteItem: () => void;
+  confirmCreateVersion: () => void;
 }
 
 import React from "react";
@@ -55,6 +57,7 @@ import {
   deleteItemModal as deleteItemModalAction,
   createVersionModal as createVersionModalAction,
   showHistoryModal as showHistoryModalAction,
+  closeItemModal as closeItemModalAction,
 } from "actions";
 
 const
@@ -84,6 +87,9 @@ const
     },
     confirmCreateVersion () {
       dispatch(createVersionModalAction(item, emit));
+    },
+    confirmCloseItem () {
+      dispatch(closeItemModalAction(item, emit));
     },
   });
 

@@ -15,8 +15,11 @@ type PagePropTypes = {
   versions: any;
 
   emit: Emit;
+
   confirmDeleteItem: () => void;
   confirmCreateVersion: () => void;
+  confirmCloseItem: () => void;
+
   showContactsForInstitution: (id : string) => () => void;
   showHistoryModal: () => void;
   showDeleteItemModal: () => void;
@@ -44,8 +47,11 @@ class Page extends React.Component {
       isAdvicer,
       showContactsForInstitution,
       showHistoryModal,
+
       confirmDeleteItem,
       confirmCreateVersion,
+      confirmCloseItem,
+
       emit,
     } = this.props;
 
@@ -56,7 +62,8 @@ class Page extends React.Component {
       responses = data.get("responses"),
       version = data.get("version"),
       advicers = data.get("advicers"),
-      date = data.get("date");
+      date = data.get("date"),
+      isClosed = data.get("isClosed");
 
     const currentVersion = versions.filter((current) => {
       if (typeof current === "undefined") {
@@ -86,14 +93,26 @@ class Page extends React.Component {
                     />
                   ) : (
                     responses.size === advicers.size ? (
-                      <div className="mt-5 mb-md-4 text-center">
-                        <button
-                          className="btn btn-secondary"
-                          onClick={confirmCreateVersion}
-                          type="button">
-                          {"Trimite-l la o nouă sesiune de avizare"}
-                        </button>
-                      </div>
+                      isClosed ? (
+                        <div className="fancy-text mt-3">
+                          {"Trimis la SGG"}
+                        </div>
+                      ) : (
+                        <div className="mt-4 mt-md-5 mb-sm-4 text-center">
+                          <button
+                            className="btn btn-outline-secondary mr-sm-1 mr-md-5"
+                            onClick={confirmCreateVersion}
+                            type="button">
+                            {"Retrimite la re-avizare"}
+                          </button>
+                          <button
+                            className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
+                            onClick={confirmCloseItem}
+                            type="button">
+                            {"Trimite la SGG"}
+                          </button>
+                        </div>
+                      )
                     ) : (
                       <div className="mt-5 mb-md-4 progress">
                         <div
