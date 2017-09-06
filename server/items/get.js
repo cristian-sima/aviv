@@ -107,6 +107,20 @@ export const getItemsAdviced = (req : Request, res : Response) => {
   return getItems(req, res, where);
 };
 
+export const getItemsClosed = (req : Request, res : Response) => {
+  const { user : { institutionID } } = req;
+
+  const
+    where = {
+      authors: {
+        "$in": [institutionID],
+      },
+      isClosed: true,
+    };
+
+  return getItems(req, res, where);
+};
+
 export const getItemDetails = (req : Request, res : Response) => {
   const
     { db, params } = req,

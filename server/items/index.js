@@ -9,6 +9,7 @@ import {
   getItemsStarted,
   getItemDetails,
   getItemsAdviced,
+  getItemsClosed,
 } from "./get";
 
 import { getSuggestions } from "./suggestions";
@@ -38,6 +39,11 @@ router.get("/item/:itemID", [
 router.get("/items-suggestions", [
   requireLogin,
   getSuggestions,
+]);
+
+router.get("/items-closed", [
+  requireLogin,
+  getItemsClosed,
 ]);
 
 export default router;
