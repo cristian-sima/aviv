@@ -86,24 +86,25 @@ class Page extends React.Component {
                 }}>{name}
                 </span>
                 {
-                  isAdvicer ? (
-                    <AdvicerSectionContainer
-                      emit={emit}
-                      id={id}
-                    />
+                  isClosed ? (
+                    <div className="fancy-text mt-3">
+                      {"Trimis la SGG"}
+                    </div>
                   ) : (
-                    responses.size === advicers.size ? (
-                      isClosed ? (
-                        <div className="fancy-text mt-3">
-                          {"Trimis la SGG"}
-                        </div>
-                      ) : (
+                    isAdvicer ? (
+                      <AdvicerSectionContainer
+                        emit={emit}
+                        id={id}
+                      />
+                    ) : (
+                      responses.size === advicers.size ? (
+
                         <div className="mt-4 mt-md-5 mb-sm-4 text-center">
                           <button
                             className="btn btn-outline-secondary mr-sm-1 mr-md-5"
                             onClick={confirmCreateVersion}
                             type="button">
-                            {"Retrimite la re-avizare"}
+                            {"Trimite la re-avizare"}
                           </button>
                           <button
                             className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
@@ -112,22 +113,22 @@ class Page extends React.Component {
                             {"Trimite la SGG"}
                           </button>
                         </div>
-                      )
-                    ) : (
-                      <div className="mt-5 mb-md-4 progress">
-                        <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{
-                            width: `${progress}%`,
-                          }}>
-                          {
-                            progress === 0 ? null : (
-                              `${progress}%`
-                            )
-                          }
+                      ) : (
+                        <div className="mt-5 mb-md-4 progress">
+                          <div
+                            className="progress-bar"
+                            role="progressbar"
+                            style={{
+                              width: `${progress}%`,
+                            }}>
+                            {
+                              progress === 0 ? null : (
+                                `${progress}%`
+                              )
+                            }
+                          </div>
                         </div>
-                      </div>
+                      )
                     )
                   )
                 }

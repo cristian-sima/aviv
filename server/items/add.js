@@ -54,11 +54,13 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     version : 1,
     date    : new Date(),
 
+    isClosed         : false,
+    needsExamination : false,
+
     authors,
     advicers,
-    needsExamination : false,
-    allAdvices       : [],
-    responses        : [],
+    allAdvices : [],
+    responses  : [],
   };
 
   return institutions.find(whereClauseFind, (errFind) => {
