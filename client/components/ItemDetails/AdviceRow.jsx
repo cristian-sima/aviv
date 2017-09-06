@@ -27,6 +27,7 @@ class HistoryRow extends React.Component {
       response = data.get("response"),
       institutionName = data.get("institutionName"),
       advicer = data.get("institutionID"),
+      registerNumber = data.get("registerNumber"),
       adviceDate = data.get("date");
 
     return (
@@ -39,12 +40,13 @@ class HistoryRow extends React.Component {
           </span>
         </td>
         <td className="no-wrap item-name">
-          <AdviceResponse
-            value={response}
-          />
+          <AdviceResponse value={response} />
         </td>
         <td className="no-wrap item-date">
           { moment(adviceDate).format("lll") }
+        </td>
+        <td className="no-wrap">
+          {registerNumber}
         </td>
       </tr>
     );

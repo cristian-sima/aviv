@@ -1,6 +1,6 @@
 // @flow
 
-import type { User, CheckerResponse } from "../types";
+import type { CheckerResponse } from "../types";
 
 import {
   validateFullName,
@@ -11,7 +11,7 @@ import {
 
 import { extractErrorsFromCheckers } from "../utility";
 
-export const isValidUser = (data : User) : CheckerResponse => extractErrorsFromCheckers({
+export const isValidUser = (data : any) : CheckerResponse => extractErrorsFromCheckers({
   name     : validateFullName,
   username : validateUserName,
   email    : validateEmail,

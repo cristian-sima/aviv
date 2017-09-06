@@ -42,6 +42,7 @@ class History extends React.Component {
                       <th className="no-wrap">{"Instituție avizatoare"}</th>
                       <th>{"Răspuns"}</th>
                       <th className="no-wrap">{"Avizat la"}</th>
+                      <th className="no-wrap">{"Număr"}</th>
                     </tr>
                   </thead>
                   <tbody>

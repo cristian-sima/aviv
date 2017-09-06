@@ -4,6 +4,8 @@ import type { Socket, Database } from "../types";
 
 import { ObjectId } from "mongodb";
 
+import { isValidAdvice } from "./validate";
+
 import {
   isGoodAdviceResponse,
   shouldExaminate,
@@ -15,7 +17,7 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
 
   const
     items = db.collection("items"),
-    { id, response : rawResponse } = body,
+    { id, response : rawResponse, registerNumber } = body,
     { request : { session : { user } } } = socket,
     { institutionID, _id : userObjectID, name: userName } = user,
     userID = userObjectID.toString(),
@@ -81,6 +83,8 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
           response,
 
           institutionName,
+
+          registerNumber,
 
           userID,
           userName,
@@ -174,6 +178,7 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
             date   : new Date(),
             version,
             response,
+            registerNumber,
 
             institutionName,
             institutionID,
@@ -195,8 +200,16 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
       });
     };
 
+  const feedback = isValidAdvice({
+    registerNumber,
+  });
+
+  if (feedback.notValid) {
+    return emitFormError(feedback.error);
+  }
+
   if (!isGoodAdviceResponse(response)) {
-    return emitFormError("Răspunsul nu este în formatul acceptat");
+    return emitFormError("Te rugăm să alegi tipul de aviz");
   }
 
   return items.findOne(whereClause, (errFindItem, data) => {

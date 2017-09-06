@@ -124,3 +124,19 @@ export const validateItemName = (value : string) => {
     error: `Titlul are între ${lowerLimit} și ${upperLimit} de caractere`,
   };
 };
+
+export const validateRegisterNumber = (value : string) => {
+  const
+    lowerLimit = 15,
+    upperLimit = 64,
+    notValid = (
+      typeof value === "undefined" ||
+      value.length < lowerLimit ||
+      value.length > upperLimit
+    );
+
+  return {
+    notValid,
+    error: `Numărul are între ${lowerLimit} și ${upperLimit} de caractere`,
+  };
+};

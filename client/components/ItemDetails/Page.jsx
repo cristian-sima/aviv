@@ -173,6 +173,7 @@ class Page extends React.Component {
                   <th>{"Instituție avizatoare"}</th>
                   <th>{"Răspuns"}</th>
                   <th className="no-wrap">{"Avizat la"}</th>
+                  <th className="no-wrap">{"Număr"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -202,7 +203,8 @@ class Page extends React.Component {
                               {"În așteptare"}
                             </span>
                           </td>
-                          <td />
+                          <td>{""}</td>
+                          <td>{""}</td>
                         </tr>
                       );
                     }

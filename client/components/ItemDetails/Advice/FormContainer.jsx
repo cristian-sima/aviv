@@ -17,6 +17,7 @@ import { reduxForm, startSubmit } from "redux-form/immutable";
 import React from "react";
 
 import Form from "./Form";
+import validate from "./validate";
 
 import { ADVICE_ITEM } from "utility/forms";
 
@@ -35,6 +36,7 @@ const
 
 const AdviceFormContainer = reduxForm({
   form: ADVICE_ITEM,
+  validate,
 })(Form);
 
 class AdviceItemFormContainer extends React.Component {

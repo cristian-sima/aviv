@@ -17,6 +17,7 @@ import { Field } from "redux-form/immutable";
 import React from "react";
 
 import LabelTemplate from "./LabelTemplate";
+import InputTemplate from "../../Inputs/InputTemplate";
 
 const Form = (props : FormPropTypes) => {
   const {
@@ -37,6 +38,14 @@ const Form = (props : FormPropTypes) => {
     <form autoComplete="off" onSubmit={handleSubmit}>
       <div className="container">
         {error && errMessage}
+        <Field
+          component={InputTemplate}
+          label="Nr. aviz"
+          name="registerNumber"
+          placeholder="ex. 25/MB/1650 - 17.02.2018"
+          right="col-md-8"
+          type="text"
+        />
         <div className="row">
           <div className="col-sm-8 col-md-6 col-lg-4 col-xl-6 offset-md-2">
             <Field
