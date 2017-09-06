@@ -66,7 +66,9 @@ class AdvicerSection extends React.Component {
   render () {
     const { emit, id, isAdviced, advice } = this.props;
 
-    const showForm = !isAdviced || typeof advice === "undefined" || advice === null;
+    const
+      showForm = !isAdviced || typeof advice === "undefined" || advice === null,
+      isOpen = !isAdviced || this.state.isOpen;
 
     return (
       <div className="my-4">
@@ -78,7 +80,6 @@ class AdvicerSection extends React.Component {
           ) : (
             <div>
               <span className="fancy-text-sm">
-                <i className="fa fa-check mr-1" />
                 {"Ai avizat "}
                 <AdviceResponse
                   value={advice.get("response")}
@@ -90,12 +91,25 @@ class AdvicerSection extends React.Component {
                 className="btn-link ml-1"
                 onClick={this.toggle}
                 type="button">
-                {"Modifică avizul"}
+                {
+                  isOpen ? (
+                    <span>
+                      <i className="fa fa-times mr-1" />
+                      {"Ascunde formular"}
+                    </span>
+                  ) : (
+                    <span>
+                      <i className="fa fa-pencil mr-1" />
+                      {"Schimbă"}
+                    </span>
+                  )
+                }
+
               </button>
             </div>
           )
         }
-        <Collapse isOpen={!isAdviced || this.state.isOpen}>
+        <Collapse isOpen={isOpen}>
           <div className="card my-4">
             <div className="card-body">
               <div className="card-text">
