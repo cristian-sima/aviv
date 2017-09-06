@@ -88,7 +88,7 @@ class Page extends React.Component {
                     responses.size === advicers.size ? (
                       <div className="mt-5 mb-md-4 text-center">
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-secondary"
                           onClick={confirmCreateVersion}
                           type="button">
                           {"Trimite-l la o nouă sesiune de avizare"}
@@ -133,11 +133,15 @@ class Page extends React.Component {
               <span className="badge badge-pill badge-info ml-1">
                 {version}
               </span>
-              <button
-                className="btn-link"
-                onClick={showHistoryModal}>
-                {"Vezi istoric"}
-              </button>
+              {
+                version === 1 ? null : (
+                  <button
+                    className="btn-link"
+                    onClick={showHistoryModal}>
+                    {"Vezi istoric"}
+                  </button>
+                )
+              }
               <hr />
               <strong>
                 {
