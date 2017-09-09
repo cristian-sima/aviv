@@ -24,13 +24,7 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
   // check data
 
   if (response.notValid) {
-    return (
-      socket.emit("FORM", {
-        status : "FAILED",
-        error  : response.error,
-        form   : "ITEM_FORM",
-      })
-    );
+    return emitFormError(response.error);
   }
 
   if (authors.length === 0) {
