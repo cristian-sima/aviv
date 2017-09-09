@@ -1,4 +1,4 @@
-import { isValidEmail } from "./validation";
+import { isValidEmail } from "./validate";
 
 const valid = true,
   notValid = false;

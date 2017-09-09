@@ -26,7 +26,7 @@ const adviceItem = (state : State, action : any) => {
 
   const
     newToAdvice = performDelete(toAdvice, byID, item),
-    newAdviced = performAddIfNewer(adviced, byID, item);
+    newAdviced = performAddIfNewer(adviced, item);
 
   const
     shouldModify = (

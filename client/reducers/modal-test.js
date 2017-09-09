@@ -59,33 +59,7 @@ describe("account/modal reducer", () => {
     ]));
   });
 
-  it("handles SELECT_ITEM", () => {
-    const
-      initialState = Immutable.Stack([
-        {
-          type  : "ADD_ARTICLE",
-          props : {
-            ID: 1,
-          },
-        },
-        {
-          type  : "COMMENT_BOX",
-          props : {},
-        },
-      ]),
-      result = reducer(initialState, {
-        type: "SELECT_ITEM",
-      });
-
-    expect(result).toEqual(Immutable.Stack([
-      {
-        type  : "COMMENT_BOX",
-        props : {},
-      },
-    ]));
-  });
-
-  it("handles UPDATING_LIST", () => {
+  it("handles @@router/LOCATION_CHANGE", () => {
     const
       initialState = Immutable.Stack([
         {
@@ -100,7 +74,7 @@ describe("account/modal reducer", () => {
         },
       ]),
       result = reducer(initialState, {
-        type: "UPDATING_LIST",
+        type: "@@router/LOCATION_CHANGE",
       });
 
     expect(result).toEqual(Immutable.Stack([]));

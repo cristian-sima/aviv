@@ -7,7 +7,7 @@ import reducer, {
 } from "./suggestions";
 
 import * as Immutable from "immutable";
-import { noError } from "utility/others";
+import { noError } from "utility";
 
 import { changeSuggestionsCurrentTerm } from "actions";
 
@@ -74,12 +74,12 @@ describe("account/suggestions reducer", () => {
       term = "the new term",
       suggestions = [
         {
-          Name : "computer",
-          ID   : 1,
+          name : "computer",
+          _id  : 1,
         },
         {
-          Name : "company",
-          ID   : 2,
+          name : "company",
+          _id  : 2,
         },
       ],
       initialState = {
@@ -88,12 +88,12 @@ describe("account/suggestions reducer", () => {
         map: Immutable.Map({
           "old": [
             {
-              Name : "t company 1",
-              ID   : 1,
+              name : "t company 1",
+              _id  : 1,
             },
             {
-              Name : "t company 2",
-              ID   : 2,
+              name : "t company 2",
+              _id  : 2,
             },
           ],
         }),
@@ -112,12 +112,12 @@ describe("account/suggestions reducer", () => {
       map: Immutable.Map({
         "old": [
           {
-            Name : "t company 1",
-            ID   : 1,
+            name : "t company 1",
+            _id  : 1,
           },
           {
-            Name : "t company 2",
-            ID   : 2,
+            name : "t company 2",
+            _id  : 2,
           },
         ],
         [term]: suggestions,
@@ -128,11 +128,11 @@ describe("account/suggestions reducer", () => {
   // until here
 
   const actionsWhichClear = [
-    "ADD_COMPANY",
-    "DELETE_COMPANY",
-    "MODIFY_CURRENT_COMPANY_INFO",
-    "TOGGLE_COMPANY_STATE",
-    "COMPANY_TOGGLE_MODULE_FULFILLED",
+    "DELETE_ITEM",
+    "ADD_ITEM_STARTED",
+    "ADD_ITEM_TO_ADVICE",
+    "RECONNECTING_LIVE",
+    "SIGN_OFF_FULFILLED",
   ];
 
   for (const action of actionsWhichClear) {
@@ -147,26 +147,22 @@ describe("account/suggestions reducer", () => {
           map: Immutable.Map({
             "c": [
               {
-                ID      : 1,
-                Name    : "Company",
-                Modules : "invoices",
+                _id  : 1,
+                name : "Company",
               },
               {
-                ID      : 2,
-                Name    : "Covrig",
-                Modules : "invoices",
+                _id  : 2,
+                name : "Covrig",
               },
             ],
             "co": [
               {
-                ID      : 1,
-                Name    : "Company",
-                Modules : "invoices",
+                _id  : 1,
+                name : "Company",
               },
               {
-                ID      : 2,
-                Name    : "Covrig",
-                Modules : "invoices",
+                _id  : 2,
+                name : "Covrig",
               },
             ],
           }),
@@ -177,7 +173,7 @@ describe("account/suggestions reducer", () => {
         error    : noError,
         fetching : false,
 
-        term: "",
+        term: "co",
 
         map: Immutable.Map(),
       });
@@ -227,17 +223,17 @@ describe("account/suggestions reducer", () => {
               map  : Immutable.Map({
                 "am": [
                   {
-                    Name: "amurg",
+                    name: "amurg",
                   },
                 ],
                 "at": [
                   {
-                    Name: "atunci",
+                    name: "atunci",
                   },
                 ],
                 "tx": [
                   {
-                    Name: "txaaa",
+                    name: "txaaa",
                   },
                 ],
               }),
@@ -257,17 +253,17 @@ describe("account/suggestions reducer", () => {
               map  : Immutable.Map({
                 "am": [
                   {
-                    Name: "amurg",
+                    name: "amurg",
                   },
                 ],
                 "at": [
                   {
-                    Name: "atunci",
+                    name: "atunci",
                   },
                 ],
                 "tx": [
                   {
-                    Name: "txaaa",
+                    name: "txaaa",
                   },
                 ],
               }),
@@ -277,7 +273,7 @@ describe("account/suggestions reducer", () => {
 
         expect(result).toEqual([
           {
-            Name: "amurg",
+            name: "amurg",
           },
         ]);
       });

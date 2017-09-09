@@ -18,7 +18,7 @@ const createVersion = (state :State, action : any) => {
 
   const
     _id = item.get("_id"),
-    newToAdvice = performAddIfNewer(toAdvice, byID, item),
+    newToAdvice = performAddIfNewer(toAdvice, item),
     newAdviced = performDelete(adviced, byID, item);
 
 

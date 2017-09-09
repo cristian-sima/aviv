@@ -1,6 +1,6 @@
 import * as Immutable from "immutable";
 
-import { normalizeArray } from "./request";
+import { normalizeArray } from "./normalize";
 import * as matchers from "jest-immutable-matchers";
 
 describe("normalizeArray", () => {

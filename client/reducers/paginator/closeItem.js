@@ -15,7 +15,7 @@ const closeItem = (state :State, action : any) => {
 
   const
     _id = item.get("_id"),
-    newToAdvice = performAddIfNewer(closed, byID, item),
+    newToAdvice = performAddIfNewer(closed, item),
     newAdviced = performDelete(started, byID, item);
 
 
