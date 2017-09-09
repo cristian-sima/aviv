@@ -16,7 +16,11 @@ const
         <link rel="icon" type="image/png" sizes="32x32" href="/media/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/media/favicon-16x16.png">
         <link rel="manifest" href="/media/manifest.json">
-        <link rel="mask-icon" href="/media/safari-pinned-tab.svg" color="#ff0000">
+        <link rel="mask-icon" href="/media/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="/media/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/media/mstile-144x144.png">
+        <meta name="msapplication-config" content="/media/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
         <title>
           aviz.gov.ro
