@@ -13,9 +13,13 @@ const performAddIfNewer = (state : PaginatorState, data : any, item : any) => {
 
   const
     _id = item.get("_id"),
-    currentDate = item.get("date");
+    currentDate = item.get("date"),
+    isRecent = currentDate > lastDate,
+    allFetched = state.total === state.IDs.size,
+    moreToFetch = !allFetched,
+    shouldAdd = allFetched || (isRecent && moreToFetch);
 
-  if (currentDate > lastDate) {
+  if (shouldAdd) {
     const saveThis = total === 0;
 
     return {
