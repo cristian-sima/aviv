@@ -78,9 +78,12 @@ const
         }
 
         return current.merge({
-          name     : payload.get("name"),
-          authors  : payload.get("authors"),
-          advicers : payload.get("advicers"),
+          name             : payload.get("name"),
+          needsExamination : payload.get("needsExamination"),
+          authors          : payload.get("authors"),
+          advicers         : payload.get("advicers"),
+          responses        : payload.get("responses"),
+          allAdvices       : payload.get("allAdvices"),
         });
       }
     )

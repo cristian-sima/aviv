@@ -6,6 +6,15 @@ import { isValidItem } from "./validate";
 
 import { ObjectId } from "mongodb";
 
+import {
+  PozitiveWithObservations,
+  Negative,
+} from "./util";
+
+const difference = (first, second) => (
+  first.filter((current) => second.indexOf(current) < 0)
+);
+
 export const addItem = (socket : Socket, db : Database, io : any) => (body : any) => {
   const
     institutions = db.collection("institutions"),
@@ -80,13 +89,6 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     whereClause = {
       _id: ObjectId(_id),
     },
-    setClause = {
-      "$set": {
-        name,
-        authors  : newAuthors,
-        advicers : newAdvicers,
-      },
-    },
     informAuthors = (oldData, value) => {
       const {
         authors: oldAuthors,
@@ -115,14 +117,14 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
       } = oldData;
 
       for (const oldAdvicer of oldAdvicers) {
-        if (newAuthors.includes(oldAdvicer)) {
+        if (newAdvicers.includes(oldAdvicer)) {
           broadcastModify(oldAdvicer, value);
         } else {
           broadcastDelete(oldAdvicer, value);
         }
       }
 
-      // inform new authors
+      // inform new advicers
       for (const newAdvicer of newAdvicers) {
         const isNew = !oldAdvicers.includes(newAdvicer);
 
@@ -154,19 +156,83 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
         return emitGenericError();
       }
 
-      return items.findAndModify(
-        whereClause,
-        [],
-        setClause,
-        { "new": true },
-        (errUpdateCurrentVersion, { value }) => {
-          if (errUpdateCurrentVersion) {
+      const {
+        advicers: oldAdvicers,
+        version,
+      } = oldData;
+
+      // get responses to remove
+      const
+        advicersToRemove = difference(oldAdvicers, newAdvicers),
+        versions = db.collection("versions"),
+        whereClauseRemove = {
+          version,
+          itemID        : _id,
+          institutionID : {
+            "$in": advicersToRemove,
+          },
+        };
+
+      return versions.remove(whereClauseRemove, (errDeleteVersions) => {
+        if (errDeleteVersions) {
+          return emitGenericError();
+        }
+
+        const whereClauseCount = {
+          "itemID" : _id,
+          version,
+          "$or"    : [
+            {
+              "response": PozitiveWithObservations,
+            },
+            {
+              "response": Negative,
+            },
+          ],
+        };
+
+        // check if it needsExamination
+        return versions.count(whereClauseCount, (errCountVersions, number) => {
+          if (errCountVersions) {
             return emitGenericError();
           }
 
-          return informModify(oldData, value);
-        }
-      );
+          const needsExamination = number !== 0;
+
+          const setClause = {
+            "$set": {
+              name,
+              authors  : newAuthors,
+              advicers : newAdvicers,
+              needsExamination,
+            },
+            "$pull": {
+              responses: {
+                "$in": advicersToRemove,
+              },
+              allAdvices: {
+                "$in": advicersToRemove,
+              },
+            },
+          };
+
+          return items.findAndModify(
+            whereClause,
+            [],
+            setClause,
+            { "new": true },
+            (errUpdateCurrentVersion, data) => {
+              if (errUpdateCurrentVersion) {
+                return emitGenericError();
+              }
+
+              const { value } = data;
+
+              return informModify(oldData, value);
+            }
+          );
+        });
+      });
     });
   });
 };

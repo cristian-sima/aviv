@@ -21,7 +21,6 @@ const createVersion = (state :State, action : any) => {
     newToAdvice = performAddIfNewer(toAdvice, item),
     newAdviced = performDelete(adviced, byID, item);
 
-
   const
     shouldAdd = getShouldModify([newToAdvice.IDs], _id);
 

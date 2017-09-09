@@ -13,6 +13,25 @@ const initialState = Immutable.Map();
 const
   fetchItemFulFilled = (state : ModalState, { payload : { item, versions } }) => (
     state.set(item.get("_id"), versions.entities)
+  ),
+  modifyItem = (state : ModalState, { payload }) => (
+    state.update(
+      String(payload.get("_id")),
+      (current) => {
+        if (typeof current === "undefined") {
+          return current;
+        }
+
+        const
+          version = payload.get("version"),
+          advicers = payload.get("advicers");
+
+        return current.filter((currentVersion) => (
+          version === currentVersion.get("version") &&
+            !advicers.includes(currentVersion.get("institutionID"))
+        ));
+      }
+    )
   );
 
 const reducer = (state : ModalState = initialState, action : Action) => {
@@ -20,6 +39,9 @@ const reducer = (state : ModalState = initialState, action : Action) => {
 
     case "FETCH_ITEM_DETAILS_FULFILLED":
       return fetchItemFulFilled(state, action);
+
+    case "MODIFY_ITEM":
+      return modifyItem(state, action);
 
     default:
       return state;
