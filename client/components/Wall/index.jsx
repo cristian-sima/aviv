@@ -71,7 +71,7 @@ class List extends React.Component {
       institutions,
     } = this.props;
 
-    if (isFetching || typeof institutions === "undefined" || institutions.size === 0) {
+    if (isFetching || typeof institutions === "undefined") {
       return <LoadingMessage message="Preiau datele..." />;
     }
 
