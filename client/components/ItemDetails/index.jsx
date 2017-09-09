@@ -26,6 +26,7 @@ type ItemPagePropTypes = {
   showDeleteItemModal: () => void;
   showHistoryModal: () => void;
   fetchItemDetails: () => void;
+  modifyItem: () => void;
 
   confirmCloseItem: () => void;
   confirmDeleteItem: () => void;
@@ -58,6 +59,7 @@ import {
   createVersionModal as createVersionModalAction,
   showHistoryModal as showHistoryModalAction,
   closeItemModal as closeItemModalAction,
+  modifyItemModal as modifyItemModalAction,
 } from "actions";
 
 const
@@ -90,6 +92,9 @@ const
     },
     confirmCloseItem () {
       dispatch(closeItemModalAction(item, emit));
+    },
+    modifyItem () {
+      dispatch(modifyItemModalAction(item, emit));
     },
   });
 

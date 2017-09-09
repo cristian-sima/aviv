@@ -3,10 +3,10 @@
 import type { Emit } from "types";
 
 import React from "react";
-import moment from "moment";
 
 import AdvicerSectionContainer from "./AdvicerSectionContainer";
 import AdviceRow from "./AdviceRow";
+import Sidebar from "./Sidebar";
 
 type PagePropTypes = {
   data: any;
@@ -18,6 +18,7 @@ type PagePropTypes = {
 
   confirmDeleteItem: () => void;
   confirmCreateVersion: () => void;
+  modifyItem: () => void;
   confirmCloseItem: () => void;
 
   showContactsForInstitution: (id : string) => () => void;
@@ -46,23 +47,22 @@ class Page extends React.Component {
       institutions,
       isAdvicer,
       showContactsForInstitution,
-      showHistoryModal,
 
-      confirmDeleteItem,
       confirmCreateVersion,
       confirmCloseItem,
+      modifyItem,
 
       emit,
+      confirmDeleteItem,
+      showHistoryModal,
     } = this.props;
 
     const
       id = data.get("_id"),
       name = data.get("name"),
-      authors = data.get("authors"),
       responses = data.get("responses"),
       version = data.get("version"),
       advicers = data.get("advicers"),
-      date = data.get("date"),
       isClosed = data.get("isClosed");
 
     const currentVersion = versions.filter((current) => {
@@ -135,54 +135,14 @@ class Page extends React.Component {
               </div>
             </div>
             <div className="col-xl-4">
-              {
-                isAdvicer ? null : (
-                  <div>
-                    <button
-                      className="btn-link text-danger"
-                      onClick={confirmDeleteItem}>
-                      {"Retrage actul normativ"}
-                    </button>
-                    <hr />
-                  </div>
-                )
-              }
-              { moment(date).format("lll") }
-              <hr />
-              {"Versiunea"}
-              <span className="badge badge-pill badge-info ml-1">
-                {version}
-              </span>
-              {
-                version === 1 ? null : (
-                  <button
-                    className="btn-link"
-                    onClick={showHistoryModal}>
-                    {"Vezi istoric"}
-                  </button>
-                )
-              }
-              <hr />
-              <strong>
-                {
-                  authors.size === 1 ? "Inițiator" : "Inițiatori"
-                }
-              </strong>
-              <div className="small">
-                {
-                  authors.map((author) => (
-                    <div key={author}>
-                      <span>{"- "}</span>
-                      {
-                        institutions.getIn([
-                          author,
-                          "name",
-                        ])
-                      }
-                    </div>
-                  ))
-                }
-              </div>
+              <Sidebar
+                confirmDeleteItem={confirmDeleteItem}
+                data={data}
+                institutions={institutions}
+                isAdvicer={isAdvicer}
+                modifyItem={modifyItem}
+                showHistoryModal={showHistoryModal}
+              />
             </div>
           </div>
           <br />

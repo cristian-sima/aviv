@@ -104,6 +104,13 @@ export const closeItemModal = (id : string, emit : Emit) : Action => (
   })
 );
 
+export const modifyItemModal = (id : string, emit : Emit) : Action => (
+  createModal("MODIFY_ITEM", {
+    id,
+    emit,
+  })
+);
+
 export const showHistoryModal = (id : string) : Action => (
   createModal("SHOW_HISTORY", {
     id,
