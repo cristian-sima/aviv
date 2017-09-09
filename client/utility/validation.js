@@ -35,4 +35,4 @@ export const extractErrorsFromCheckers = (checkers : any) => (values : any) => {
   return errors;
 };
 
-export * from "../common/validate";
+export * from "./validate";

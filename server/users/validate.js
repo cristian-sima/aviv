@@ -7,7 +7,7 @@ import {
   validateUserName,
   validateEmail,
   validatePhone,
-} from "../../client/common/validate";
+} from "../validate";
 
 import { extractErrorsFromCheckers } from "../utility";
 

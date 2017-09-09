@@ -5,7 +5,7 @@ import type { CheckerResponse } from "../types";
 import {
   validateItemName,
   validateRegisterNumber,
-} from "../../client/common/validate";
+} from "../validate";
 
 import { extractErrorsFromCheckers } from "../utility";
 

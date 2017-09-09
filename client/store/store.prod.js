@@ -1,6 +1,8 @@
+// @flow
+
+import createHistory from "history/createBrowserHistory";
 import { applyMiddleware, compose, createStore } from "redux";
-import { syncHistoryWithStore } from "react-router-redux";
-import { browserHistory } from "react-router";
+import { routerMiddleware } from "react-router-redux";
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
 
@@ -8,14 +10,14 @@ import promise from "redux-promise-middleware";
 import rootReducer from "reducers/state";
 
 // create an object for the default data
-const defaultState = {},
-  enhancers = compose(applyMiddleware(promise(), thunk)),
-  store = createStore(rootReducer, defaultState, enhancers),
-  history = syncHistoryWithStore(browserHistory, store);
+const
+  history = createHistory(),
+  middleware = applyMiddleware(routerMiddleware(history), promise(), thunk),
+  enhancers = compose(middleware),
+  store = createStore(rootReducer, {}, enhancers);
 
 export {
   history,
 };
-
 
 export default store;
