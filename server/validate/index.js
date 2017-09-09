@@ -127,7 +127,7 @@ export const validateItemName = (value : string) => {
 
 export const validateRegisterNumber = (value : string) => {
   const
-    lowerLimit = 15,
+    lowerLimit = 10,
     upperLimit = 64,
     notValid = (
       typeof value === "undefined" ||

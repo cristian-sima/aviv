@@ -17,6 +17,7 @@ import { Field } from "redux-form/immutable";
 import React from "react";
 
 import LabelTemplate from "./LabelTemplate";
+import { toUpper } from "utility";
 import InputTemplate from "../../Inputs/InputTemplate";
 
 const Form = (props : FormPropTypes) => {
@@ -42,7 +43,8 @@ const Form = (props : FormPropTypes) => {
           component={InputTemplate}
           label="Nr. aviz"
           name="registerNumber"
-          placeholder="ex. 25/MB/1650 - 17.02.2018"
+          normalize={toUpper}
+          placeholder="ex. 25/MB/1650"
           right="col-md-8"
           type="text"
         />
