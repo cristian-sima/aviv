@@ -7,17 +7,19 @@ import getShouldModify from "./util/getShouldModify";
 
 import { noError } from "utility";
 
-const addItemAuthor = (state : State, action : any) => {
+const addItemAdvicer = (state : State, action : any) => {
 
   const
-    { items } = state,
-    { started, closed, byID } = items,
+    { items, auth : { account } } = state,
+    { toAdvice, adviced, byID } = items,
     { payload : item } = action;
 
   const
-    isClosed = item.get("isClosed"),
-    where = isClosed ? closed : started,
-    whereKey = isClosed ? "closed" : "started",
+    institutionID = account.get("institutionID"),
+    responses = item.get("responses"),
+    isAdviced = responses.includes(institutionID),
+    where = isAdviced ? adviced : toAdvice,
+    whereKey = isAdviced ? "adviced" : "toAdvice",
     _id = item.get("_id");
 
   const
@@ -44,4 +46,4 @@ const addItemAuthor = (state : State, action : any) => {
   };
 };
 
-export default addItemAuthor;
+export default addItemAdvicer;

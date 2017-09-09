@@ -63,6 +63,12 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
         type    : "ADD_ITEM_AUTHOR",
         payload : value,
       });
+    },
+    broadcastAddNewAdvicer = (institutionID, value) => {
+      io.to(institutionID).emit("msg", {
+        type    : "ADD_ITEM_ADVICER",
+        payload : value,
+      });
     };
 
   const
@@ -103,6 +109,28 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
         }
       }
     },
+    informAdvicers = (oldData, value) => {
+      const {
+        advicers: oldAdvicers,
+      } = oldData;
+
+      for (const oldAdvicer of oldAdvicers) {
+        if (newAuthors.includes(oldAdvicer)) {
+          broadcastModify(oldAdvicer, value);
+        } else {
+          broadcastDelete(oldAdvicer, value);
+        }
+      }
+
+      // inform new authors
+      for (const newAdvicer of newAdvicers) {
+        const isNew = !oldAdvicers.includes(newAdvicer);
+
+        if (isNew) {
+          broadcastAddNewAdvicer(newAdvicer, value);
+        }
+      }
+    },
     informCurrentAuthor = () => socket.emit("FORM", {
       status  : "SUCCESS",
       message : "Actul normativ a fost modificat",
@@ -110,6 +138,8 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     }),
     informModify = (oldData, value) => {
       informAuthors(oldData, value);
+      informAdvicers(oldData, value);
+
       return informCurrentAuthor();
     };
 
