@@ -6,6 +6,7 @@ import deleteItem from "./deleteItem";
 import adviceItem from "./adviceItem";
 import createVersion from "./createVersion";
 import closeItem from "./closeItem";
+import addItemAuthor from "./addItemAuthor";
 
 const paginator = (state : State, action : Action) => {
   switch (action.type) {
@@ -17,6 +18,9 @@ const paginator = (state : State, action : Action) => {
 
     case "CREATE_VERSION":
       return createVersion(state, action);
+
+    case "ADD_ITEM_AUTHOR":
+      return addItemAuthor(state, action);
 
     case "CLOSE_ITEM":
       return closeItem(state, action);

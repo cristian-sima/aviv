@@ -10,8 +10,13 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
   const
     institutions = db.collection("institutions"),
     items = db.collection("items"),
-    { name, authors, advicers, _id } = body,
-    institutionsInvolved = authors.concat(advicers),
+    {
+      name,
+      authors: newAuthors,
+      advicers: newAdvicers,
+      _id,
+    } = body,
+    institutionsInvolved = newAuthors.concat(newAdvicers),
     response = isValidItem({
       name,
     }),
@@ -30,15 +35,35 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     return emitFormError(response.error);
   }
 
-  if (authors.length === 0) {
+  if (newAuthors.length === 0) {
     return (
       emitFormError("Trebuie furnizat cel puțin un autor")
     );
   }
 
-  if (advicers.length === 0) {
+  if (newAdvicers.length === 0) {
     return emitFormError("Trebuie furnizat cel puțin un avizator");
   }
+
+  const
+    broadcastModify = (institutionID, value) => {
+      io.to(institutionID).emit("msg", {
+        type    : "MODIFY_ITEM",
+        payload : value,
+      });
+    },
+    broadcastDelete = (institutionID, value) => {
+      io.to(institutionID).emit("msg", {
+        type    : "DELETE_ITEM",
+        payload : value,
+      });
+    },
+    broadcastAddNewAuthor = (institutionID, value) => {
+      io.to(institutionID).emit("msg", {
+        type    : "ADD_ITEM_AUTHOR",
+        payload : value,
+      });
+    };
 
   const
     whereInstitutionClause = {
@@ -52,11 +77,41 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     setClause = {
       "$set": {
         name,
-        authors,
-        advicers,
+        authors  : newAuthors,
+        advicers : newAdvicers,
       },
     },
-    informModify = (value) => emitFormError("Funcționează");
+    informAuthors = (oldData, value) => {
+      const {
+        authors: oldAuthors,
+      } = oldData;
+
+      for (const oldAuthor of oldAuthors) {
+        if (newAuthors.includes(oldAuthor)) {
+          broadcastModify(oldAuthor, value);
+        } else {
+          broadcastDelete(oldAuthor, value);
+        }
+      }
+
+      // inform new authors
+      for (const newAuthor of newAuthors) {
+        const isNew = !oldAuthors.includes(newAuthor);
+
+        if (isNew) {
+          broadcastAddNewAuthor(newAuthor, value);
+        }
+      }
+    },
+    informCurrentAuthor = () => socket.emit("FORM", {
+      status  : "SUCCESS",
+      message : "Actul normativ a fost modificat",
+      form    : "ITEM_FORM",
+    }),
+    informModify = (oldData, value) => {
+      informAuthors(oldData, value);
+      return informCurrentAuthor();
+    };
 
   return institutions.find(whereInstitutionClause, (errFind) => {
 
@@ -64,19 +119,25 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
       return emitFormError("Aceste instituții nu există");
     }
 
-    return items.findAndModify(
-      whereClause,
-      [],
-      setClause,
-      { "new": true },
-      (errUpdateCurrentVersion, { value }) => {
-        if (errUpdateCurrentVersion) {
-          return emitGenericError();
-        }
-
-        return informModify(value);
+    return items.findOne(whereClause, (errFindItem, oldData) => {
+      if (errFindItem) {
+        return emitGenericError();
       }
-    );
+
+      return items.findAndModify(
+        whereClause,
+        [],
+        setClause,
+        { "new": true },
+        (errUpdateCurrentVersion, { value }) => {
+          if (errUpdateCurrentVersion) {
+            return emitGenericError();
+          }
+
+          return informModify(oldData, value);
+        }
+      );
+    });
   });
 };
 

@@ -68,6 +68,22 @@ const
         detailsFetchingError : noError,
       })
     )
+  ),
+  modifyItem = (state : ItemsByIDState, { payload }) => (
+    state.update(
+      String(payload.get("_id")),
+      (current) => {
+        if (typeof current === "undefined") {
+          return current;
+        }
+
+        return current.merge({
+          name     : payload.get("name"),
+          authors  : payload.get("authors"),
+          advicers : payload.get("advicers"),
+        });
+      }
+    )
   );
 
 export const byIDItems = (state : ItemsByIDState = initialState, action : any) => {
@@ -90,6 +106,9 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
       return addOrModifyItem(state, action);
+
+    case "MODIFY_ITEM":
+      return modifyItem(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":

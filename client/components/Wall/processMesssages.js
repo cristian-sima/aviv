@@ -7,6 +7,10 @@ type Message = {
 
 import { normalizeItem, normalizeItemDetails } from "../../request/normalize";
 
+import {
+  hideModal as hideModalAction,
+} from "actions";
+
 const processMesssages = (dispatch : any, msg : Message) => {
   const { type, payload } = msg;
 
@@ -16,6 +20,7 @@ const processMesssages = (dispatch : any, msg : Message) => {
     case "DELETE_ITEM":
     case "CREATE_VERSION":
     case "CLOSE_ITEM":
+    case "ADD_ITEM_AUTHOR":
       dispatch({
         type,
         payload: normalizeItem(payload),
@@ -25,6 +30,15 @@ const processMesssages = (dispatch : any, msg : Message) => {
       dispatch({
         type,
         payload: normalizeItemDetails(payload),
+      });
+      break;
+    case "MODIFY_ITEM":
+      dispatch({
+        type,
+        payload: normalizeItem(payload),
+      });
+      setTimeout(() => {
+        dispatch(hideModalAction());
       });
       break;
     default:
