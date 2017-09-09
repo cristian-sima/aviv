@@ -219,7 +219,7 @@ class Page extends React.Component {
                         </td>
                         <td className="no-wrap">
                           <span className="text-muted">
-                            {"În așteptare"}
+                            {"În lucru..."}
                           </span>
                         </td>
                         <td>{""}</td>
