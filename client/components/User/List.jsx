@@ -48,7 +48,7 @@ class List extends React.Component {
           <table className="table table-responsive table-striped table-hover table-sm users-list">
             <thead>
               <tr>
-                <th className="name-row">
+                <th className="name-row no-wrap">
                   {"Nume și prenume"}
                 </th>
                 <th className="name-row">
@@ -60,7 +60,7 @@ class List extends React.Component {
                 <th className="name-row">
                   {"Telefon"}
                 </th>
-                <th className="name-row">
+                <th className="name-row no-wrap">
                   {"Parolă temporară"}
                 </th>
                 <th className="text-center">

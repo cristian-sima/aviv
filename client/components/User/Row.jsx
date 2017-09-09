@@ -38,7 +38,7 @@ class Row extends React.Component {
 
     return (
       <tr>
-        <td>
+        <td className="no-wrap">
           {name}
         </td>
         <td>

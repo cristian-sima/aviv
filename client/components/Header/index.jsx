@@ -105,11 +105,15 @@ class Header extends React.Component {
                   ) : null
                 }
                 <Nav className="ml-auto" navbar>
-                  <div className="form-inline">
-                    <div className="d-inline mr0 mr-lg-1">
-                      <SearchContainer />
-                    </div>
-                  </div>
+                  {
+                    isNormalAccount ? (
+                      <div className="form-inline">
+                        <div className="d-inline mr0 mr-lg-1">
+                          <SearchContainer />
+                        </div>
+                      </div>
+                    ) : null
+                  }
                   <DisconnectBox />
                 </Nav>
               </Collapse>
