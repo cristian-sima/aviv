@@ -37,19 +37,23 @@ class Sidebar extends React.Component {
     const
       authors = data.get("authors"),
       version = data.get("version"),
-      date = data.get("date");
+      date = data.get("date"),
+      isClosed = data.get("isClosed");
 
     return (
       <div>
         {
           isAdvicer ? null : (
             <div>
-              <button
-                className="btn-link"
-                onClick={modifyItem}>
-                {"Modifică datele"}
-              </button>
-              <br />
+              {
+                isClosed ? null : (
+                  <button
+                    className="btn-link d-block"
+                    onClick={modifyItem}>
+                    {"Modifică datele"}
+                  </button>
+                )
+              }
               <button
                 className="btn-link text-danger"
                 onClick={confirmDeleteItem}>
