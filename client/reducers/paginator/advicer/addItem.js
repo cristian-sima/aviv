@@ -2,12 +2,12 @@
 
 import type { State } from "types";
 
-import performAddIfNewer from "./util/performAddIfNewer";
-import getShouldModify from "./util/getShouldModify";
+import performAddIfNewer from "../util/performAddIfNewer";
+import getShouldModify from "../util/getShouldModify";
 
 import { noError } from "utility";
 
-const addItemAdvicer = (state : State, action : any) => {
+const addItem = (state : State, action : any) => {
 
   const
     { items, auth : { account } } = state,
@@ -46,4 +46,4 @@ const addItemAdvicer = (state : State, action : any) => {
   };
 };
 
-export default addItemAdvicer;
+export default addItem;

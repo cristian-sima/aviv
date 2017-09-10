@@ -29,7 +29,8 @@ const processMesssages = (dispatch : any, msg : Message) => {
         payload: normalizeItem(payload),
       });
       break;
-    case "ADVICE_ITEM":
+    case "ADVICE_ITEM_FOR_AUTHOR":
+    case "ADVICE_ITEM_FOR_ADVICER":
       dispatch({
         type,
         payload: normalizeItemDetails(payload),

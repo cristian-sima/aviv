@@ -2,12 +2,12 @@
 
 import type { State } from "types";
 
-import performAddIfNewer from "./util/performAddIfNewer";
-import getShouldModify from "./util/getShouldModify";
+import performAddIfNewer from "../util/performAddIfNewer";
+import getShouldModify from "../util/getShouldModify";
 
 import { noError } from "utility";
 
-const addItemAuthor = (state : State, action : any) => {
+const addItem = (state : State, action : any) => {
 
   const
     { items } = state,
@@ -44,4 +44,4 @@ const addItemAuthor = (state : State, action : any) => {
   };
 };
 
-export default addItemAuthor;
+export default addItem;

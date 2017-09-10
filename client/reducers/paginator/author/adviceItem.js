@@ -2,17 +2,13 @@
 
 import type { State } from "types";
 
-import performDelete from "./util/performDelete";
-import performAddIfNewer from "./util/performAddIfNewer";
-import getShouldModify from "./util/getShouldModify";
+import getShouldModify from "../util/getShouldModify";
 
 const adviceItem = (state : State, action : any) => {
 
-  // console.log("action", action);
-
   const
     { items, versions : versionsState } = state,
-    { toAdvice, adviced, byID, started } = items,
+    { byID, started } = items,
     { payload : { item, versions : rawVersions } } = action;
 
   const
@@ -25,18 +21,10 @@ const adviceItem = (state : State, action : any) => {
     currentInstitutionID = version.get("institutionID");
 
   const
-    newToAdvice = performDelete(toAdvice, byID, item),
-    newAdviced = performAddIfNewer(adviced, item);
-
-  const
     shouldModify = (
       byID.has(_id) &&
       byID.get(_id).has("detailsFetched")
-    ) || getShouldModify([
-        newToAdvice.IDs,
-        newAdviced.IDs,
-        started.IDs,
-      ], _id);
+    ) || getShouldModify([started.IDs], _id);
 
   const newByID = shouldModify ? (
     byID.update(_id, (current) => {
@@ -90,9 +78,7 @@ const adviceItem = (state : State, action : any) => {
     ...state,
     items: {
       ...items,
-      adviced  : newAdviced,
-      byID     : newByID,
-      toAdvice : newToAdvice,
+      byID: newByID,
     },
     versions: newVersions,
   };

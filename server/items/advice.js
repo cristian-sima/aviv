@@ -39,13 +39,21 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
 
   const
     broadcast = (data, version) => {
-      const
-        { advicers, authors } = data,
-        interested = authors.concat(advicers);
+      const { advicers, authors } = data;
 
-      for (const current of interested) {
-        io.to(current).emit("msg", {
-          type    : "ADVICE_ITEM",
+      for (const advicer of advicers) {
+        io.to(advicer).emit("msg", {
+          type    : "ADVICE_ITEM_FOR_ADVICER",
+          payload : {
+            Item     : data,
+            Versions : [version],
+          },
+        });
+      }
+
+      for (const author of authors) {
+        io.to(author).emit("msg", {
+          type    : "ADVICE_ITEM_FOR_AUTHOR",
           payload : {
             Item     : data,
             Versions : [version],

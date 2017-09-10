@@ -5,11 +5,11 @@ import type { State } from "types";
 
 import * as Immutable from "immutable";
 
-import performDelete from "./util/performDelete";
-import performAddIfNewer from "./util/performAddIfNewer";
-import getShouldModify from "./util/getShouldModify";
+import performDelete from "../util/performDelete";
+import performAddIfNewer from "../util/performAddIfNewer";
+import getShouldModify from "../util/getShouldModify";
 
-const createItemVersionForAdvicer = (state :State, action : any) => {
+const createItemVersion = (state :State, action : any) => {
 
   const
     { items } = state,
@@ -50,4 +50,4 @@ const createItemVersionForAdvicer = (state :State, action : any) => {
   };
 };
 
-export default createItemVersionForAdvicer;
+export default createItemVersion;

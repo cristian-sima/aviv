@@ -2,9 +2,9 @@
 
 import type { State } from "types";
 
-import getShouldModify from "./util/getShouldModify";
+import getShouldModify from "../util/getShouldModify";
 
-const closeItemForAdvicer = (state :State, action : any) => {
+const closeItem = (state :State, action : any) => {
 
   const
     { items } = state,
@@ -36,4 +36,4 @@ const closeItemForAdvicer = (state :State, action : any) => {
   };
 };
 
-export default closeItemForAdvicer;
+export default closeItem;

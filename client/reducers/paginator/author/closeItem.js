@@ -2,11 +2,11 @@
 
 import type { State } from "types";
 
-import performDelete from "./util/performDelete";
-import performAddIfNewer from "./util/performAddIfNewer";
-import getShouldModify from "./util/getShouldModify";
+import performDelete from "../util/performDelete";
+import performAddIfNewer from "../util/performAddIfNewer";
+import getShouldModify from "../util/getShouldModify";
 
-const closeItemForAuthor = (state :State, action : any) => {
+const closeItem = (state :State, action : any) => {
 
   const
     { items } = state,
@@ -43,4 +43,4 @@ const closeItemForAuthor = (state :State, action : any) => {
   };
 };
 
-export default closeItemForAuthor;
+export default closeItem;

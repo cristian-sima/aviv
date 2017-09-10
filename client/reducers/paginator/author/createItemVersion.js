@@ -5,9 +5,9 @@ import type { State } from "types";
 
 import * as Immutable from "immutable";
 
-import getShouldModify from "./util/getShouldModify";
+import getShouldModify from "../util/getShouldModify";
 
-const createItemVersionForAuthor = (state :State, action : any) => {
+const createItemVersion = (state :State, action : any) => {
 
   const
     { items } = state,
@@ -42,4 +42,4 @@ const createItemVersionForAuthor = (state :State, action : any) => {
   };
 };
 
-export default createItemVersionForAuthor;
+export default createItemVersion;
