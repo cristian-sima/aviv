@@ -65,6 +65,10 @@ const formatBeforeWrite = (users, institutions) => {
 
   const data = users.map((user) => {
     delete user._id;
+    delete user.institutionID;
+    delete user.institutionID;
+    delete user.email;
+    delete user.phone;
 
     return user;
   });
