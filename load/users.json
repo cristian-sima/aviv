@@ -1,0 +1,216 @@
+{
+  "listOfRawUsers" : [
+    {
+      "username": "ANAD01",
+      "institution": "Agenţia Naţională Anti-Doping"
+    },
+    {
+      "username": "ANCPI01",
+      "institution": "Agenţia Naţională de Cadastru şi Publicitate Imobiliară"
+    },
+    {
+      "username": "ANR01",
+      "institution": "Agenţia Naţională pentru Romi"
+    },
+    {
+      "username": "ANRM01",
+      "institution": "Agenţia Naţională pentru Resurse Minerale"
+    },
+    {
+      "username": "ANRP01",
+      "institution": "Autoritatea Naţională pentru Restituirea Proprietăţilor"
+    },
+    {
+      "username": "CC01",
+      "institution": "Consiliul Concurentei"
+    },
+    {
+      "username": "CNCAN01",
+      "institution": "Comisia Naţională pentru Controlul Activităţilor Nucleare"
+    },
+    {
+      "username": "CoNAS01",
+      "institution": "Autoritatea Națională de Management al Calității în Sănătate"
+    },
+    {
+      "username": "CPM",
+      "institution": "Cancelaria Primului Ministru"
+    },
+    {
+      "username": "CPM01",
+      "institution": "Cancelaria Primului Ministru"
+    },
+    {
+      "username": "DCENTENAR",
+      "institution": "Departamentul Centenar"
+    },
+    {
+      "username": "DLAF02",
+      "institution": "Departamentul pentru Lupta Antifrauda"
+    },
+    {
+      "username": "DPIIS01",
+      "institution": "Departamentul pentru Investiții Străine și Parteneriat Public-Privat"
+    },
+    {
+      "username": "DRI01",
+      "institution": "Departamentului pentru Relatii Interetnice"
+    },
+    {
+      "username": "DRP01",
+      "institution": "Ministerul pentru Relaţia cu Parlamentul"
+    },
+    {
+      "username": "DRRH01",
+      "institution": "Ministerul pentru Românii de Pretutindeni"
+    },
+    {
+      "username": "IICCMER01",
+      "institution": "Institutul de Investigare a Crimelor Comunismului şi Memoria Exilului Românesc"
+    },
+    {
+      "username": "INS01",
+      "institution": "Institutului Naţional de Statistică"
+    },
+    {
+      "username": "INSHR01",
+      "institution": "Institutul Naţional pentru Studierea Holocaustului din România “Elie Wiesel”"
+    },
+    {
+      "username": "LCD01",
+      "institution": "Laboratorul de Control Doping"
+    },
+    {
+      "username": "MADR01",
+      "institution": "Ministerul Agriculturii si Dezvoltării Rurale"
+    },
+    {
+      "username": "MAE01",
+      "institution": "Ministerul Afacerilor Externe"
+    },
+    {
+      "username": "MAI01",
+      "institution": "Ministerul Afacerilor Interne"
+    },
+    {
+      "username": "MAP05",
+      "institution": "Ministerul Apelor și Pădurilor"
+    },
+    {
+      "username": "MAPN01",
+      "institution": "Ministerul Apărării Naţionale"
+    },
+    {
+      "username": "MC01",
+      "institution": "Ministerul Culturii și Identității Naționale"
+    },
+    {
+      "username": "MCI01",
+      "institution": "Ministerul Cercetării și Inovării"
+    },
+    {
+      "username": "MCPDC01",
+      "institution": "Ministerul Consultării Publice și Dialogului Social"
+    },
+    {
+      "username": "MCPDS01",
+      "institution": "Ministerul Consultării Publice și Dialogului Social"
+    },
+    {
+      "username": "MDRAP02",
+      "institution": "Ministerul Dezvoltării Regionale, Administraţiei Publice și Fondurilor Europene"
+    },
+    {
+      "username": "MECT01",
+      "institution": "Ministerul Economiei"
+    },
+    {
+      "username": "MEIMMMA01",
+      "institution": "Ministerul Energiei"
+    },
+    {
+      "username": "MEN01",
+      "institution": "Ministerul Educaţiei Naţionale"
+    },
+    {
+      "username": "MFE01",
+      "institution": "Ministerul Fondurilor Europene"
+    },
+    {
+      "username": "MFP01",
+      "institution": "Ministerul Finanţelor Publice"
+    },
+    {
+      "username": "MJ01",
+      "institution": "Ministerul Justiţiei"
+    },
+    {
+      "username": "MM01",
+      "institution": "Ministerul Muncii și Justiției Sociale"
+    },
+    {
+      "username": "MMACA07",
+      "institution": "Ministerul pentru Mediu de Afaceri, Comerţ şi Antreprenoriat"
+    },
+    {
+      "username": "MMAP01",
+      "institution": "Ministerul Mediului"
+    },
+    {
+      "username": "MPRP02",
+      "institution": "Ministerul pentru Românii de Pretutindeni"
+    },
+    {
+      "username": "MS01",
+      "institution": "Ministerul Sănătăţii"
+    },
+    {
+      "username": "MSI01",
+      "institution": "Ministerul Comunicațiilor și Societății Informaţionale"
+    },
+    {
+      "username": "MT01",
+      "institution": "Ministerul Transporturilor"
+    },
+    {
+      "username": "MT02",
+      "institution": "Ministerul Transporturilor"
+    },
+    {
+      "username": "MTS01",
+      "institution": "Ministerul Tineretului şi Sportului"
+    },
+    {
+      "username": "MTU01",
+      "institution": "Ministerul Turismului"
+    },
+    {
+      "username": "ONJN01",
+      "institution": "Oficiul Național pentru Jocuri de Noroc"
+    },
+    {
+      "username": "ONPCSB01",
+      "institution": "Oficiul Naţional de Prevenire şi Combatere a Spălării Banilor"
+    },
+    {
+      "username": "ORNIS01",
+      "institution": "Oficiul Registrul Naţional al Informaţiilor Secrete de Stat"
+    },
+    {
+      "username": "RAAPPS01",
+      "institution": "Regia Autonomă Administraţia Patrimoniului Protocolului de Stat"
+    },
+    {
+      "username": "RAMO01",
+      "institution": "Regia Autonomă Monitorul Oficial"
+    },
+    {
+      "username": "SGG01",
+      "institution": "Secretariatul General al Guvernului"
+    },
+    {
+      "username": "SSC01",
+      "institution": "Secretariatul de Stat pentru Culte"
+    }
+  ]
+}

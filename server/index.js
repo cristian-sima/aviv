@@ -7,13 +7,15 @@ import { MongoClient } from "mongodb";
 
 import render from "./render";
 import routes from "./routes";
-import { port as appPort, isProduction } from "../config-server";
+import { port as appPort, dbPort, isProduction } from "../config-server";
 
 import createIO from "./io";
 
 const StatusNotWorking = 500;
 
-MongoClient.connect("mongodb://localhost:27017/aviz", (errConnectDatabase? : Error, db : Database) => {
+const url = `mongodb://localhost:${dbPort}/aviz`;
+
+MongoClient.connect(url, (errConnectDatabase? : Error, db : Database) => {
   if (errConnectDatabase) {
     console.log(errConnectDatabase);
   }

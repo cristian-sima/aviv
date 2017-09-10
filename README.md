@@ -1,10 +1,11 @@
-# live
-Live content and suggestions for voting laws
-
-
-"list": "http://www.cdep.ro/pls/caseta/json_internship_vfinal?dat="
-
 # Distribution
+
+## First time
+
+1. Connect with `MASTER` and `1234`
+2. Run `node ./dist/load.js`
+3. Print `./output.json`
+4. Delete `./dist/load.js` and `./output.json`
 
 ## Just first time
 - Install NodeJS
@@ -34,59 +35,3 @@ Live content and suggestions for voting laws
 1. Run `mongod --dbpath=./data`
 2. Run `npm3 run dev:client:start`
 3. Run `npm3 run dev:server:start`
-
-
-# Scheme preluare date
-
-## Ordinea de zi
-
-```js
-{
-  "timestamp"?: string, // unix timestramp
-  "lista_de_vot": Array<{
-    "pozitie" : string,
-    "proiect" : string,
-    "titlu": string,
-    "descriere"?: string,
-    "camera decizionala"?: "DA",
-    "comisia"?: "RESPINGERE" | "ADOPTARE",
-    "guvern"?: "NEGATIV" | "FAVORABIL",
-    "data guvern"?: string:{zz.ll.anul}
-    "idx"?: string,                               // id-ul proiectului pe cdep.ro
-    "urgenta"?: boolean,                          // true daca este procedura de urgenta
-    "organica"?: boolean,                         // true daca este lege organica,
-    "consLegislativ"?: "RESPINGERE" | "ADOPTARE"  // avizul consiliului legislativ
-    "respingere"?: boolean
-  }>
-}
-```
-
-Note:
-- `boolean` înseamnă `true` sau `false` - ***fără ghilimele !!!!***
-- `?` înseamnă că acest câmp poate să nu fie prezent
-- câmpul `timestamp` reprezintă momentul în care a fost generată ordinea de zi. Se folosește pentru a face diferența între ordinele de zi în momentul actualizării.
-- câmpul `respingere` indică dacă se votează ***respingerea*** acelui proiect. În cazul în care se votează adoptarea, câmpul nu e prezent sau e `false`
-
-## Lista utilizatori
-
-```js
-{
-  "legislatura": string,          // ex. "2016"
-  "conturi": [
-    {
-      "nume": string,
-      "prenume": string,
-      "marca": string,            // trebuie să fie unic
-      "grup": string,             // grupul parlamentar
-      "vot": boolean,             // indică dacă parlamentarul are drept să voteze sau nu
-      "tip": number{0|1|2}        // indică tipul contului. Vezi mai jos
-    },
-  ]
-}
-```
-
-Note:
-- pentru câmpul `conturi.tip`:
-- `0` înseamnă parlamentar
-- `1` înseamnă operator
-- `2` înseamnă administrator
