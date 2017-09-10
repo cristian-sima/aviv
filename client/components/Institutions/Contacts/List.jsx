@@ -32,7 +32,7 @@ class List extends React.Component {
       <table className="table table-responsive table-striped table-hover table-sm mt-3 users-list">
         <thead>
           <tr>
-            <th className="name-row">
+            <th className="name-row no-wrap">
               {"Nume și prenume"}
             </th>
             <th className="name-row">
