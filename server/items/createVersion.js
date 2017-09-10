@@ -24,18 +24,20 @@ export const createVersion = (socket : Socket, db : Database, io : any) => (body
     },
     informSuccessCreateVersion = (data) => {
       const
-        { advicers, authors } = data,
-        interested = authors.concat(advicers);
+        { advicers, authors } = data;
 
-      for (const key in interested) {
-        if (Object.prototype.hasOwnProperty.call(interested, key)) {
-          const current = interested[key];
+      for (const advicer of advicers) {
+        io.to(advicer).emit("msg", {
+          type    : "CREATE_ITEM_VERSION_FOR_ADVICER",
+          payload : data,
+        });
+      }
 
-          io.to(current).emit("msg", {
-            type    : "CREATE_VERSION",
-            payload : data,
-          });
-        }
+      for (const author of authors) {
+        io.to(author).emit("msg", {
+          type    : "CREATE_ITEM_VERSION_FOR_AUTHOR",
+          payload : data,
+        });
       }
 
       socket.emit("CONFIRMATION", {

@@ -18,7 +18,8 @@ const processMesssages = (dispatch : any, msg : Message) => {
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
     case "DELETE_ITEM":
-    case "CREATE_VERSION":
+    case "CREATE_ITEM_VERSION_FOR_ADVICER":
+    case "CREATE_ITEM_VERSION_FOR_AUTHOR":
     case "CLOSE_ITEM":
     case "ADD_ITEM_AUTHOR":
     case "ADD_ITEM_ADVICER":

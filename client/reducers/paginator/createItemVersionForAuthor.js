@@ -5,24 +5,18 @@ import type { State } from "types";
 
 import * as Immutable from "immutable";
 
-import performDelete from "./util/performDelete";
-import performAddIfNewer from "./util/performAddIfNewer";
 import getShouldModify from "./util/getShouldModify";
 
-const createVersion = (state :State, action : any) => {
+const createItemVersionForAuthor = (state :State, action : any) => {
 
   const
     { items } = state,
-    { toAdvice, adviced, byID } = items,
+    { started, byID } = items,
     { payload : item } = action;
 
-  const
-    _id = item.get("_id"),
-    newToAdvice = performAddIfNewer(toAdvice, item),
-    newAdviced = performDelete(adviced, byID, item);
+  const _id = item.get("_id");
 
-  const
-    shouldAdd = getShouldModify([newToAdvice.IDs], _id);
+  const shouldAdd = getShouldModify([started.IDs], _id);
 
   const newByID = byID.has(_id) ? (
     byID.update(item.get("_id"), (current) => {
@@ -43,11 +37,9 @@ const createVersion = (state :State, action : any) => {
     ...state,
     items: {
       ...items,
-      adviced  : newAdviced,
-      toAdvice : newToAdvice,
-      byID     : newByID,
+      byID: newByID,
     },
   };
 };
 
-export default createVersion;
+export default createItemVersionForAuthor;
