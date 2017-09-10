@@ -26,10 +26,17 @@ const
           version = payload.get("version"),
           advicers = payload.get("advicers");
 
-        return current.filter((currentVersion) => (
-          version === currentVersion.get("version") &&
-            !advicers.includes(currentVersion.get("institutionID"))
-        ));
+        return current.filter((versionState) => {
+
+          const currentVersion = versionState.get("version");
+
+          return (
+            version !== currentVersion || (
+              version === currentVersion &&
+              advicers.includes(versionState.get("institutionID"))
+            )
+          );
+        });
       }
     )
   );
