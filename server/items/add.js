@@ -17,7 +17,7 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
       socket.emit("FORM", {
         status : "FAILED",
         error  : msg,
-        form   : "ITEM_FORM",
+        form   : "ITEM_ADD_FORM",
       })
     );
 
@@ -85,7 +85,7 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
       return socket.emit("FORM", {
         status  : "SUCCESS",
         message : "Actul normativ a fost adăugat",
-        form    : "ITEM_FORM",
+        form    : "ITEM_ADD_FORM",
       });
     });
   });

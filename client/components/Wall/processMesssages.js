@@ -15,13 +15,17 @@ const processMesssages = (dispatch : any, msg : Message) => {
   const { type, payload } = msg;
 
   switch (msg.type) {
+    case "DELETE_ITEM":
+
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":
-    case "DELETE_ITEM":
+
     case "CREATE_ITEM_VERSION_FOR_ADVICER":
     case "CREATE_ITEM_VERSION_FOR_AUTHOR":
+
     case "CLOSE_ITEM_FOR_ADVICER":
     case "CLOSE_ITEM_FOR_AUTHOR":
+
     case "ADD_ITEM_AUTHOR":
     case "ADD_ITEM_ADVICER":
       dispatch({

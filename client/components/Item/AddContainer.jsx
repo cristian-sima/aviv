@@ -17,7 +17,7 @@ import Form, { validate } from "./Form";
 
 import { getCurrentInstitutionID } from "reducers";
 
-import { ITEM_FORM } from "utility/forms";
+import { ITEM_ADD_FORM } from "utility/forms";
 
 const
   mapStateToProps = (state : State) => ({
@@ -25,7 +25,7 @@ const
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit }) => ({
     emitAddItem (data) {
-      dispatch(startSubmit(ITEM_FORM));
+      dispatch(startSubmit(ITEM_ADD_FORM));
       setTimeout(() => {
         emit("ADD_ITEM", data);
       });
@@ -34,7 +34,7 @@ const
 
 const AddForm = reduxForm({
   buttonLabel      : "Adaugă",
-  form             : ITEM_FORM,
+  form             : ITEM_ADD_FORM,
   destroyOnUnmount : false,
   title            : "Inițiază act normativ",
   validate,

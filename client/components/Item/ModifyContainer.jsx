@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 
 import { getCurrentInstitutionID, getItem } from "reducers";
 
-import { ITEM_FORM } from "utility/forms";
+import { ITEM_MODIFY_FORM } from "utility/forms";
 
 const
   mapStateToProps = (state : State, { id }) => ({
@@ -29,7 +29,7 @@ const
   }),
   mapDispatchToProps = (dispatch : Dispatch, { emit }) => ({
     emitModifyItem (data) {
-      dispatch(startSubmit(ITEM_FORM));
+      dispatch(startSubmit(ITEM_MODIFY_FORM));
       setTimeout(() => {
         emit("MODIFY_ITEM", data);
       });
@@ -38,7 +38,7 @@ const
 
 const ConnectedForm = reduxForm({
   buttonLabel : "Modifică",
-  form        : ITEM_FORM,
+  form        : ITEM_MODIFY_FORM,
   validate,
 })(Form);
 

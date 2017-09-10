@@ -33,7 +33,7 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
       socket.emit("FORM", {
         status : "FAILED",
         error  : msg,
-        form   : "ITEM_FORM",
+        form   : "ITEM_MODIFY_FORM",
       })
     ),
     emitGenericError = () => emitFormError("Nu am putut modifica actul normativ");
@@ -136,7 +136,7 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     informCurrentAuthor = () => socket.emit("FORM", {
       status  : "SUCCESS",
       message : "Actul normativ a fost modificat",
-      form    : "ITEM_FORM",
+      form    : "ITEM_MODIFY_FORM",
     }),
     informModify = (oldData, value) => {
       informAuthors(oldData, value);

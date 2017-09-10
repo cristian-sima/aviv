@@ -3,6 +3,7 @@
 type AuthorsArrayPropTypes = {
   institutionID: string;
   fields: any;
+  form: string;
 };
 
 import React from "react";
@@ -10,7 +11,7 @@ import React from "react";
 import InstitutionList from "./InstitutionList";
 import SelectInstitution from "./SelectInstitution";
 
-const AuthorsArray = ({ fields, institutionID } : AuthorsArrayPropTypes) => (
+const AuthorsArray = ({ fields, form, institutionID } : AuthorsArrayPropTypes) => (
 
   <div className="form-group row">
     <label
@@ -29,6 +30,7 @@ const AuthorsArray = ({ fields, institutionID } : AuthorsArrayPropTypes) => (
         </div>
         <SelectInstitution
           add={fields.push}
+          form={form}
         />
       </div>
     </div>

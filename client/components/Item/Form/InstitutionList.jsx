@@ -24,7 +24,7 @@ const InstitutionList = ({ fields, institutions, hideInstitutionID } : Instituti
   <div>
     {
       fields.length === 0 ? null : (
-        <ul className={fields.size > 0 ? "mb-2" : ""}>
+        <ul className={fields.size > 0 ? "mb-2 list-group" : "list-group"}>
           <ReactCSSTransitionGroup
             transitionEnterTimeout={100}
             transitionLeaveTimeout={10}
@@ -42,7 +42,7 @@ const InstitutionList = ({ fields, institutions, hideInstitutionID } : Instituti
                 }
 
                 return (
-                  <li key={index}>
+                  <li className="list-group-item mb-1" key={index}>
                     { name }
                     <span className="mx-1">
                       { "-" }

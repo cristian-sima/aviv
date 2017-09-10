@@ -14,11 +14,10 @@ import { createSelector } from "reselect";
 
 import { getInstitutions } from "reducers";
 
-
-import { ITEM_FORM } from "utility/forms";
-
 const
-  getValues = getFormValues(ITEM_FORM),
+  getValues = (state, formID) => (
+    getFormValues(formID)(state)
+  ),
   getAuthors = createSelector(
     getValues,
     (form) => form.get("authors")
@@ -43,8 +42,8 @@ const
   );
 
 const
-  mapStateToPropsSelectInstitution = (state : State) => ({
-    institutions: getRestOfInstitutions(state),
+  mapStateToPropsSelectInstitution = (state : State, { form }) => ({
+    institutions: getRestOfInstitutions(state, form),
   });
 
 class SelectInstitution extends React.Component {

@@ -8,6 +8,7 @@ type FormPropTypes = {
   title: string;
   advicers: any;
   institutionID: string;
+  form: string;
 
   handleRegisterRef?: (node: any) => void;
   handleSubmit: (formData : any) => Promise<*>;
@@ -85,6 +86,7 @@ class Form extends React.Component {
       submitting,
       institutionID,
       handleSubmit,
+      form,
     } = this.props;
 
     const { showAuthors } = this.state;
@@ -133,6 +135,7 @@ class Form extends React.Component {
           <Collapse isOpen={showAuthors}>
             <FieldArray
               component={AuthorsArray}
+              form={form}
               institutionID={institutionID}
               name="authors"
             />
@@ -149,6 +152,7 @@ class Form extends React.Component {
           />
           <FieldArray
             component={AdvicersArray}
+            form={form}
             name="advicers"
           />
           <div className="text-center">

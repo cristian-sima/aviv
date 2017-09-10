@@ -2,6 +2,7 @@
 
 type AdvicersArrayPropTypes = {
   fields: any;
+  form: string;
 }
 
 import React from "react";
@@ -9,7 +10,7 @@ import React from "react";
 import InstitutionList from "./InstitutionList";
 import SelectInstitution from "./SelectInstitution";
 
-const AdvicersArray = ({ fields } : AdvicersArrayPropTypes) => (
+const AdvicersArray = ({ fields, form } : AdvicersArrayPropTypes) => (
 
   <div className="form-group row">
     <label
@@ -24,6 +25,7 @@ const AdvicersArray = ({ fields } : AdvicersArrayPropTypes) => (
       />
       <SelectInstitution
         add={fields.push}
+        form={form}
       />
     </div>
   </div>
