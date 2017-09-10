@@ -68,26 +68,18 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
         return emitFormError("Nu am putut introduce actul normativ");
       }
 
-      for (const key in authors) {
-        if (Object.prototype.hasOwnProperty.call(authors, key)) {
-          const current = authors[key];
-
-          io.to(current).emit("msg", {
-            type    : "ADD_ITEM_STARTED",
-            payload : ops[0],
-          });
-        }
+      for (const author of authors) {
+        io.to(author).emit("msg", {
+          type    : "ADD_ITEM_STARTED",
+          payload : ops[0],
+        });
       }
 
-      for (const key in advicers) {
-        if (Object.prototype.hasOwnProperty.call(advicers, key)) {
-          const current = advicers[key];
-
-          io.to(current).emit("msg", {
-            type    : "ADD_ITEM_TO_ADVICE",
-            payload : ops[0],
-          });
-        }
+      for (const advicer of advicers) {
+        io.to(advicer).emit("msg", {
+          type    : "ADD_ITEM_TO_ADVICE",
+          payload : ops[0],
+        });
       }
 
       return socket.emit("FORM", {

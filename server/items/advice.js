@@ -43,18 +43,14 @@ export const adviceItem = (socket : Socket, db : Database, io : any) => (body : 
         { advicers, authors } = data,
         interested = authors.concat(advicers);
 
-      for (const key in interested) {
-        if (Object.prototype.hasOwnProperty.call(interested, key)) {
-          const current = interested[key];
-
-          io.to(current).emit("msg", {
-            type    : "ADVICE_ITEM",
-            payload : {
-              Item     : data,
-              Versions : [version],
-            },
-          });
-        }
+      for (const current of interested) {
+        io.to(current).emit("msg", {
+          type    : "ADVICE_ITEM",
+          payload : {
+            Item     : data,
+            Versions : [version],
+          },
+        });
       }
 
       socket.emit("FORM", {

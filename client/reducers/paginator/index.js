@@ -26,16 +26,16 @@ const paginator = (state : State, action : Action) => {
       return createItemVersionForAuthor(state, action);
 
     case "CLOSE_ITEM_FOR_ADVICER":
-      return closeItemForAuthor(state, action);
-
-    case "CLOSE_ITEM_FOR_AUTHOR":
       return closeItemForAdvicer(state, action);
 
-    case "ADD_ITEM_AUTHOR":
-      return addItemAuthor(state, action);
+    case "CLOSE_ITEM_FOR_AUTHOR":
+      return closeItemForAuthor(state, action);
 
     case "ADD_ITEM_ADVICER":
       return addItemAdvicer(state, action);
+
+    case "ADD_ITEM_AUTHOR":
+      return addItemAuthor(state, action);
 
     default:
       return state;
