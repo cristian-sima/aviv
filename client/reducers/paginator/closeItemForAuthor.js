@@ -6,7 +6,7 @@ import performDelete from "./util/performDelete";
 import performAddIfNewer from "./util/performAddIfNewer";
 import getShouldModify from "./util/getShouldModify";
 
-const closeItem = (state :State, action : any) => {
+const closeItemForAuthor = (state :State, action : any) => {
 
   const
     { items } = state,
@@ -15,12 +15,10 @@ const closeItem = (state :State, action : any) => {
 
   const
     _id = item.get("_id"),
-    newToAdvice = performAddIfNewer(closed, item),
-    newAdviced = performDelete(started, byID, item);
+    newClosed = performAddIfNewer(closed, item),
+    newStarted = performDelete(started, byID, item);
 
-
-  const
-    shouldAdd = getShouldModify([newToAdvice.IDs], _id);
+  const shouldAdd = getShouldModify([newClosed.IDs], _id);
 
   const newByID = byID.has(_id) ? (
     byID.update(item.get("_id"), (current) => {
@@ -38,11 +36,11 @@ const closeItem = (state :State, action : any) => {
     ...state,
     items: {
       ...items,
-      started : newAdviced,
-      closed  : newToAdvice,
+      started : newStarted,
+      closed  : newClosed,
       byID    : newByID,
     },
   };
 };
 
-export default closeItem;
+export default closeItemForAuthor;

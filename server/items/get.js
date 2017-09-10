@@ -100,9 +100,20 @@ export const getItemsAdviced = (req : Request, res : Response) => {
 
   const
     where = {
-      allAdvices: {
-        "$in": [institutionID],
-      },
+      "$or": [
+        {
+          allAdvices: {
+            "$in": [institutionID],
+          },
+          isClosed: true,
+        },
+        {
+          responses: {
+            "$in": [institutionID],
+          },
+          isClosed: false,
+        },
+      ],
     };
 
   return getItems(req, res, where);

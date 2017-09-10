@@ -6,7 +6,8 @@ import deleteItem from "./deleteItem";
 import adviceItem from "./adviceItem";
 import createItemVersionForAdvicer from "./createItemVersionForAdvicer";
 import createItemVersionForAuthor from "./createItemVersionForAuthor";
-import closeItem from "./closeItem";
+import closeItemForAdvicer from "./closeItemForAdvicer";
+import closeItemForAuthor from "./closeItemForAuthor";
 import addItemAuthor from "./addItemAuthor";
 import addItemAdvicer from "./addItemAdvicer";
 
@@ -24,14 +25,17 @@ const paginator = (state : State, action : Action) => {
     case "CREATE_ITEM_VERSION_FOR_AUTHOR":
       return createItemVersionForAuthor(state, action);
 
+    case "CLOSE_ITEM_FOR_ADVICER":
+      return closeItemForAuthor(state, action);
+
+    case "CLOSE_ITEM_FOR_AUTHOR":
+      return closeItemForAdvicer(state, action);
+
     case "ADD_ITEM_AUTHOR":
       return addItemAuthor(state, action);
 
     case "ADD_ITEM_ADVICER":
       return addItemAdvicer(state, action);
-
-    case "CLOSE_ITEM":
-      return closeItem(state, action);
 
     default:
       return state;
