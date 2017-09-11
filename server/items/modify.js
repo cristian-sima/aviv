@@ -15,10 +15,11 @@ const difference = (first, second) => (
   first.filter((current) => second.indexOf(current) < 0)
 );
 
-export const addItem = (socket : Socket, db : Database, io : any) => (body : any) => {
+export const modifyItem = (socket : Socket, db : Database, io : any) => (body : any) => {
   const
     institutions = db.collection("institutions"),
     items = db.collection("items"),
+    { request : { session : { user : { institutionID } } } } = socket,
     {
       name,
       authors: newAuthors,
@@ -55,26 +56,26 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
   }
 
   const
-    broadcastModify = (institutionID, value) => {
-      io.to(institutionID).emit("msg", {
+    broadcastModify = (current, value) => {
+      io.to(current).emit("msg", {
         type    : "MODIFY_ITEM",
         payload : value,
       });
     },
-    broadcastDelete = (institutionID, value) => {
-      io.to(institutionID).emit("msg", {
+    broadcastDelete = (current, value) => {
+      io.to(current).emit("msg", {
         type    : "DELETE_ITEM",
         payload : value,
       });
     },
-    broadcastAddNewAuthor = (institutionID, value) => {
-      io.to(institutionID).emit("msg", {
+    broadcastAddNewAuthor = (current, value) => {
+      io.to(current).emit("msg", {
         type    : "ADD_ITEM_AUTHOR",
         payload : value,
       });
     },
-    broadcastAddNewAdvicer = (institutionID, value) => {
-      io.to(institutionID).emit("msg", {
+    broadcastAddNewAdvicer = (current, value) => {
+      io.to(current).emit("msg", {
         type    : "ADD_ITEM_ADVICER",
         payload : value,
       });
@@ -154,6 +155,12 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
     return items.findOne(whereClause, (errFindItem, oldData) => {
       if (errFindItem) {
         return emitGenericError();
+      }
+
+      const notYours = !oldData.authors.includes(institutionID);
+
+      if (notYours) {
+        return emitFormError("Acest act normativ nu-ți aparține");
       }
 
       const {
@@ -237,4 +244,4 @@ export const addItem = (socket : Socket, db : Database, io : any) => (body : any
   });
 };
 
-export default addItem;
+export default modifyItem;

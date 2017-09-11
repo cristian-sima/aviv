@@ -136,13 +136,30 @@ export const getItemsClosed = (req : Request, res : Response) => {
 export const getItemDetails = (req : Request, res : Response) => {
   const
     { db, params } = req,
-    // { institutionID } = user,
+    { user : { institutionID } } = req,
     { itemID } = params;
 
   const
     id = ObjectId(itemID),
     whereClause = {
-      "_id": id,
+      "_id" : id,
+      "$or" : [
+        {
+          "allAdvices": {
+            "$in": [institutionID],
+          },
+        },
+        {
+          "advicers": {
+            "$in": [institutionID],
+          },
+        },
+        {
+          "authors": {
+            "$in": [institutionID],
+          },
+        },
+      ],
     },
     whereVersionClause = {
       itemID,
