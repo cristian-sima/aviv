@@ -182,7 +182,7 @@ class Login extends React.Component {
           mt-3 mt-md-5
           col-lg-6 offset-lg-4
           col-md-8 offset-md-2
-          col-xl-5 offset-xl-4">
+          col-xl-6 offset-xl-3">
           <form className="mt-3 mt-md-4" onSubmit={handleSubmit(this.handleSubmit)}>
             {error ? (
               <div className="alert alert-danger">
