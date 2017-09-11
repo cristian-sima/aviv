@@ -39,7 +39,7 @@ const findInstitutionByName = (nameToFind, list) => {
 
 const findInstitutionByID = (idToFind, list) => {
   for (const institution of list) {
-    if (idToFind === institution._id) {
+    if (idToFind === String(institution._id)) {
       return institution;
     }
   }
@@ -65,8 +65,7 @@ const formatBeforeWrite = (users, institutions) => {
 
   const data = users.map((user) => {
     delete user._id;
-    delete user.institutionID;
-    delete user.institutionID;
+    delete user.requireChange;
     delete user.email;
     delete user.phone;
 
@@ -145,7 +144,7 @@ MongoClient.connect(url, (errConnectDatabase, db) => {
         name = getRandomName(),
         user = {
           username,
-          institutionID     : findInstitutionByName(institution, listOfInstitutions)._id,
+          institutionID     : String(findInstitutionByName(institution, listOfInstitutions)._id),
           name,
           temporaryPassword : generateTemporaryPassword(),
           requireChange     : true,
