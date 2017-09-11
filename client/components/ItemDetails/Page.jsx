@@ -78,7 +78,7 @@ class Page extends React.Component {
       <div className="mt-3">
         <div className="container">
           <div className="row">
-            <div className="col-xl-4">
+            <div className="col-lg-4 col-xl-4">
               <Sidebar
                 confirmDeleteItem={confirmDeleteItem}
                 data={data}
@@ -88,7 +88,7 @@ class Page extends React.Component {
                 showHistoryModal={showHistoryModal}
               />
             </div>
-            <div className="col-xl-8">
+            <div className="col-lg-8 col-xl-8 mt-3 mt-xl-0">
               <div>
                 <span style={{
                   fontSize: 19,
@@ -146,7 +146,8 @@ class Page extends React.Component {
             </div>
           </div>
           <br />
-          <table className="table table-responsive table-sm table-hover items-to-advice-table">
+          <table
+            className="mb-5 table table-responsive table-sm table-hover items-to-advice-table">
             <thead>
               <tr>
                 <th>{"Instituție avizatoare"}</th>
