@@ -93,11 +93,7 @@ class Page extends React.Component {
                 }}>{name}
                 </span>
                 {
-                  isClosed ? (
-                    <div className="fancy-text mt-3">
-                      {"Trimis la SGG"}
-                    </div>
-                  ) : (
+                  isClosed ? null : (
                     isAdvicer ? (
                       <AdvicerSectionContainer
                         emit={emit}
@@ -105,22 +101,33 @@ class Page extends React.Component {
                       />
                     ) : (
                       responses.size === advicers.size ? (
-
                         <div className="mt-4 mt-md-5 mb-sm-4 text-center">
-                          <button
-                            className="btn btn-outline-secondary mr-sm-1 mr-md-5"
-                            onClick={confirmCreateVersion}
-                            type="button">
-                            <i className="fa fa-retweet mr-1" />
-                            {"Trimite la re-avizare"}
-                          </button>
-                          <button
-                            className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
-                            onClick={confirmCloseItem}
-                            type="button">
-                            {"Trimite la SGG"}
-                            <i className="fa fa-arrow-right ml-1" />
-                          </button>
+                          <div className="mb-1">
+                            <button
+                              className="btn btn-outline-secondary mr-sm-1 mr-md-5"
+                              onClick={confirmCreateVersion}
+                              type="button">
+                              <i className="fa fa-retweet mr-1" />
+                              {"Trimite la re-avizare"}
+                            </button>
+                            <button
+                              className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
+                              onClick={confirmCloseItem}
+                              type="button">
+                              <i className="fa fa-comments mr-1" />
+                              {"Dezbate în ședința pregătitoare"}
+                            </button>
+                          </div>
+                          <hr />
+                          <div>
+                            <button
+                              className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
+                              onClick={confirmCloseItem}
+                              type="button">
+                              {"Trimite la SGG"}
+                              <i className="fa fa-arrow-right ml-1" />
+                            </button>
+                          </div>
                         </div>
                       ) : null
                     )

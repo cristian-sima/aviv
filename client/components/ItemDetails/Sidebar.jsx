@@ -60,7 +60,7 @@ class Sidebar extends React.Component {
                 progress === oneHundred ? (
                   "A primit toate avizele"
                 ) : "În avizare"
-              ) : "Trimis SGG"
+              ) : "Trimis la SGG"
             }
           </h4>
 
