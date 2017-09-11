@@ -147,7 +147,7 @@ class Form extends React.Component {
             name="name"
             onRegisterRef={this.handleRegisterRef}
             right="col-md-10 col-xl-8"
-            rows={6}
+            rows="10"
             withRef
           />
           <FieldArray

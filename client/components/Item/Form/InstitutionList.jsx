@@ -42,13 +42,10 @@ const InstitutionList = ({ fields, institutions, hideInstitutionID } : Instituti
                 }
 
                 return (
-                  <li className="list-group-item mb-1" key={index}>
+                  <li className="list-group-item list-group-item-info mb-1" key={index}>
                     { name }
-                    <span className="mx-1">
-                      { "-" }
-                    </span>
                     <span
-                      className="text-muted cursor-pointer"
+                      className="ml-2 text-muted cursor-pointer"
                       onClick={() => fields.remove(index)}>
                       {"Șterge"}
                     </span>
