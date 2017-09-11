@@ -71,21 +71,20 @@ class AuthorsBox extends React.Component {
                 }
               </button>
               <Collapse isOpen={isOpen}>
-                <div className="small">
+                <ul className="small list-group">
                   {
                     authors.map((author) => (
-                      <div key={author}>
-                        <span>{"- "}</span>
+                      <li className="list-group-item" key={author}>
                         {
                           institutions.getIn([
                             author,
                             "name",
                           ])
                         }
-                      </div>
+                      </li>
                     ))
                   }
-                </div>
+                </ul>
               </Collapse>
             </div>
           )
