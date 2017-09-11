@@ -9,6 +9,8 @@ type RowPropTypes = {
   institutions: any;
 };
 
+import AuthorsBox from "../ItemDetails/AuthorsBox";
+
 class Row extends React.Component {
   props: RowPropTypes;
 
@@ -39,24 +41,11 @@ class Row extends React.Component {
             {name}
           </Link>
         </td>
-        <td className="small no-wrap item-authors">
-          {
-            authors.map((author) => (
-              <div key={author}>
-                {
-                  authors.size === 1 ? null : (
-                    <span>{"- "}</span>
-                  )
-                }
-                {
-                  institutions.getIn([
-                    author,
-                    "name",
-                  ])
-                }
-              </div>
-            ))
-          }
+        <td className="no-wrap item-authors">
+          <AuthorsBox
+            authors={authors}
+            institutions={institutions}
+          />
         </td>
       </tr>
     );
