@@ -36,9 +36,14 @@ const
 
     message: (
       <span>
-        {"Vrei să trimiți actul normativ la re-avizat?"}
+        {`
+          Actul va fi trimis la toate instituțiile avizatoare, în vederea obținerii unor noi avize.
+           Ești sigur că acest lucru dorești?
+        `}
+        <hr />
         <div className="mt-2 text-warning">
-          <i className="fa fa-exclamation-triangle mr-1" />{"Această operațiune este ireversibilă."}
+          <i className="fa fa-exclamation-triangle mr-1" />
+          {"Această operațiune este ireversibilă"}
         </div>
       </span>
     ),

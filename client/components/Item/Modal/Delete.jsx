@@ -39,8 +39,10 @@ const
     message: (
       <span>
         {"Vrei retragi actul normativ?"}
+        <hr />
         <div className="mt-2 text-warning">
-          <i className="fa fa-exclamation-triangle mr-1" />{"Această operațiune este ireversibilă."}
+          <i className="fa fa-exclamation-triangle mr-1" />
+          {"Această operațiune este ireversibilă"}
         </div>
       </span>
     ),

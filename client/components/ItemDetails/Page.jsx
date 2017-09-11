@@ -111,6 +111,7 @@ class Page extends React.Component {
                             className="btn btn-outline-secondary mr-sm-1 mr-md-5"
                             onClick={confirmCreateVersion}
                             type="button">
+                            <i className="fa fa-retweet mr-1" />
                             {"Trimite la re-avizare"}
                           </button>
                           <button
@@ -118,6 +119,7 @@ class Page extends React.Component {
                             onClick={confirmCloseItem}
                             type="button">
                             {"Trimite la SGG"}
+                            <i className="fa fa-arrow-right ml-1" />
                           </button>
                         </div>
                       ) : null
