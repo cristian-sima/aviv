@@ -20,6 +20,7 @@ type PagePropTypes = {
   confirmCreateVersion: () => void;
   modifyItem: () => void;
   confirmCloseItem: () => void;
+  confirmDebateItem: () => void;
 
   showContactsForInstitution: (id : string) => () => void;
   showHistoryModal: () => void;
@@ -48,6 +49,7 @@ class Page extends React.Component {
 
       confirmCreateVersion,
       confirmCloseItem,
+      confirmDebateItem,
       modifyItem,
 
       emit,
@@ -61,6 +63,7 @@ class Page extends React.Component {
       responses = data.get("responses"),
       version = data.get("version"),
       advicers = data.get("advicers"),
+      isDebating = data.get("isDebating"),
       isClosed = data.get("isClosed");
 
     const currentVersion = versions.filter((current) => {
@@ -70,7 +73,6 @@ class Page extends React.Component {
 
       return current.get("version") === version;
     });
-
 
     return (
       <div className="mt-3">
@@ -95,39 +97,46 @@ class Page extends React.Component {
                 {
                   isClosed ? null : (
                     isAdvicer ? (
-                      <AdvicerSectionContainer
-                        emit={emit}
-                        id={id}
-                      />
+                      isDebating ? null : (
+                        <AdvicerSectionContainer
+                          emit={emit}
+                          id={id}
+                        />
+                      )
                     ) : (
                       responses.size === advicers.size ? (
                         <div className="mt-4 mt-md-5 mb-sm-4 text-center">
                           <div className="mb-1">
                             <button
-                              className="btn btn-outline-secondary mr-sm-1 mr-md-5"
+                              className="btn btn-outline-secondary"
                               onClick={confirmCreateVersion}
                               type="button">
                               <i className="fa fa-retweet mr-1" />
                               {"Trimite la re-avizare"}
                             </button>
-                            <button
-                              className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
-                              onClick={confirmCloseItem}
-                              type="button">
-                              <i className="fa fa-comments mr-1" />
-                              {"Dezbate în ședința pregătitoare"}
-                            </button>
+                            {
+                              isDebating ? null : (
+                                <button
+                                  className={`
+                                  btn btn-outline-secondary
+                                  ml-sm-1 ml-md-5 mt-2 mt-sm-0 ml-sm-1 ml-md-5
+                                  `}
+                                  onClick={confirmDebateItem}
+                                  type="button">
+                                  <i className="fa fa-comments mr-1" />
+                                  {"Dezbate în ședința pregătitoare"}
+                                </button>
+                              )
+                            }
                           </div>
                           <hr />
-                          <div>
-                            <button
-                              className="btn btn-outline-secondary mt-2 mt-sm-0 ml-sm-1 ml-md-5"
-                              onClick={confirmCloseItem}
-                              type="button">
-                              {"Trimite la SGG"}
-                              <i className="fa fa-arrow-right ml-1" />
-                            </button>
-                          </div>
+                          <button
+                            className="btn btn-outline-secondary mt-2 mt-sm-0 d-inline"
+                            onClick={confirmCloseItem}
+                            type="button">
+                            {"Trimite la SGG"}
+                            <i className="fa fa-arrow-right ml-1" />
+                          </button>
                         </div>
                       ) : null
                     )

@@ -67,8 +67,9 @@ export const createVersion = (socket : Socket, db : Database, io : any) => (body
     const
       setVersionClause = {
         "$set": {
-          version   : data.version + 1,
-          responses : [],
+          version    : data.version + 1,
+          responses  : [],
+          isDebating : false,
         },
       };
 

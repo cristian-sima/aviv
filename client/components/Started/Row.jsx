@@ -46,7 +46,12 @@ class Row extends React.Component {
         <td className="small no-wrap item-authors text-center">
           {
             progress === oneHundred ? (
-              isDebating ? "Dezbătut în pregătitoare" : (
+              isDebating ? (
+                <span>
+                  <i className="fa fa-comments mr-1" />
+                  {"Dezbătut în pregătitoare"}
+                </span>
+              ) : (
                 needsExamination ? "Necesită examinare" : (
                   <i className="fa fa-check text-success fa-2x" />
                 )

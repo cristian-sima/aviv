@@ -15,34 +15,29 @@ export const createVersion = (socket : Socket, db : Database, io : any) => (body
       socket.emit("CONFIRMATION", {
         status : "FAILED",
         error  : msg,
-        id     : "CONFIRM_CLOSE_ITEM",
+        id     : "CONFIRM_DEBATE_ITEM",
       })
     ),
-    emitGenericError = () => emitFormError("Nu am putut trimite actul la SGG"),
+    emitGenericError = () => emitFormError("Nu am putut trimite actul în ședința pregătitoare"),
     whereClause = {
       _id,
     },
     informSuccessCreateVersion = (data) => {
-      const { advicers, authors } = data;
+      const
+        { advicers, authors } = data,
+        interested = authors.concat(advicers);
 
-      for (const advicer of advicers) {
-        io.to(advicer).emit("msg", {
-          type    : "CLOSE_ITEM_FOR_ADVICER",
-          payload : data,
-        });
-      }
-
-      for (const author of authors) {
-        io.to(author).emit("msg", {
-          type    : "CLOSE_ITEM_FOR_AUTHOR",
+      for (const current of interested) {
+        io.to(current).emit("msg", {
+          type    : "DEBATE_ITEM",
           payload : data,
         });
       }
 
       socket.emit("CONFIRMATION", {
         status  : "SUCCESS",
-        message : "Actul a fost trimis la SGG",
-        id      : "CONFIRM_CLOSE_ITEM",
+        message : "Am efectuat modificarea",
+        id      : "CONFIRM_DEBATE_ITEM",
       });
     };
 
@@ -66,8 +61,7 @@ export const createVersion = (socket : Socket, db : Database, io : any) => (body
     const
       setVersionClause = {
         "$set": {
-          isClosed   : true,
-          isDebating : false,
+          isDebating: true,
         },
       };
 

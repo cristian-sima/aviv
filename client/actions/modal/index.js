@@ -97,6 +97,13 @@ export const createVersionModal = (id : string, emit : Emit) : Action => (
   })
 );
 
+export const debateItemModal = (id : string, emit : Emit) : Action => (
+  createModal("DEBATE_ITEM", {
+    id,
+    emit,
+  })
+);
+
 export const closeItemModal = (id : string, emit : Emit) : Action => (
   createModal("CLOSE_ITEM", {
     id,

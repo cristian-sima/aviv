@@ -45,29 +45,29 @@ class Sidebar extends React.Component {
       responses = data.get("responses"),
       needsExamination = data.get("needsExamination"),
       advicers = data.get("advicers"),
+      isDebating = data.get("isDebating"),
       isClosed = data.get("isClosed");
 
     const progress = Math.round(responses.size / advicers.size * oneHundred);
-
-    const isRecevingAdvices = !isClosed;
 
     return (
       <div className="card">
         <div className="card-body">
           <h4 className="card-title">
             {
-              isRecevingAdvices ? (
-                progress === oneHundred ? (
-                  "A primit toate avizele"
-                ) : "În avizare"
-              ) : "Trimis la SGG"
+              isClosed ? "Trimis la SGG" : (
+                isDebating ? "Dezbătut în pregătitoare" : (
+                  progress === oneHundred ? (
+                    "A primit toate avizele"
+                  ) : "În avizare"
+                )
+              )
             }
           </h4>
-
-          <p className="card-text">
-            {
-              isRecevingAdvices ? (
-                (
+          {
+            isClosed || isDebating ? null : (
+              <div className="card-text">
+                {
                   progress === oneHundred ? (
                     needsExamination ? (
                       "Necesită examinare"
@@ -89,10 +89,10 @@ class Sidebar extends React.Component {
                       </div>
                     </div>
                   )
-                )
-              ) : null
-            }
-          </p>
+                }
+              </div>
+            )
+          }
         </div>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">

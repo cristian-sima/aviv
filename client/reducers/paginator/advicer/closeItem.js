@@ -21,7 +21,10 @@ const closeItem = (state :State, action : any) => {
         return current;
       }
 
-      return current.set("isClosed", true);
+      return current.merge({
+        "isClosed"   : true,
+        "isDebating" : false,
+      });
     })
   ) : (
     shouldAdd ? byID.set(item.get("_id"), item) : byID

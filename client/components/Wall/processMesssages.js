@@ -16,6 +16,7 @@ const processMesssages = (dispatch : any, msg : Message) => {
 
   switch (msg.type) {
     case "DELETE_ITEM":
+    case "DEBATE_ITEM":
 
     case "ADD_ITEM_STARTED":
     case "ADD_ITEM_TO_ADVICE":

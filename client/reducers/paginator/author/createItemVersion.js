@@ -25,8 +25,9 @@ const createItemVersion = (state :State, action : any) => {
       }
 
       return current.merge({
-        version   : item.get("version"),
-        responses : Immutable.List(),
+        version    : item.get("version"),
+        responses  : Immutable.List(),
+        isDebating : false,
       });
     })
   ) : (

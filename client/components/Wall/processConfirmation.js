@@ -31,6 +31,7 @@ const processConfirmation = (dispatch : any, { status, id, error, message } : Ms
           break;
         case "CONFIRM_CREATE_VERSION":
         case "CONFIRM_CLOSE_ITEM":
+        case "CONFIRM_DEBATE_ITEM":
           setTimeout(() => {
             dispatch(hideModalAction());
           });

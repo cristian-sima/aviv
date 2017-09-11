@@ -61,7 +61,7 @@ const
   },
   addOrModifyItem = (state : ItemsByIDState, { payload }) => (
     state.set(
-      String(payload.get("_id")),
+      payload.get("_id"),
       payload.merge({
         detailsFetched       : true,
         detailsFetching      : false,
@@ -71,7 +71,7 @@ const
   ),
   modifyItem = (state : ItemsByIDState, { payload }) => (
     state.update(
-      String(payload.get("_id")),
+      payload.get("_id"),
       (current) => {
         if (typeof current === "undefined") {
           return current;
@@ -85,6 +85,18 @@ const
           responses        : payload.get("responses"),
           allAdvices       : payload.get("allAdvices"),
         });
+      }
+    )
+  ),
+  debateItem = (state : ItemsByIDState, { payload }) => (
+    state.update(
+      payload.get("_id"),
+      (current) => {
+        if (typeof current === "undefined") {
+          return current;
+        }
+
+        return current.set("isDebating", true);
       }
     )
   );
@@ -112,6 +124,9 @@ export const byIDItems = (state : ItemsByIDState = initialState, action : any) =
 
     case "MODIFY_ITEM":
       return modifyItem(state, action);
+
+    case "DEBATE_ITEM":
+      return debateItem(state, action);
 
     case "RECONNECTING_LIVE":
     case "SIGN_OFF_FULFILLED":

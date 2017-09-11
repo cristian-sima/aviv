@@ -30,6 +30,7 @@ type ItemPagePropTypes = {
 
   confirmCloseItem: () => void;
   confirmDeleteItem: () => void;
+  confirmDebateItem: () => void;
   confirmCreateVersion: () => void;
 }
 
@@ -60,6 +61,7 @@ import {
   showHistoryModal as showHistoryModalAction,
   closeItemModal as closeItemModalAction,
   modifyItemModal as modifyItemModalAction,
+  debateItemModal as debateItemModalAction,
 } from "actions";
 
 const
@@ -83,6 +85,9 @@ const
     },
     confirmDeleteItem () {
       dispatch(deleteItemModalAction(item, emit));
+    },
+    confirmDebateItem () {
+      dispatch(debateItemModalAction(item, emit));
     },
     showHistoryModal () {
       dispatch(showHistoryModalAction(item));

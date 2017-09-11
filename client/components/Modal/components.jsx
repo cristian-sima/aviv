@@ -19,6 +19,7 @@ import ConfirmResetUserPassword from "../User/Modal/ConfirmReset";
 
 import ModifyItem from "../Item/Modal/Modify";
 import DeleteItem from "../Item/Modal/Delete";
+import DebateItem from "../Item/Modal/Debate";
 import CreateVersion from "../Item/Modal/CreateVersion";
 import CloseItem from "../Item/Modal/Close";
 import ShowHistory from "../Item/Modal/ShowHistory";
@@ -52,6 +53,9 @@ const getComponent = (type : ModalActionType) : any => {
 
     case "DELETE_USER":
       return DeleteUser;
+
+    case "DEBATE_ITEM":
+      return DebateItem;
 
     case "CONFIRM_RESET_USER_PASSWORD":
       return ConfirmResetUserPassword;
