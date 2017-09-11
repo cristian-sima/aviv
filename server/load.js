@@ -144,8 +144,9 @@ MongoClient.connect(url, (errConnectDatabase, db) => {
         name = getRandomName(),
         user = {
           username,
-          institutionID     : String(findInstitutionByName(institution, listOfInstitutions)._id),
           name,
+
+          institutionID     : String(findInstitutionByName(institution, listOfInstitutions)._id),
           temporaryPassword : generateTemporaryPassword(),
           requireChange     : true,
           phone             : getRandomNumber(),
