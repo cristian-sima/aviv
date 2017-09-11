@@ -26,8 +26,6 @@ type PagePropTypes = {
   showDeleteItemModal: () => void;
 };
 
-const oneHundred = 100;
-
 class Page extends React.Component {
   props: PagePropTypes;
 
@@ -73,12 +71,21 @@ class Page extends React.Component {
       return current.get("version") === version;
     });
 
-    const progress = Math.round(responses.size / advicers.size * oneHundred);
 
     return (
       <div className="mt-3">
         <div className="container">
           <div className="row">
+            <div className="col-xl-4">
+              <Sidebar
+                confirmDeleteItem={confirmDeleteItem}
+                data={data}
+                institutions={institutions}
+                isAdvicer={isAdvicer}
+                modifyItem={modifyItem}
+                showHistoryModal={showHistoryModal}
+              />
+            </div>
             <div className="col-xl-8">
               <div>
                 <span style={{
@@ -113,36 +120,11 @@ class Page extends React.Component {
                             {"Trimite la SGG"}
                           </button>
                         </div>
-                      ) : (
-                        <div className="mt-5 mb-md-4 progress">
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{
-                              width: `${progress}%`,
-                            }}>
-                            {
-                              progress === 0 ? null : (
-                                `${progress}%`
-                              )
-                            }
-                          </div>
-                        </div>
-                      )
+                      ) : null
                     )
                   )
                 }
               </div>
-            </div>
-            <div className="col-xl-4">
-              <Sidebar
-                confirmDeleteItem={confirmDeleteItem}
-                data={data}
-                institutions={institutions}
-                isAdvicer={isAdvicer}
-                modifyItem={modifyItem}
-                showHistoryModal={showHistoryModal}
-              />
             </div>
           </div>
           <br />
