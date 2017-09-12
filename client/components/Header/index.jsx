@@ -66,13 +66,16 @@ class Header extends React.Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
           <span className="navbar-brand">
             <img
               alt="logo"
               className="d-inline-block align-top mr-1 text-muted"
               src="/media/small.png" />
             {"aviz.gov.ro"}
+            <pre className="small d-inline text-muted">
+              {" [beta]"}
+            </pre>
           </span>
           {
             isConnected ? (
