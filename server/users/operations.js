@@ -58,8 +58,6 @@ export const resetPassword = (req : Request, res : Response) => {
         return error(errUpdate);
       }
 
-      console.log("whereQuery", whereQuery);
-
       return res.json({
         Error: "",
         temporaryPassword,
