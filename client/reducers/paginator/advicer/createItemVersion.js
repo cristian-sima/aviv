@@ -19,7 +19,7 @@ const createItemVersion = (state :State, action : any) => {
   const
     _id = item.get("_id"),
     newToAdvice = performAddIfNewer(toAdvice, item),
-    newAdviced = performDelete(adviced, byID, item);
+    newAdviced = performDelete(adviced, byID, _id);
 
   const
     shouldAdd = getShouldModify([newToAdvice.IDs], _id);

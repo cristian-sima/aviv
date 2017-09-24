@@ -23,7 +23,7 @@ const adviceItem = (state : State, action : any) => {
     currentInstitutionID = version.get("institutionID");
 
   const
-    newToAdvice = performDelete(toAdvice, byID, item),
+    newToAdvice = performDelete(toAdvice, byID, _id),
     newAdviced = performAddIfNewer(adviced, item);
 
   const

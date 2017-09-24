@@ -15,7 +15,7 @@ const getTheLastItem = (ids, data) => {
   return sortedByTime.get(sortedByTime.size - 2);
 };
 
-const performDelete = (state : PaginatorState, data : any, item : any) => {
+const performDelete = (state : PaginatorState, data : any, id : string) => {
   const { lastID, lastDate, total, IDs, negativeOffset } = state;
 
   if (total === nothingFetched) {
@@ -23,7 +23,6 @@ const performDelete = (state : PaginatorState, data : any, item : any) => {
   }
 
   const
-    id = item.get("_id"),
     findAndRemoveCurrent = () => (
       IDs.remove(IDs.findIndex((current) => current === id))
     );

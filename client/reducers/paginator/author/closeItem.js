@@ -16,7 +16,7 @@ const closeItem = (state :State, action : any) => {
   const
     _id = item.get("_id"),
     newClosed = performAddIfNewer(closed, item),
-    newStarted = performDelete(started, byID, item);
+    newStarted = performDelete(started, byID, _id);
 
   const shouldAdd = getShouldModify([newClosed.IDs], _id);
 

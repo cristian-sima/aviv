@@ -5,13 +5,15 @@ import type { State } from "types";
 import performDelete from "./util/performDelete";
 
 const deleteItem = (state : State, action : any) => {
-  const _id = action.payload.get("_id");
+  const
+    { items: { byID } } = state,
+    _id = action.payload.get("_id");
 
   return {
     ...state,
     items: {
       ...state.items,
-      byID: state.items.byID.update(_id, (current) => {
+      byID: byID.update(_id, (current) => {
         if (typeof current === "undefined") {
           return current;
         }
@@ -20,9 +22,9 @@ const deleteItem = (state : State, action : any) => {
           detailsFetchingError: "Removed",
         });
       }),
-      adviced  : performDelete(state.items.adviced, state.items.byID, action.payload),
-      started  : performDelete(state.items.started, state.items.byID, action.payload),
-      toAdvice : performDelete(state.items.toAdvice, state.items.byID, action.payload),
+      adviced  : performDelete(state.items.adviced, byID, _id),
+      started  : performDelete(state.items.started, byID, _id),
+      toAdvice : performDelete(state.items.toAdvice, byID, _id),
     },
     versions: state.versions.remove(_id),
   };

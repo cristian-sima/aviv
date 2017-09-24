@@ -16,6 +16,7 @@ dist
 _test
 output.json
 .tmp_build
+build/config.gypi
 
 # Architecture specific extensions/prefixes
 *.[568vq]
