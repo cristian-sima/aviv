@@ -8,7 +8,7 @@ type RowPropTypes = {
   data: any;
 };
 
-class Row extends React.Component {
+class Row extends React.Component<RowPropTypes> {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {

@@ -46,7 +46,7 @@ const
     institutions: getRestOfInstitutions(state, form),
   });
 
-class SelectInstitution extends React.Component {
+class SelectInstitution extends React.Component<SelectInstitutionPropTypes> {
   props: SelectInstitutionPropTypes;
 
   addInstitution: () => void;

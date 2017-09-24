@@ -22,7 +22,7 @@ type AdvicerSectionPropTypes = {
 
 import FormContainer from "./Advice/FormContainer";
 
-class AdvicerSection extends React.Component {
+class AdvicerSection extends React.Component<AdvicerSectionPropTypes, AdvicerSectionStateTypes> {
   props: AdvicerSectionPropTypes;
   state: AdvicerSectionStateTypes;
 

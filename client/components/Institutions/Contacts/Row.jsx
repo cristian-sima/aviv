@@ -6,7 +6,7 @@ type RowPropTypes = {
 
 import React from "react";
 
-class Row extends React.Component {
+class Row extends React.Component<RowPropTypes> {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {

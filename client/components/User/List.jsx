@@ -14,7 +14,7 @@ import { Button } from "reactstrap";
 
 import Row from "./Row";
 
-class List extends React.Component {
+class List extends React.Component<ListPropTypes> {
   props: ListPropTypes;
 
   shouldComponentUpdate (nextProps : ListPropTypes) {

@@ -17,7 +17,7 @@ const oneHundred = 100;
 
 import AuthorsBox from "./AuthorsBox";
 
-class Sidebar extends React.Component {
+class Sidebar extends React.Component<SidebarPropTypes> {
   props: SidebarPropTypes;
 
   shouldComponentUpdate (nextProps : SidebarPropTypes) {

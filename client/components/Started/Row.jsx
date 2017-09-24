@@ -10,7 +10,7 @@ type RowPropTypes = {
 
 const oneHundred = 100;
 
-class Row extends React.Component {
+class Row extends React.Component<RowPropTypes> {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {

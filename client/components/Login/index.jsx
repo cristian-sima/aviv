@@ -100,7 +100,7 @@ const returnProblem = (error : any) => {
   }
 };
 
-class Login extends React.Component {
+class Login extends React.Component<FormPropTypes> {
 
   props: FormPropTypes;
 

@@ -27,7 +27,7 @@ type PagePropTypes = {
   showDeleteItemModal: () => void;
 };
 
-class Page extends React.Component {
+class Page extends React.Component<PagePropTypes> {
   props: PagePropTypes;
 
   shouldComponentUpdate (nextProps : PagePropTypes) {

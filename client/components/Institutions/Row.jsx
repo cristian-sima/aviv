@@ -9,12 +9,13 @@ type RowPropTypes = {
 
 import React from "react";
 
-const Row = ({
-  data,
-  modifyRow,
-  deleteRow,
-  showUsers,
-} : RowPropTypes) => {
+const Row = (props : RowPropTypes) => {
+  const {
+    data,
+    modifyRow,
+    deleteRow,
+    showUsers,
+  } = props;
 
   const
     id = data.get("_id"),

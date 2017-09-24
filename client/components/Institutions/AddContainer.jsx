@@ -39,7 +39,7 @@ const AddForm = reduxForm({
   validate,
 })(Form);
 
-class AddInstitution extends React.Component {
+class AddInstitution extends React.Component<AddInstitutionPropTypes> {
 
   props: AddInstitutionPropTypes;
 

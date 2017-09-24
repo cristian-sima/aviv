@@ -17,48 +17,53 @@ import {
   checkForErrorsThenNormalizeItemDetails,
 } from "./normalize";
 
-export const performLogin = (data : PerformLoginTypes) => new Promise((resolve, reject) => (
-  agent.
-    post("/api/login").
-    send(data).
-    type("form").
-    end(withPromiseCallback(resolve, reject))
-));
+export const performLogin = (data : PerformLoginTypes) : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/login").
+      send(data).
+      type("form").
+      end(withPromiseCallback(resolve, reject))
+  ));
 
-export const changePassword = (data : ChangePasswordTypes) => new Promise((resolve, reject) => (
-  agent.
-    post("/api/auth/changePassword").
-    send(data).
-    type("form").
-    end(withPromiseCallback(resolve, reject))
-));
+export const changePassword = (data : ChangePasswordTypes) : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/auth/changePassword").
+      send(data).
+      type("form").
+      end(withPromiseCallback(resolve, reject))
+  ));
 
-export const signOff = () => new Promise((resolve, reject) => (
-  agent.
-    post("/api/auth/signOff").
-    end(withPromiseCallback(resolve, reject))
-));
+export const signOff = () : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/auth/signOff").
+      end(withPromiseCallback(resolve, reject))
+  ));
 
-export const performReconnect = () => new Promise((resolve, reject) => (
-  agent.
-    post("/api/auth/reconnect").
-    end(withPromiseCallback(resolve, reject))
-));
+export const performReconnect = () : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/auth/reconnect").
+      end(withPromiseCallback(resolve, reject))
+  ));
 
-export const fetchInstitutions = () => new Promise((resolve, reject) => (
-  agent.
-    get("/api/institutions").
-    type("json").
-    end(withPromiseCallback(
-      ({ Institutions, Users }) => resolve({
-        institutions : normalizeArray(Institutions),
-        users        : normalizeArray(Users),
-      }),
-      reject
-    ))
-));
+export const fetchInstitutions = () : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      get("/api/institutions").
+      type("json").
+      end(withPromiseCallback(
+        ({ Institutions, Users }) => resolve({
+          institutions : normalizeArray(Institutions),
+          users        : normalizeArray(Users),
+        }),
+        reject
+      ))
+  ));
 
-export const addInstitution = (data : any) => (
+export const addInstitution = (data : any) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       put("/api/institutions").
@@ -68,7 +73,7 @@ export const addInstitution = (data : any) => (
   ))
 );
 
-export const modifyInstitution = (data : any) => (
+export const modifyInstitution = (data : any) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       post(`/api/institutions/${data._id}`).
@@ -78,7 +83,7 @@ export const modifyInstitution = (data : any) => (
   ))
 );
 
-export const deleteInstitution = (id : number) => (
+export const deleteInstitution = (id : number) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       del(`/api/institutions/${id}`).
@@ -87,7 +92,7 @@ export const deleteInstitution = (id : number) => (
   ))
 );
 
-export const addUser = (data : any) => (
+export const addUser = (data : any) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       put("/api/users").
@@ -97,7 +102,7 @@ export const addUser = (data : any) => (
   ))
 );
 
-export const modifyUser = (data : any) => (
+export const modifyUser = (data : any) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       post(`/api/users/${data._id}`).
@@ -107,7 +112,7 @@ export const modifyUser = (data : any) => (
   ))
 );
 
-export const deleteUser = (id : number) => (
+export const deleteUser = (id : number) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       del(`/api/users/${id}`).
@@ -116,13 +121,14 @@ export const deleteUser = (id : number) => (
   ))
 );
 
-export const resetPassword = (id : string) => new Promise((resolve, reject) => (
-  agent.
-    post(`api/users/${id}/reset-password`).
-    end(withPromiseCallback(resolve, reject))
-));
+export const resetPassword = (id : string) : Promise<any> =>
+  new Promise((resolve, reject) => (
+    agent.
+      post(`api/users/${id}/reset-password`).
+      end(withPromiseCallback(resolve, reject))
+  ));
 
-export const fetchItemsToAdviceFrom = (lastID: string) => (
+export const fetchItemsToAdviceFrom = (lastID: string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get("/api/items/items-to-advice").
@@ -142,7 +148,7 @@ export const fetchItemsToAdviceFrom = (lastID: string) => (
   ))
 );
 
-export const fetchItemsAdvicedFrom = (lastID: string) => (
+export const fetchItemsAdvicedFrom = (lastID: string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get("/api/items/items-adviced").
@@ -162,7 +168,7 @@ export const fetchItemsAdvicedFrom = (lastID: string) => (
   ))
 );
 
-export const fetchItemsStartedFrom = (lastID: string) => (
+export const fetchItemsStartedFrom = (lastID: string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get("/api/items/items-started").
@@ -182,7 +188,7 @@ export const fetchItemsStartedFrom = (lastID: string) => (
   ))
 );
 
-export const fetchItemsClosedFrom = (lastID: string) => (
+export const fetchItemsClosedFrom = (lastID: string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get("/api/items/items-closed").
@@ -202,7 +208,7 @@ export const fetchItemsClosedFrom = (lastID: string) => (
   ))
 );
 
-export const fetchItemDetails = (id : string) => (
+export const fetchItemDetails = (id : string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get(`/api/items/item/${id}`).
@@ -211,7 +217,7 @@ export const fetchItemDetails = (id : string) => (
   ))
 );
 
-export const fetchSuggestions = (search : string) => (
+export const fetchSuggestions = (search : string) : Promise<any> => (
   new Promise((resolve, reject) => (
     agent.
       get("/api/items/items-suggestions").

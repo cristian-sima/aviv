@@ -51,7 +51,7 @@ const
   });
 
 
-class PrivateRoute extends React.Component {
+class PrivateRoute extends React.Component<PrivateRoutePropTypes> {
   props: PrivateRoutePropTypes;
 
   componentWillMount () {

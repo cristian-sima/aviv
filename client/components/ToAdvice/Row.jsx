@@ -11,7 +11,7 @@ type RowPropTypes = {
 
 import AuthorsBox from "../ItemDetails/AuthorsBox";
 
-class Row extends React.Component {
+class Row extends React.Component<RowPropTypes> {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {

@@ -20,7 +20,7 @@ export { validate } from "./validate";
 
 import { toUpper, toLower, toTitle } from "utility";
 
-class Form extends React.Component {
+class Form extends React.Component<FormPropTypes> {
 
   props: FormPropTypes;
 

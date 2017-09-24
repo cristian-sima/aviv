@@ -14,6 +14,8 @@ type CaptchaPropTypes = {
   }
 };
 
+type InfoIconPropTypes = {}
+
 type InfoIconStateTypes = {
   showTooltip: boolean;
 };
@@ -23,7 +25,7 @@ import React from "react";
 import { Tooltip } from "reactstrap";
 import classnames from "classnames";
 
-class InfoIcon extends React.Component {
+class InfoIcon extends React.Component<InfoIconPropTypes, InfoIconStateTypes> {
 
   state: InfoIconStateTypes;
 

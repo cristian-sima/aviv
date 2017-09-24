@@ -81,7 +81,7 @@ const
     },
   });
 
-class WallContainer extends React.Component {
+class WallContainer extends React.Component<WallContainerPropTypes, WallContainerStateTypes> {
   props: WallContainerPropTypes;
   state: WallContainerStateTypes;
 

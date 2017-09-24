@@ -43,7 +43,7 @@ const ConnectedForm = reduxForm({
 })(Form);
 
 
-class ModifyUser extends React.Component {
+class ModifyUser extends React.Component<ModifyUserPropTypes> {
 
   props: ModifyUserPropTypes;
 

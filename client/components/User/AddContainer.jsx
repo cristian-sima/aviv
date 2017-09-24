@@ -42,7 +42,7 @@ const AddForm = reduxForm({
   validate,
 })(Form);
 
-class AddUser extends React.Component {
+class AddUser extends React.Component<AddUserPropTypes> {
 
   props: AddUserPropTypes;
 

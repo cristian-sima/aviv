@@ -22,7 +22,7 @@ import React from "react";
 
 import TextareaTemplate from "./TextareaTemplate";
 
-class FocusTemplate extends React.Component {
+class FocusTemplate extends React.Component<FocusTemplatePropTypes> {
   props: FocusTemplatePropTypes;
 
   shouldComponentUpdate (nextProps: FocusTemplatePropTypes) {

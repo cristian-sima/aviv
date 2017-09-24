@@ -31,7 +31,7 @@ const
     isNormalAccount : !getIsMasterAccount(state),
   });
 
-class Header extends React.Component {
+class Header extends React.Component<HeaderPropTypes, HeaderStateTypes> {
   props: HeaderPropTypes;
 
   state: HeaderStateTypes;

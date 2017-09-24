@@ -13,7 +13,7 @@ type AuthorsBoxStateTypes = {
 
 import { Collapse } from "reactstrap";
 
-class AuthorsBox extends React.Component {
+class AuthorsBox extends React.Component<AuthorsBoxPropTypes, AuthorsBoxStateTypes> {
   props: AuthorsBoxPropTypes;
   state: AuthorsBoxStateTypes;
 

@@ -103,7 +103,7 @@ const
     },
   });
 
-class ItemPage extends React.Component {
+class ItemPage extends React.Component<ItemPagePropTypes> {
   props: ItemPagePropTypes;
 
   componentDidMount () {

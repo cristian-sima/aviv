@@ -11,7 +11,7 @@ type RowPropTypes = {
 import React from "react";
 import { Button } from "reactstrap";
 
-class Row extends React.Component {
+class Row extends React.Component<RowPropTypes> {
   props: RowPropTypes;
 
   shouldComponentUpdate (nextProps : RowPropTypes) {

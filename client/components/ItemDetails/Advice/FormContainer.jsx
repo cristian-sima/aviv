@@ -39,7 +39,7 @@ const AdviceFormContainer = reduxForm({
   validate,
 })(Form);
 
-class AdviceItemFormContainer extends React.Component {
+class AdviceItemFormContainer extends React.Component<AdviceItemFormContainerPropTypes> {
 
   props: AdviceItemFormContainerPropTypes;
 

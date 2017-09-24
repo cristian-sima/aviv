@@ -10,7 +10,7 @@ type HistoryPropTypes = {
   showContactsForInstitution: (id : string) => () => void;
 };
 
-class History extends React.Component {
+class History extends React.Component<HistoryPropTypes> {
   props: HistoryPropTypes;
 
   shouldComponentUpdate (nextProps : HistoryPropTypes) {

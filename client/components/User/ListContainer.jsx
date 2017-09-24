@@ -61,7 +61,7 @@ const
     showCreateUserModal: () => dispatch(showAddUserAction({ institutionID })),
   });
 
-class UserList extends React.Component {
+class UserList extends React.Component<UserListPropTypes> {
 
   props: UserListPropTypes;
 

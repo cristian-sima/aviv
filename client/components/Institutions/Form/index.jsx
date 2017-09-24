@@ -18,7 +18,7 @@ import FocusTemplate from "../../Inputs/FocusTemplate";
 export { validate } from "./validate";
 
 
-class Form extends React.Component {
+class Form extends React.Component<FormPropTypes> {
 
   props: FormPropTypes;
 

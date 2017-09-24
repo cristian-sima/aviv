@@ -29,7 +29,7 @@ import AdvicersArray from "./Advicers";
 
 export { validate } from "./validate";
 
-class Form extends React.Component {
+class Form extends React.Component<FormPropTypes, FormStateTypes> {
 
   props: FormPropTypes;
   state: FormStateTypes;

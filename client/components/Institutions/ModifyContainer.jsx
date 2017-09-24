@@ -70,7 +70,7 @@ const ConnectedForm = reduxForm({
 })(Form);
 
 
-class ModifyInstitution extends React.Component {
+class ModifyInstitution extends React.Component<ModifyInstitutionPropTypes> {
 
   props: ModifyInstitutionPropTypes;
 

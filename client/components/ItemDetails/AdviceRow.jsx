@@ -11,7 +11,7 @@ import moment from "moment";
 
 import AdviceResponse from "./AdviceResponse";
 
-class HistoryRow extends React.Component {
+class HistoryRow extends React.Component<PropTypesHistoryRow> {
   props: PropTypesHistoryRow;
 
   shouldComponentUpdate (nextProps : PropTypesHistoryRow) {

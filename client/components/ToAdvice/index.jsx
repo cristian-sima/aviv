@@ -127,7 +127,7 @@ const
     },
   });
 
-class ItemList extends React.Component {
+class ItemList extends React.Component<ItemListPropTypes> {
 
   props: ItemListPropTypes;
 

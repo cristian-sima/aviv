@@ -40,7 +40,7 @@ const AddForm = reduxForm({
   validate,
 })(Form);
 
-class AddItemContainer extends React.Component {
+class AddItemContainer extends React.Component<AddItemContainerPropTypes> {
 
   props: AddItemContainerPropTypes;
 

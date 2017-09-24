@@ -108,7 +108,7 @@ const mapStateToProps = (state : State) => ({
     changeSuggestionsCurrentTerm : changeSuggestionsCurrentTermAction,
   }, dispatch);
 
-class SearchContainer extends React.Component {
+class SearchContainer extends React.Component<SearchContainerPropTypes> {
 
   props: SearchContainerPropTypes;
 

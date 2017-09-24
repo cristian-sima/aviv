@@ -52,7 +52,7 @@ const
     },
   });
 
-class Confirm extends React.Component {
+class Confirm extends React.Component<ConfirmPropTypes> {
 
   /* eslint-disable max-statements */
 
