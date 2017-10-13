@@ -51,6 +51,8 @@
     "react/jsx-indent": 0,
     "react/no-array-index-key": 0,
 
+    "react/jsx-curly-brace-presence": { "props": "never", "children": "always" },
+
     "react/sort-comp": [2, {
       "order": [
         "static-methods",
