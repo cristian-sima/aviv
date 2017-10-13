@@ -16,7 +16,7 @@ const AuthorsArray = ({ fields, form, institutionID } : AuthorsArrayPropTypes) =
   <div className="form-group row">
     <label
       className="col-md-2 text-md-right form-control-label"
-      htmlFor={"advicers"}>
+      htmlFor="advicers">
       {"Coinițiatori"}
     </label>
     <div className="col-md-10 col-xl-8">

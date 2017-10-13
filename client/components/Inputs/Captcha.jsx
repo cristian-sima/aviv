@@ -113,7 +113,7 @@ const Captcha = (props : CaptchaPropTypes) => {
           })}
           disabled={submitting}
           id={input.name}
-          placeholder={"Tastează numerele"}
+          placeholder="Tastează numerele"
           type={type}
         />
         <div className="form-control-feedback">

@@ -11,7 +11,7 @@ import SimpleModal from "../../Modal/SimpleModal";
 import Form from "../AddContainer";
 
 const ModalWrap = ({ cbAfter, institutionID } : ModalWrapPropTypes) => (
-  <SimpleModal title={"Cont nou"}>
+  <SimpleModal title="Cont nou">
     <Form cbAfter={cbAfter} institutionID={institutionID} />
   </SimpleModal>
 );

@@ -117,10 +117,10 @@ class Page extends React.Component<PagePropTypes> {
                             {
                               isDebating ? null : (
                                 <button
-                                  className={`
+                                  className="
                                   btn btn-outline-secondary
                                   ml-sm-1 ml-md-5 mt-2 mt-sm-0 ml-sm-1 ml-md-5
-                                  `}
+                                  "
                                   onClick={confirmDebateItem}
                                   type="button">
                                   <i className="fa fa-comments mr-1" />

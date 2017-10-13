@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-fallthrough*/
 
 type Message = {
   type: string;

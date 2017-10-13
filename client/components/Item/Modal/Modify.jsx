@@ -15,7 +15,7 @@ import SimpleModal from "../../Modal/SimpleModal";
 import Form from "../ModifyContainer";
 
 const ModalWrap = ({ cbAfter, id, emit } : ModalWrapPropTypes) => (
-  <SimpleModal size="lg" title={"Modifică datele"} >
+  <SimpleModal size="lg" title="Modifică datele" >
     <Form
       cbAfter={cbAfter}
       emit={emit}
