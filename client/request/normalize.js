@@ -3,8 +3,10 @@ import type { Response, Reject, Resolve } from "types";
 
 import * as Immutable from "immutable";
 
-// entities ---> Object { "1": Immutable.Map(), ... ]) }F
-// result ---> List([ "1", "2", "3" ])
+/*
+ * entities ---> Object { "1": Immutable.Map(), ... ]) }F
+ * result ---> List([ "1", "2", "3" ])
+ */
 export const normalizeArray = (raw : Array<any>) => (
   raw.reduce((previous, current) => {
     const stringID = String(current._id);

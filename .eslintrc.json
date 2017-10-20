@@ -47,6 +47,8 @@
 
     "max-params": ["error", 5],
 
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+
     "react/jsx-indent-props": 0,
     "react/jsx-indent": 0,
     "react/no-array-index-key": 0,

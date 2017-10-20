@@ -28,8 +28,11 @@ const performDelete = (state : PaginatorState, data : any, id : string) => {
     );
 
   if (lastID === id) {
-    // there are more on the server
-    // but nothing here
+
+    /*
+     * there are more on the server
+     * but nothing here
+     */
 
     if (IDs.size === 0) {
       return state;
