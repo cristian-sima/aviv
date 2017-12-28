@@ -16,6 +16,7 @@
     "dist:server:build": "babel server -d dist",
     "dist:server:remove-source": "rm -r client server conf .eslintrc.json .gitignore config.json README.md server.js webpack.conf.js",
     "dist:automatic": "npm run dist:pre-build && npm run dist:server:build && npm run dist:client:build",
+    "dist:build": "npm run dist:pre-build && npm run dist:server:build && npm run dist:client:build",
     "dist:serve": "forever start dist/aviz.gov.ro.js",
     "dist:stop": "forever stop dist/aviz.gov.ro.js"
   },
