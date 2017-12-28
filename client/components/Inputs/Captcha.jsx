@@ -39,9 +39,9 @@ class InfoIcon extends React.Component<InfoIconPropTypes, InfoIconStateTypes> {
     };
 
     this.toggle = () => {
-      this.setState({
-        showTooltip: !this.state.showTooltip,
-      });
+      this.setState((prevState) => ({
+        showTooltip: !prevState.showTooltip,
+      }));
     };
   }
 
@@ -119,7 +119,9 @@ const Captcha = (props : CaptchaPropTypes) => {
         <div className="form-control-feedback">
           {
             touched && error ? (
-              <span>{error}</span>
+              <span>
+                {error}
+              </span>
             ) : null
           }
         </div>

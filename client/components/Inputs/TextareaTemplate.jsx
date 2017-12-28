@@ -63,7 +63,11 @@ const InputTemplate = ({
         </textarea>
         <div className="invalid-feedback">
           {
-            isInvalid && <span>{error}</span>
+            isInvalid && (
+              <span>
+                {error}
+              </span>
+            )
           }
         </div>
       </div>
