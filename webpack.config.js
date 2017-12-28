@@ -131,8 +131,8 @@ module.exports = {
       ".jsx",
     ],
     modules: [
-      "client",
-      "node_modules",
+      "./client",
+      "./node_modules",
     ],
   },
   module: {

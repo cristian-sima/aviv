@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-console */
 
 import { MongoClient } from "mongodb";
 import fs from "fs";
