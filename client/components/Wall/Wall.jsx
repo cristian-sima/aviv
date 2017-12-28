@@ -38,8 +38,6 @@ import ItemDetails from "../ItemDetails";
 import Started from "../Started";
 import Closed from "../Closed";
 
-import { hostname } from "../../../config-client.json";
-
 import {
   connectingLive as connectingLiveAction,
   reConnectingLive as reConnectingLiveAction,
