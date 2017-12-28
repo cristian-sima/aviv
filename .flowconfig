@@ -1,5 +1,5 @@
 [ignore]
-./node_modules/*
+.*/node_modules/.*
 [include]
 [libs]
 [options]
@@ -16,5 +16,3 @@ suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
 suppress_type=$Intl
 module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=client
-module.name_mapper='\(react-redux\)' -> '<PROJECT_ROOT>/flow/GeneralStub.js.flow'
-module.name_mapper='\(immutable\)' -> '<PROJECT_ROOT>/flow/GeneralStub.js.flow'
