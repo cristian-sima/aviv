@@ -114,7 +114,7 @@ class WallContainer extends React.Component<WallContainerPropTypes, WallContaine
 
     connectingLive();
 
-    const socket = io(hostname, { secure: true });
+    const socket = io("/", { secure: true });
 
     socket.on("connect", () => {
       connectedLive();
