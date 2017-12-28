@@ -29,7 +29,9 @@ class Row extends React.Component<RowPropTypes> {
           {name}
         </td>
         <td>
-          <a href={`mailto:${email}`}>{email}</a>
+          <a href={`mailto:${email}`}>
+            {email}
+          </a>
         </td>
         <td className="no-wrap">
           <abbr title="Phone">

@@ -187,7 +187,9 @@ class ItemList extends React.Component<ItemListPropTypes> {
     if (items.size === 0) {
       return (
         <div className="text-center" style={{ marginTop: "8rem" }}>
-          <span className="fancy-text">{"Nu există acte pentru avizat"}</span>
+          <span className="fancy-text">
+            {"Nu există acte pentru avizat"}
+          </span>
           <div className="fancy-text-sm">
             <Link
               to="/adviced">

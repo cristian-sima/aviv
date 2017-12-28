@@ -114,7 +114,9 @@ class Form extends React.Component<FormPropTypes, FormStateTypes> {
       <div className="container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div className="text-center">
-            <h2>{title}</h2>
+            <h2>
+              {title}
+            </h2>
           </div>
           {error && errMessage}
           <div className="row">

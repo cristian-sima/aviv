@@ -18,7 +18,9 @@ export const ErrorMessage = ({ message, onRetry } : ErrorMessageProps) => (
         <i className="fa fa-exclamation-triangle fa-2x" />
       </div>
       <div className="col-7 col-sm-8">
-        <h5>{message}</h5>
+        <h5>
+          {message}
+        </h5>
       </div>
       <div className="col-3 col-sm-3 text-right">
         {
@@ -48,7 +50,9 @@ export const LargeErrorMessage = ({ message, onRetry, details, itemNotFound } : 
         <i className="fa fa-exclamation-triangle fa-5x" />
       </div>
       <div className="col-md-8 col-xl-7">
-        <h3>{message}</h3>
+        <h3>
+          {message}
+        </h3>
         <div className="mt-1 text-muted">
           {
             itemNotFound ? (

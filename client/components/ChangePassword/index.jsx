@@ -107,9 +107,13 @@ class ChangePassword extends React.Component<FormPropTypes> {
           col-md-10 offset-md-1
           col-xl-6 offset-xl-3">
           <div className="my-4">
-            <h2 className="text-success">{"Bun venit"}</h2>
+            <h2 className="text-success">
+              {"Bun venit"}
+            </h2>
             <div>
-              {"Trebuie să îți schimbi parola primită cu una aleasă de tine"} <br />
+              {"Trebuie să îți schimbi parola primită cu una aleasă de tine"}
+              {" "}
+              <br />
               {"Această parolă o vei folosi când te vei mai conecta la aplicație"}
             </div>
             <hr />
@@ -133,7 +137,11 @@ class ChangePassword extends React.Component<FormPropTypes> {
             />
             {error ? (
               <div className="alert alert-danger">
-                <strong>{"Ceva nu a fost în regulă"}</strong> <br />
+                <strong>
+                  {"Ceva nu a fost în regulă"}
+                </strong>
+                {" "}
+                <br />
                 {error}
               </div>
             ) : null}

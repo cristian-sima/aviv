@@ -17,51 +17,46 @@ import {
   checkForErrorsThenNormalizeItemDetails,
 } from "./normalize";
 
-export const performLogin = (data : PerformLoginTypes) : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      post("/api/login").
-      send(data).
-      type("form").
-      end(withPromiseCallback(resolve, reject))
-  ));
+export const performLogin = (data : PerformLoginTypes) : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    post("/api/login").
+    send(data).
+    type("form").
+    end(withPromiseCallback(resolve, reject))
+));
 
-export const changePassword = (data : ChangePasswordTypes) : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      post("/api/auth/changePassword").
-      send(data).
-      type("form").
-      end(withPromiseCallback(resolve, reject))
-  ));
+export const changePassword = (data : ChangePasswordTypes) : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    post("/api/auth/changePassword").
+    send(data).
+    type("form").
+    end(withPromiseCallback(resolve, reject))
+));
 
-export const signOff = () : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      post("/api/auth/signOff").
-      end(withPromiseCallback(resolve, reject))
-  ));
+export const signOff = () : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    post("/api/auth/signOff").
+    end(withPromiseCallback(resolve, reject))
+));
 
-export const performReconnect = () : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      post("/api/auth/reconnect").
-      end(withPromiseCallback(resolve, reject))
-  ));
+export const performReconnect = () : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    post("/api/auth/reconnect").
+    end(withPromiseCallback(resolve, reject))
+));
 
-export const fetchInstitutions = () : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      get("/api/institutions").
-      type("json").
-      end(withPromiseCallback(
-        ({ Institutions, Users }) => resolve({
-          institutions : normalizeArray(Institutions),
-          users        : normalizeArray(Users),
-        }),
-        reject
-      ))
-  ));
+export const fetchInstitutions = () : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    get("/api/institutions").
+    type("json").
+    end(withPromiseCallback(
+      ({ Institutions, Users }) => resolve({
+        institutions : normalizeArray(Institutions),
+        users        : normalizeArray(Users),
+      }),
+      reject
+    ))
+));
 
 export const addInstitution = (data : any) : Promise<any> => (
   new Promise((resolve, reject) => (
@@ -121,12 +116,11 @@ export const deleteUser = (id : number) : Promise<any> => (
   ))
 );
 
-export const resetPassword = (id : string) : Promise<any> =>
-  new Promise((resolve, reject) => (
-    agent.
-      post(`api/users/${id}/reset-password`).
-      end(withPromiseCallback(resolve, reject))
-  ));
+export const resetPassword = (id : string) : Promise<any> => new Promise((resolve, reject) => (
+  agent.
+    post(`api/users/${id}/reset-password`).
+    end(withPromiseCallback(resolve, reject))
+));
 
 export const fetchItemsToAdviceFrom = (lastID: string) : Promise<any> => (
   new Promise((resolve, reject) => (

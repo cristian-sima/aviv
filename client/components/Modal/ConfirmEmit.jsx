@@ -139,12 +139,16 @@ class Confirm extends React.Component<ConfirmPropTypes> {
 
     return (
       <Modal isOpen toggle={closeModal} zIndex="1061">
-        <ModalHeader toggle={closeModal}>{title}</ModalHeader>
+        <ModalHeader toggle={closeModal}>
+          {title}
+        </ModalHeader>
         <ModalBody>
           {message}
         </ModalBody>
         <ModalFooter>
-          <Button color="secondary" onClick={closeModal}>{cancelButtonLabel}</Button>
+          <Button color="secondary" onClick={closeModal}>
+            {cancelButtonLabel}
+          </Button>
           {" "}
           <button
             className={`btn ${confirmButtonColor ? `btn-${confirmButtonColor}` : ""}`}

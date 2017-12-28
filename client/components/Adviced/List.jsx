@@ -71,7 +71,9 @@ const List = (props : ListPropTypes) => {
 
   return (
     <div className="container">
-      <h2>{"Acte avizate"}</h2>
+      <h2>
+        {"Acte avizate"}
+      </h2>
       <div className="mt-1">
         <Info
           shown={items.size}

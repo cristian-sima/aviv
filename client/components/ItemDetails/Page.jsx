@@ -92,7 +92,8 @@ class Page extends React.Component<PagePropTypes> {
               <div>
                 <span style={{
                   fontSize: 19,
-                }}>{name}
+                }}>
+                  {name}
                 </span>
                 {
                   isClosed ? null : (
@@ -150,10 +151,18 @@ class Page extends React.Component<PagePropTypes> {
             className="mb-5 table table-responsive table-sm table-hover items-to-advice-table">
             <thead>
               <tr>
-                <th>{"Instituție avizatoare"}</th>
-                <th>{"Răspuns"}</th>
-                <th className="no-wrap">{"Avizat la"}</th>
-                <th className="no-wrap">{"Număr"}</th>
+                <th>
+                  {"Instituție avizatoare"}
+                </th>
+                <th>
+                  {"Răspuns"}
+                </th>
+                <th className="no-wrap">
+                  {"Avizat la"}
+                </th>
+                <th className="no-wrap">
+                  {"Număr"}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -183,8 +192,12 @@ class Page extends React.Component<PagePropTypes> {
                             {"În lucru..."}
                           </span>
                         </td>
-                        <td>{""}</td>
-                        <td>{""}</td>
+                        <td>
+                          {""}
+                        </td>
+                        <td>
+                          {""}
+                        </td>
                       </tr>
                     );
                   }

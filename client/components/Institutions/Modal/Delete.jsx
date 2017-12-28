@@ -39,7 +39,9 @@ const
     message: (
       <span>
         {"Vrei să ștergi instituția "}
-        <strong>{data.get("name")}</strong>
+        <strong>
+          {data.get("name")}
+        </strong>
         {" ?"}
       </span>
     ),

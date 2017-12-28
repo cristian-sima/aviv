@@ -39,7 +39,9 @@ const
     message: (
       <span>
         {"Vrei să ștergi contul de utilizator "}
-        <strong>{data.get("username")}</strong>
+        <strong>
+          {data.get("username")}
+        </strong>
         {" ?"}
       </span>
     ),

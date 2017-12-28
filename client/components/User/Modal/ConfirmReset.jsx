@@ -44,7 +44,9 @@ const
     message: (
       <span>
         {"Vrei să resetez parola utilizatorului "}
-        <strong>{data.get("username")}</strong>
+        <strong>
+          {data.get("username")}
+        </strong>
         {" ?"}
       </span>
     ),

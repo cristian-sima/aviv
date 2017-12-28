@@ -26,7 +26,9 @@ const
 
 const SimpleModal = ({ hideModal, children, size, title } : SimpleModalPropTypes) => (
   <Modal isOpen size={size} toggle={hideModal} zIndex="1061">
-    <ModalHeader toggle={hideModal}>{ title }</ModalHeader>
+    <ModalHeader toggle={hideModal}>
+      { title }
+    </ModalHeader>
     <ModalBody>
       { children }
     </ModalBody>

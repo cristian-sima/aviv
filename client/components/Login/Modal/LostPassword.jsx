@@ -31,16 +31,24 @@ const LostPassword = ({ closeModal } : LostPasswordPropTypes) => (
         {"În cazul în care nu îți mai poți aminti parola, te rugăm să contactezi:"}
         <div className="mt-4 bd-example">
           <address>
-            <strong>{"Departamentul pentru Tehnologia Informației"}</strong>
+            <strong>
+              {"Departamentul pentru Tehnologia Informației"}
+            </strong>
             <br />
             {"Secretariatul General al Guvernului"}
             <br />
             {"Guvernul României"}
             <br />
             <br />
-            {"Telefon: "}<abbr title="Phone">{"314.34.00"}</abbr>
+            {"Telefon: "}
+            <abbr title="Phone">
+              {"314.34.00"}
+            </abbr>
             <br />
-            {"E-mail: "}<a href="mailto:website@gov.ro">{"website@gov.ro"}</a>
+            {"E-mail: "}
+            <a href="mailto:website@gov.ro">
+              {"website@gov.ro"}
+            </a>
           </address>
         </div>
       </div>

@@ -88,13 +88,15 @@ class DisconnectBox extends React.Component<DisconnectBoxPropTypes> {
               <div>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={performSignOff}>
+                  onClick={performSignOff}
+                  type="button">
                   {"Te deconectez?"}
                 </button>
                 {" "}
                 <button
                   className="btn btn-sm btn-success"
-                  onClick={cancelSignOff}>
+                  onClick={cancelSignOff}
+                  type="button">
                   {"Nu"}
                 </button>
                 {" "}

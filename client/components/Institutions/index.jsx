@@ -28,7 +28,9 @@ const Institutions = ({ showAddForm } : InstitutionsPropTypes) => (
   <div>
     <div className="row">
       <div className="col">
-        <h1>{"Instituții"}</h1>
+        <h1>
+          {"Instituții"}
+        </h1>
       </div>
       <div className="col text-right">
         <button

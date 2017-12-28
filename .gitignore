@@ -12,6 +12,7 @@ _obj
 node_modules
 data
 output
+flow-typed
 dist
 _test
 output.json

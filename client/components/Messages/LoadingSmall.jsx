@@ -15,14 +15,16 @@ export const LoadingSmallMessage = ({ message } : LoadingSmallMessagePropTypes) 
 
     return (
       <span>
-        {" "}{message}
+        {" "}
+        {message}
       </span>
     );
   };
 
   return (
     <div className="text-center fancy-text-sm">
-      <i className="fa fa-refresh fa-spin fa-fw" />{getMessage()}
+      <i className="fa fa-refresh fa-spin fa-fw" />
+      {getMessage()}
     </div>
   );
 };

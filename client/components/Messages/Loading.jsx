@@ -25,7 +25,9 @@ export const LoadingMessage = ({ message } : LoadingMessagePropTypes) => {
       <div className="fancy-text">
         {getMessage()}
       </div>
-      <div className="uil-ring-css"><div /></div>
+      <div className="uil-ring-css">
+        <div />
+      </div>
     </div>
   );
 };

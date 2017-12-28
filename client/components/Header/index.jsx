@@ -45,9 +45,9 @@ class Header extends React.Component<HeaderPropTypes, HeaderStateTypes> {
       isOpen: false,
     };
 
-    this.toggle = () => this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.toggle = () => this.setState((prevState) => ({
+      isOpen: !prevState.isOpen,
+    }));
   }
 
   shouldComponentUpdate (nextProps : HeaderPropTypes, nextState : HeaderStateTypes) {

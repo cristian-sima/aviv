@@ -82,7 +82,9 @@ class SelectInstitution extends React.Component<SelectInstitutionPropTypes> {
         <select
           className="custom-select form-control"
           onChange={this.addInstitution} value="">
-          <option value="">{"Selectează instituția"}</option>
+          <option value="">
+            {"Selectează instituția"}
+          </option>
           {
             institutions.map((institution) => {
               const

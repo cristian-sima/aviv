@@ -45,7 +45,9 @@ class Row extends React.Component<RowPropTypes> {
           {username}
         </td>
         <td>
-          <a href={`mailto:${email}`}>{email}</a>
+          <a href={`mailto:${email}`}>
+            {email}
+          </a>
         </td>
         <td>
           {phone}
