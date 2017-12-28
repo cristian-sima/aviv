@@ -22,7 +22,7 @@ const
   });
 
 const LostPassword = ({ closeModal } : LostPasswordPropTypes) => (
-  <Modal isOpen toggle={closeModal} zIndex="1061">
+  <Modal autoFocus={false} isOpen toggle={closeModal} zIndex="1061">
     <ModalHeader toggle={closeModal}>
       {"Am pierdut parola"}
     </ModalHeader>

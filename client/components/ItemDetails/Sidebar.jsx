@@ -106,7 +106,7 @@ class Sidebar extends React.Component<SidebarPropTypes> {
             {
               version === 1 ? null : (
                 <button
-                  className="btn-link text-muted"
+                  className="btn btn-link text-muted"
                   onClick={showHistoryModal}
                   type="button">
                   {"Vezi istoric"}

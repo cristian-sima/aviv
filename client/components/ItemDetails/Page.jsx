@@ -148,7 +148,7 @@ class Page extends React.Component<PagePropTypes> {
           </div>
           <br />
           <table
-            className="mb-5 table table-responsive table-sm table-hover items-to-advice-table">
+            className="mb-5 table table-responsive-md table-sm table-hover items-to-advice-table">
             <thead>
               <tr>
                 <th>

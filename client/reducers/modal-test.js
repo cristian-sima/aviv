@@ -11,7 +11,7 @@ describe("account/modal reducer", () => {
   it("returns the initial state", () => {
     const result = reducer(undefined, { type: "" });
 
-    expect(result).toEqual(Immutable.Stack());
+    expect(result).toEqual(Immutable.List());
   });
 
   it("handles SHOW_MODAL", () => {

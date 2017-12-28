@@ -79,7 +79,7 @@ class Header extends React.Component<HeaderPropTypes, HeaderStateTypes> {
           </span>
           {
             isConnected ? (
-              <NavbarToggler onClick={this.toggle} right />
+              <NavbarToggler onClick={this.toggle} />
             ) : null
           }
           {

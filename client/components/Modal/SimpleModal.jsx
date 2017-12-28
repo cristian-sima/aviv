@@ -25,7 +25,7 @@ const
   );
 
 const SimpleModal = ({ hideModal, children, size, title } : SimpleModalPropTypes) => (
-  <Modal isOpen size={size} toggle={hideModal} zIndex="1061">
+  <Modal autoFocus={false} isOpen size={size} toggle={hideModal} zIndex="1061">
     <ModalHeader toggle={hideModal}>
       { title }
     </ModalHeader>

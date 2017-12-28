@@ -202,7 +202,7 @@ class Confirm extends React.Component<ConfirmPropTypes, ConfirmStateTypes> {
     };
 
     return (
-      <Modal isOpen toggle={closeModal} zIndex="1061">
+      <Modal autoFocus={false} isOpen toggle={closeModal} zIndex="1061">
         <ModalHeader toggle={closeModal}>
           {title}
         </ModalHeader>

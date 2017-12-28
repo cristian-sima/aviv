@@ -29,7 +29,7 @@ class List extends React.Component<ListPropTypes> {
     }
 
     return (
-      <table className="table table-responsive table-striped table-hover table-sm mt-3 users-list">
+      <table className="table table-responsive-xl table-striped table-hover table-sm mt-3 users-list">
         <thead>
           <tr>
             <th className="name-row no-wrap">
