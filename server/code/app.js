@@ -29,7 +29,7 @@ const
       <body>
         <div id="root"></div>
       </body>
-      <script src="/static/app.js" charset="utf-8"></script>
+      <script src="/static/app-32764264.js" charset="utf-8"></script>
       </html>
     `);
   };

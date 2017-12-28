@@ -1,5 +1,5 @@
 // @flow
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-undefined */
 
 const fileName = "config-server.json";
 
@@ -15,5 +15,5 @@ fs.writeFile(fileName, JSON.stringify(file, null, 2), (err) => {
     return console.log(err);
   }
 
-  return console.log("The configuration has been set for production");
+  return undefined;
 });
