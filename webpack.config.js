@@ -7,11 +7,9 @@ const
   WebpackGitHash = require("webpack-git-hash"),
   fs = require("fs");
 
-const config = require("./config.json");
-
 const
-  entries = ["app"],
-  indexFolderPath = "./server/code/";
+  config = require("./config-server.json"),
+  devConfig = require("./config.json");
 
 const
   isDevelopmentMode = !config.isProduction,
@@ -24,9 +22,13 @@ const
     return false;
   };
 
+const
+  entries = ["app"],
+  indexFolderPath = isProductionMode ? "./dist/code/" : "./server/code/";
+
 const displayInfo = () => {
   if (isDevelopmentMode) {
-    return "Running in [development] mode";
+    return "Running in [development] mode...";
   }
 
   return "Generating production version...";
@@ -40,7 +42,7 @@ const getEntity = () => {
       const {
         devAddress,
         devPort,
-      } = config;
+      } = devConfig;
 
       list.push(`webpack-dev-server/client?http://${devAddress}:${devPort}`);
       list.push("webpack/hot/only-dev-server");
@@ -88,7 +90,7 @@ module.exports = {
   devtool : getDevtool(),
   entry   : getEntity(),
   output  : {
-    path       : path.join(__dirname, "server/static"),
+    path       : path.join(__dirname, isProductionMode ? "/dist/static" : "server/static"),
     filename   : "[name]-[githash].js",
     publicPath : "/static/",
   },
