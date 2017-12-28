@@ -35,9 +35,9 @@ class AdvicerSection extends React.Component<AdvicerSectionPropTypes, AdvicerSec
       isOpen: !props.isAdviced,
     };
 
-    this.toggle = () => this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.toggle = () => this.setState((prevState) => ({
+      isOpen: !prevState.isOpen,
+    }));
   }
 
 

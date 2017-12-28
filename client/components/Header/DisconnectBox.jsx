@@ -116,7 +116,8 @@ class DisconnectBox extends React.Component<DisconnectBoxPropTypes> {
                 {" "}
                 <button
                   className="btn btn-sm btn-outline-secondary"
-                  onClick={confirmSignOff}>
+                  onClick={confirmSignOff}
+                  type="button">
                   <i className="fa fa-sign-out" />
                 </button>
               </div>

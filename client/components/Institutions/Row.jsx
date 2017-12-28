@@ -26,21 +26,24 @@ const Row = (props : RowPropTypes) => {
       <td className="no-wrap">
         <button
           className="btn btn-sm btn btn-link"
-          onClick={showUsers(id)}>
+          onClick={showUsers(id)}
+          type="button">
           {name}
         </button>
       </td>
       <td className="text-center">
         <button
           className="btn btn-secondary btn-sm"
-          onClick={modifyRow(id)}>
+          onClick={modifyRow(id)}
+          type="button">
           <i className="fa fa-pencil" />
         </button>
       </td>
       <td className="text-center">
         <button
           className="btn btn-danger btn-sm"
-          onClick={deleteRow(id)}>
+          onClick={deleteRow(id)}
+          type="button">
           <i className="fa fa-trash-o" />
         </button>
       </td>

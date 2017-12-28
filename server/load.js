@@ -51,9 +51,11 @@ const formatBeforeWrite = (users, institutions) => {
 
   const groupBy = (list, keyGetter) => {
     const map = new Map();
+
     list.forEach((item) => {
       const key = keyGetter(item);
       const collection = map.get(key);
+
       if (collection) {
         collection.push(item);
       } else {

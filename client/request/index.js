@@ -17,21 +17,25 @@ import {
   checkForErrorsThenNormalizeItemDetails,
 } from "./normalize";
 
-export const performLogin = (data : PerformLoginTypes) : Promise<any> => new Promise((resolve, reject) => (
-  agent.
-    post("/api/login").
-    send(data).
-    type("form").
-    end(withPromiseCallback(resolve, reject))
-));
+export const performLogin = (data : PerformLoginTypes) : Promise<any> => (
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/login").
+      send(data).
+      type("form").
+      end(withPromiseCallback(resolve, reject))
+  ))
+);
 
-export const changePassword = (data : ChangePasswordTypes) : Promise<any> => new Promise((resolve, reject) => (
-  agent.
-    post("/api/auth/changePassword").
-    send(data).
-    type("form").
-    end(withPromiseCallback(resolve, reject))
-));
+export const changePassword = (data : ChangePasswordTypes) : Promise<any> => (
+  new Promise((resolve, reject) => (
+    agent.
+      post("/api/auth/changePassword").
+      send(data).
+      type("form").
+      end(withPromiseCallback(resolve, reject))
+  ))
+);
 
 export const signOff = () : Promise<any> => new Promise((resolve, reject) => (
   agent.

@@ -26,9 +26,9 @@ class AuthorsBox extends React.Component<AuthorsBoxPropTypes, AuthorsBoxStateTyp
       isOpen: false,
     };
 
-    this.toggle = () => this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.toggle = () => this.setState((prevState) => ({
+      isOpen: !prevState.isOpen,
+    }));
   }
 
   shouldComponentUpdate (

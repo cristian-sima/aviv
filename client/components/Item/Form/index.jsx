@@ -62,9 +62,9 @@ class Form extends React.Component<FormPropTypes, FormStateTypes> {
       });
     };
 
-    this.toggleAuthors = () => this.setState({
-      showAuthors: !this.state.showAuthors,
-    });
+    this.toggleAuthors = () => this.setState((prevState) => ({
+      showAuthors: !prevState.showAuthors,
+    }));
   }
 
   componentDidMount () {

@@ -35,7 +35,8 @@ const Institutions = ({ showAddForm } : InstitutionsPropTypes) => (
       <div className="col text-right">
         <button
           className="btn btn-success"
-          onClick={showAddForm}>
+          onClick={showAddForm}
+          type="button">
           <i className="fa fa-plus mr-1" />
           {"Instituție nouă"}
         </button>
