@@ -25,7 +25,7 @@ describe("account/modal reducer", () => {
       },
     });
 
-    expect(result).toEqual(Immutable.Stack([
+    expect(result).toEqual(Immutable.List([
       {
         type  : "ADD_ARTICLE",
         props : {
@@ -37,21 +37,21 @@ describe("account/modal reducer", () => {
 
   it("handles HIDE_MODAL", () => {
     const
-      initialState = Immutable.Stack([
+      initialState = Immutable.List([
+        {
+          type  : "LIST_ARTICLES",
+          props : {},
+        },
         {
           type  : "ADD_ARTICLE",
           props : {
             ID: 1,
           },
         },
-        {
-          type  : "LIST_ARTICLES",
-          props : {},
-        },
       ]),
       result = reducer(initialState, hideModal());
 
-    expect(result).toEqual(Immutable.Stack([
+    expect(result).toEqual(Immutable.List([
       {
         type  : "LIST_ARTICLES",
         props : {},
@@ -61,7 +61,7 @@ describe("account/modal reducer", () => {
 
   it("handles @@router/LOCATION_CHANGE", () => {
     const
-      initialState = Immutable.Stack([
+      initialState = Immutable.List([
         {
           type  : "ADD_ARTICLE",
           props : {
@@ -77,6 +77,6 @@ describe("account/modal reducer", () => {
         type: "@@router/LOCATION_CHANGE",
       });
 
-    expect(result).toEqual(Immutable.Stack([]));
+    expect(result).toEqual(Immutable.List([]));
   });
 });
