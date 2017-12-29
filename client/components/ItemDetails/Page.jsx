@@ -147,74 +147,76 @@ class Page extends React.Component<PagePropTypes> {
             </div>
           </div>
           <br />
-          <table
-            className="mb-5 table table-responsive-md table-sm table-hover items-to-advice-table">
-            <thead>
-              <tr>
-                <th>
-                  {"Instituție avizatoare"}
-                </th>
-                <th>
-                  {"Răspuns"}
-                </th>
-                <th className="no-wrap">
-                  {"Avizat la"}
-                </th>
-                <th className="no-wrap">
-                  {"Număr"}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                advicers.map((advicer) => {
-                  const response = currentVersion.filter((current) => (
-                    current.get("institutionID") === advicer
-                  ));
+          <div className="table-responsive-md">
+            <table
+              className="mb-5 table table-sm table-hover items-to-advice-table">
+              <thead>
+                <tr>
+                  <th>
+                    {"Instituție avizatoare"}
+                  </th>
+                  <th>
+                    {"Răspuns"}
+                  </th>
+                  <th className="no-wrap">
+                    {"Avizat la"}
+                  </th>
+                  <th className="no-wrap">
+                    {"Număr"}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  advicers.map((advicer) => {
+                    const response = currentVersion.filter((current) => (
+                      current.get("institutionID") === advicer
+                    ));
 
-                  if (response.size === 0) {
+                    if (response.size === 0) {
+                      return (
+                        <tr key={advicer}>
+                          <td className="no-wrap small">
+                            <span
+                              className="cursor-pointer"
+                              onClick={showContactsForInstitution(advicer)}>
+                              {
+                                institutions.getIn([
+                                  advicer,
+                                  "name",
+                                ])
+                              }
+                            </span>
+                          </td>
+                          <td className="no-wrap">
+                            <span className="text-muted">
+                              {"În lucru..."}
+                            </span>
+                          </td>
+                          <td>
+                            {""}
+                          </td>
+                          <td>
+                            {""}
+                          </td>
+                        </tr>
+                      );
+                    }
+
+                    const currentInstitution = response.first();
+
                     return (
-                      <tr key={advicer}>
-                        <td className="no-wrap small">
-                          <span
-                            className="cursor-pointer"
-                            onClick={showContactsForInstitution(advicer)}>
-                            {
-                              institutions.getIn([
-                                advicer,
-                                "name",
-                              ])
-                            }
-                          </span>
-                        </td>
-                        <td className="no-wrap">
-                          <span className="text-muted">
-                            {"În lucru..."}
-                          </span>
-                        </td>
-                        <td>
-                          {""}
-                        </td>
-                        <td>
-                          {""}
-                        </td>
-                      </tr>
+                      <AdviceRow
+                        data={currentInstitution}
+                        key={advicer}
+                        showContactsForInstitution={showContactsForInstitution}
+                      />
                     );
-                  }
-
-                  const currentInstitution = response.first();
-
-                  return (
-                    <AdviceRow
-                      data={currentInstitution}
-                      key={advicer}
-                      showContactsForInstitution={showContactsForInstitution}
-                    />
-                  );
-                })
-              }
-            </tbody>
-          </table>
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

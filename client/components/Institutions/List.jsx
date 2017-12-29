@@ -124,34 +124,36 @@ class List extends React.Component<ListPropTypes> {
     return (
       <div className="row">
         <div className="col">
-          <table className="table table-responsive-md table-striped table-hover">
-            <thead>
-              <tr>
-                <th>
-                  {"Denumire"}
-                </th>
-                <th className="text-center">
-                  {"Modifică"}
-                </th>
-                <th className="text-center">
-                  {"Șterge"}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                institutions.map((institution) => (
-                  <Row
-                    data={institution}
-                    deleteRow={showDeleteModal}
-                    key={institution.get("_id")}
-                    modifyRow={showModifyModal}
-                    showUsers={showUsers}
-                  />
-                ))
-              }
-            </tbody>
-          </table>
+          <div className="table-responsive-md">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    {"Denumire"}
+                  </th>
+                  <th className="text-center">
+                    {"Modifică"}
+                  </th>
+                  <th className="text-center">
+                    {"Șterge"}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  institutions.map((institution) => (
+                    <Row
+                      data={institution}
+                      deleteRow={showDeleteModal}
+                      key={institution.get("_id")}
+                      modifyRow={showModifyModal}
+                      showUsers={showUsers}
+                    />
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

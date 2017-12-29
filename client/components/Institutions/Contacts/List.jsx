@@ -29,31 +29,33 @@ class List extends React.Component<ListPropTypes> {
     }
 
     return (
-      <table className="table table-responsive-xl table-striped table-hover table-sm mt-3 users-list">
-        <thead>
-          <tr>
-            <th className="name-row no-wrap">
-              {"Nume și prenume"}
-            </th>
-            <th className="name-row">
-              {"E-mail"}
-            </th>
-            <th className="name-row">
-              {"Telefon"}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            users.map((user) => (
-              <Row
-                data={user}
-                key={user.get("_id")}
-              />
-            ))
-          }
-        </tbody>
-      </table>
+      <div class="table-responsive-xl ">
+        <table className="table table-striped table-hover table-sm mt-3 users-list">
+          <thead>
+            <tr>
+              <th className="name-row no-wrap">
+                {"Nume și prenume"}
+              </th>
+              <th className="name-row">
+                {"E-mail"}
+              </th>
+              <th className="name-row">
+                {"Telefon"}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              users.map((user) => (
+                <Row
+                  data={user}
+                  key={user.get("_id")}
+                />
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

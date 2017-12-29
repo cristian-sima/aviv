@@ -89,7 +89,7 @@ class AdvicerSection extends React.Component<AdvicerSectionPropTypes, AdvicerSec
                 { moment(advice.get("date")).format("lll") }
               </span>
               <button
-                className="btn-link ml-1"
+                className="btn btn-link ml-1"
                 onClick={this.toggle}
                 type="button">
                 {

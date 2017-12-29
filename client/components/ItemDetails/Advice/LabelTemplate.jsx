@@ -19,20 +19,17 @@ const Label = ({
   label,
   meta: { submitting },
 }: LabelPropTypes) => (
-  <div>
-    <label className="custom-control custom-radio" htmlFor={htmlFor}>
-      <input
-        {...input}
-        className="custom-control-input"
-        disabled={submitting}
-        id={htmlFor}
-        name={input.name}
-        type="radio"
-      />
-      <span className="custom-control-indicator" />
-      <span className="custom-control-description">
-        {label}
-      </span>
+  <div className="custom-control custom-radio">
+    <input
+      {...input}
+      className="custom-control-input"
+      disabled={submitting}
+      id={htmlFor}
+      name={input.name}
+      type="radio"
+    />
+    <label className="custom-control-label" htmlFor={htmlFor}>
+      {label}
     </label>
   </div>
 );

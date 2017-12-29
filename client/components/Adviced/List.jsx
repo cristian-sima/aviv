@@ -70,73 +70,77 @@ const List = (props : ListPropTypes) => {
   } = props;
 
   return (
-    <div className="container">
-      <h2>
-        {"Acte avizate"}
-      </h2>
-      <div className="mt-1">
-        <Info
-          shown={items.size}
-          total={total}
-        />
-      </div>
-      <table className="table table-responsive table-striped table-hover items-to-advice-table">
-        <thead>
-          <tr>
-            <th className="no-wrap">
-              {"Publicat la"}
-            </th>
-            <th className="text-center">
-              {"Titlu"}
-            </th>
-            <th className="text-center">
-              {"Inițiatori"}
-            </th>
-          </tr>
-        </thead>
-        <ReactCSSTransitionGroup
-          component="tbody"
-          transitionEnterTimeout={0}
-          transitionLeaveTimeout={10}
-          transitionName="item-row">
+    <div className="row">
+      <div className="col">
+        <h2>
+          {"Acte avizate"}
+        </h2>
+        <div className="mt-1">
+          <Info
+            shown={items.size}
+            total={total}
+          />
+        </div>
+        <div className="table-responsive ">
+          <table className="table table-striped table-hover items-to-advice-table">
+            <thead>
+              <tr>
+                <th className="no-wrap">
+                  {"Publicat la"}
+                </th>
+                <th className="text-center">
+                  {"Titlu"}
+                </th>
+                <th className="text-center">
+                  {"Inițiatori"}
+                </th>
+              </tr>
+            </thead>
+            <ReactCSSTransitionGroup
+              component="tbody"
+              transitionEnterTimeout={0}
+              transitionLeaveTimeout={10}
+              transitionName="item-row">
+              {
+                items.map((item) => (
+                  <Row
+                    data={item}
+                    institutions={institutions}
+                    key={item.get("_id")}
+                  />
+                ))
+              }
+            </ReactCSSTransitionGroup>
+          </table>
+        </div>
+        <div className="my-2">
           {
-            items.map((item) => (
-              <Row
-                data={item}
-                institutions={institutions}
-                key={item.get("_id")}
-              />
-            ))
+            (isFetching) ? (
+              <LoadingSmallMessage message="Încarc mai multe acte..." />
+            ) : null
           }
-        </ReactCSSTransitionGroup>
-      </table>
-      <div className="my-2">
-        {
-          (isFetching) ? (
-            <LoadingSmallMessage message="Încarc mai multe acte..." />
-          ) : null
-        }
-        {
-          (hasFetchingError) ? (
-            <ErrorMessage
-              message="Nu am putut prelua actele avizate"
-              onRetry={loadNextPage}
-            />
-          ) : null
-        }
-      </div>
-      <div className="text-center my-2" >
-        {
-          showLoadMoreButton ? (
-            <button
-              className="btn btn-info btn-block"
-              disabled={isFetching}
-              onClick={loadNextPage}
-              type="button">
-              {"Încarcă mai multe"}
-            </button>
-          ) : null
-        }
+          {
+            (hasFetchingError) ? (
+              <ErrorMessage
+                message="Nu am putut prelua actele avizate"
+                onRetry={loadNextPage}
+              />
+            ) : null
+          }
+        </div>
+        <div className="text-center my-2" >
+          {
+            showLoadMoreButton ? (
+              <button
+                className="btn btn-info btn-block"
+                disabled={isFetching}
+                onClick={loadNextPage}
+                type="button">
+                {"Încarcă mai multe"}
+              </button>
+            ) : null
+          }
+        </div>
       </div>
     </div>
   );
